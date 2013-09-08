@@ -1,0 +1,90 @@
+<template name="modal-feature">
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Feature Name</label>
+		<div class="controls">
+		<input type="text" name="name" placeholder="Feature Name" class="modal-val">
+		</div>
+	</div>
+
+		<div class="control-group">
+		<label class="control-label" for="inputEmail">Project</label>
+		<div class="controls">
+			<select name="project" class="modal-val">
+				<option>Chroma Calendar</option>
+				<option>SAASafari Sales Website</option>
+				<option>YMCA Web Sales Site</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Assigned To</label>
+		<div class="controls">
+		    <label class="radio inline">
+		    	<input name="assign" class="modal-val" type="radio" id="assign1" value="Billy"> Billy
+		    </label>
+		    <label class="radio inline">
+		    	<input name="assign" class="modal-val" type="radio" id="assign2" value="Chloe"> Chloe
+		    </label>
+		    <label class="radio inline">
+		   	 <input name="assign" class="modal-val" type="radio" id="assign3" value="Kristen"> Kristen
+		    </label>
+  				<label class="radio inline">
+		   	 <input name="assign" class="modal-val" type="radio" id="assign4" value="Andy"> Andy
+		    </label>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Feature Type</label>
+		<div class="controls">
+		    <label class="radio inline">
+		    	<input name="type" class="modal-val" type="radio" value="feature"> Feature
+		    </label>
+		    <label class="radio inline">
+		    	<input name="type" class="modal-val" type="radio" value="issue"> Issue
+		    </label>
+		    <label class="radio inline">
+		    	<input name="type" class="modal-val" type="radio" value="release"> Release
+		    </label>
+		    <label class="radio inline">
+		    	<input name="type" class="modal-val" type="radio" value="administrative"> Administrative
+		    </label>
+		</div>
+	</div>
+	
+	
+	<div class="control-group">
+		<input type="hidden" value="" id="estimate" name="estimate" class="modal-val estimate" />
+		<label class="control-label" for="inputEmail">Estimate</label>
+		<div id="estimate-label">0</div>
+		<div class="slider span2" id="slider"></div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Description</label>
+		<div class="controls">
+		    <textarea name="description" rows="3" class="modal-val"></textarea>
+		</div>
+	</div>
+	
+	<fieldset class="fieldset">
+	
+		<legend>Tasks</legend>
+	    <div class="input-append ">
+		    <input  class="span5" type="text">
+		    <button class="btn" type="button">Add</button>
+	    </div>
+	
+	</fieldset>
+	
+	<fieldset class="fieldset">
+	
+		<legend>Activities</legend>
+	    <div >
+		    <textarea class="input-block-level" ></textarea>
+		    <button class="btn pull-right" type="button">Add</button>
+	    </div>
+	
+	</fieldset>
+</template>
