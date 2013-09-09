@@ -1,9 +1,4 @@
-var clearValues = function() {
-  $('#make').val('').focus();
-  $('#model').val('');
-  $('#make').val('');
-}
-
+/*
 var okCancelEvents = function(selector, callbacks) {
 
   var ok      = callbacks.ok || function() {};
@@ -37,36 +32,10 @@ var okCancelEvents = function(selector, callbacks) {
   return events;
 
 }
-
+*/
 
 if (Meteor.isClient) {
 
-  Meteor.Router.add({
-    '/': 'home',
-    '/projects': 'projects',
-    '/backlog': 'backlog',
-    '/settings': 'settings'
-  });
-	
-	/*
-  Template.main.carbrands = function(){
-    return CarBrands.find();
-  }
-
-  Template.main.events( okCancelEvents(
-  '#brand',
-  {
-    ok:function (text, evt) {
-      var make = $('#make').val();
-      var model = $('#model').val();
-
-      CarBrands.insert({make:make,model:model,brand:text});
-
-      clearValues();
-    }
-
-  }));
-*/
 }
 
   

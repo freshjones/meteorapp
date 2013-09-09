@@ -40,3 +40,27 @@ tr.ui-state-highlight
 {
 	display:table-row;
 }
+
+.sortable-item i
+{
+	color:#999;
+}
+
+.sortable-item .move {
+    cursor: move;
+}
+
+td.edit,td.remove { cursor: pointer; }
+
+.calHeaderDates
+{
+	display:block;
+	/* webkit browsers */
+	-webkit-transform: rotate(270deg);
+	
+	/* firefox */
+	-moz-transform:rotate(270deg);
+	
+	/* internet explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}

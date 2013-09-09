@@ -1,42 +1,3 @@
-curPath=function(){
-	var c=window.location.pathname;
-	var b=c.slice(0,-1);
-	var a=c.slice(-1);
-	if(b==""){return"/"}
-	else{ 
-		if(a=="/"){
-			return b
-		}else{
-			return c
-		}
-	}
-};
-
-Handlebars.registerHelper('active', function(path) {
-    return curPath() == path ? 'active' : '';
-});
-
-var fixHelper = function(e, ui) {
-	ui.children().each(function() {
-		$(this).width($(this).width());
-	});
-	return ui;
-};
-
-Template.backlog.rendered = function() {
-	
-	$("#sortable tbody").sortable({
-		helper: fixHelper,
-		placeholder: "ui-state-highlight",
-		start: function (event, ui) {
-	        ui.placeholder.html('<td colspan="5">&nbsp;</td>');
-	    },
-	}).disableSelection();
-		
-
-
-}
-
 Template.model.rendered = function() {
 
 	$('#myModal').on('shown', function () {
@@ -50,7 +11,15 @@ Template.model.rendered = function() {
 		    $('#estimate').val( estimate_array[ui.value] ); 
 		}
 		
-		$('#slider').slider({ min:0, max:estimate_array.length - 1, slide: estimateSliding});
+		$('#slider').slider
+			(
+				{ 
+					min:0, 
+					max:estimate_array.length - 1, 
+					slide: estimateSliding,
+					value: getSliderValue( estimate_array )
+				}
+			);
 		
 	});
 	

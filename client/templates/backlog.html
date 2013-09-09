@@ -8,29 +8,35 @@
    
 	<div class="row-fluid ">
 	    
-	    <table id="sortable" class="table table-striped table-hover table-condensed" >
+	    <table id="sortable" class="table table-striped" >
 	    	<thead>
 	    		<tr>
+		    		<td>&nbsp;</td>
 		    		<td>Name</td>
 		    		<td>Assigned</td>
 		    		<td>Estimate</td>
 		    		<td>Project</td>
 		    		<td>Type</td>
+		    		<td>&nbsp;</td>
+		    		<td>&nbsp;</td>
 	    		</tr>
 	    	</thead>
-	    	<tbody >
-	    		{{#each features}}
-	    		<tr >
-		    		<td>{{name}}</td>
-		    		<td>{{assign}}</td>
-		    		<td>{{estimate}}</td>
-		    		<td>{{project}}</td>
-		    		<td>{{type}}</td>
-	    		</tr>
+	    	<tbody class="sortable-items">
+	    		{{#each myfeatures}}
+		    		<tr class="sortable-item" id="{{_id}}">
+			    		<td class="move"><i class="icon-move"></i></td>
+			    		<td>{{name}}</td>
+			    		<td>{{assign}}</td>
+			    		<td>{{estimate}}</td>
+			    		<td>{{project}}</td>
+			    		<td>{{type}}</td>
+			    		<td class="edit"><i class="icon-edit"></i></td>
+			    		<td class="remove"><i class="icon-remove"></i></td>
+		    		</tr>
 	    		{{/each}}
 	    	</tbody>
 	    </table>
-	   
+	    
 	</div>
-    
+
 </template>

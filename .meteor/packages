@@ -11,3 +11,5 @@ bootstrap
 jquery
 jquery-ui
 router
+font-awesome
+moment

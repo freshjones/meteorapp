@@ -1,38 +1,47 @@
-var Features = new Meteor.Collection("features"); 
-
 if (Meteor.isClient) {
 
-  Template.backlog.features = function(){
-    return Features.find();
-  }
+  Template.backlog.myfeatures = function(){
+	  
+   return Features.find({}, {sort: {order: 1}});
+    
+  };
 
-  Template.model.events({
-	  'click .submit' : function(event)
+  Template.backlog.events({
+	  
+	  'click .remove' : function(event)
 	  {
-		  event.preventDefault();
-		 var test = featureJSON();
-		 //console.log(test);
-		  Features.insert( test );
-		  $('#myModal').modal('hide');
+		  Features.remove( this._id );
+	  },
+	  'click .edit' : function(event)
+	  {
+		  
+		var thisDocument = Features.findOne({"_id" : this._id });
+		  
+	  	var fragment = Meteor.render( function() {
+		   return Template[ "modal-feature-update" ](thisDocument); // this calls the template and returns the HTML.
+		});
+		
+		$('#myModal .modal-body').html( fragment );
+		
+		$('#myModal').modal('show');
+			
 	  }
+  
   });
-	
+  
+	Template.backlog.rendered = function() {
+		
+		$("#sortable tbody").sortable({
+			
+		    handle: "td.move",
+		    update: function( event, ui ) {
+		    	$('.sortable-items .sortable-item').each(function(index){
+		    		Features.update( { "_id" : $(this).attr('id') }, { $set : { "order" : index } } );
+		    	});
+		    }
+		}).disableSelection();
+			
+	}
+  
 }
 
-var featureJSON = function()
-{
-	var form = $('#modalForm .modal-val');
-	var data = getFormData(form);
-	return data;
-}
-
-function getFormData($form){
-    var unindexed_array = $form.serializeArray();
-    var indexed_array = {};
-
-    $.map(unindexed_array, function(n, i){
-        indexed_array[n['name']] = n['value'];
-    });
-
-    return indexed_array;
-}
