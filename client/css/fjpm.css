@@ -54,13 +54,65 @@ td.edit,td.remove { cursor: pointer; }
 
 .calHeaderDates
 {
-	display:block;
-	/* webkit browsers */
+	height: 75px;
+    position: relative;
+    width: 23px;
+}
+
+td.calHeader
+{
+	padding:0;
+}
+.calHeaderDates div
+{
 	-webkit-transform: rotate(270deg);
-	
-	/* firefox */
 	-moz-transform:rotate(270deg);
-	
-	/* internet explorer */
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	
+	bottom: 25px;
+    position: absolute;
+    right: -15px;
+	
+}
+
+.iteration-table.table
+{
+	max-width:none;
+	width:auto;
+}
+.iteration-table td
+{
+	padding:0;
+	text-align:center;
+	vertical-align: middle;
+}
+
+td.hour-cell span
+{
+	display:block;
+	cursor:pointer;
+}
+td.hour-cell, td.sprint-total
+{
+	padding:5px;
+}
+
+.iteration-table td.active,
+.iteration-table td.active input
+{
+	background-color:#FCF8E3;
+}
+
+input.hour-cell,
+input.hour-cell:focus
+{
+	border:none;
+	width:10px;
+	box-shadow:none;
+	transition:none;
+	border-radius: 0 0 0 0;
+	line-height:0;
+	margin:-.5em 0;
+	padding:0;
+	text-align: center;
 }

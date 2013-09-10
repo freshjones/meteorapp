@@ -34,15 +34,21 @@ var okCancelEvents = function(selector, callbacks) {
 }
 */
 
-if (Meteor.isClient) {
-
+if(Meteor.isClient) {
+	
+	Meteor.startup(function() {
+	    Session.set('data_loaded', false); 
+	}); 
+	
+	Meteor.subscribe('default_db_data', function(){
+		Session.set('data_loaded', true); 
+	});
+	
 }
 
-  
-
-
-
-
-if (Meteor.isServer) {
- 
+if(Meteor.isServer) {
+    Meteor.publish('default_db_data', function(){
+        this.ready();
+        return Settings.find({});
+    });
 }
