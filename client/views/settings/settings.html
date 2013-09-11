@@ -1,0 +1,25 @@
+<template name="settings">
+	{{#with settings}}
+	<form id="settingsForm" class="form-horizontal" autocomplete="off">
+		<div class="control-group">
+		 	<label class="control-label" for="inputEmail">Iteration Duration</label>
+			<div class="controls">	
+				<input class="span1 form-val" id="iterationLength" style="text-align:center;" name="duration" placeholder="Number" value="{{duration}}" type="text">
+				<span style="display:inline-block; width:10px; text-align:center;">&nbsp;</span>
+					<select class="span2 form-val" name="units" >
+						{{#select units}}
+						<option value="hours">Hours</option>
+						<option value="days">Days</option>
+						<option value="weeks">Weeks</option>
+						<option value="months">Months</option>
+						{{/select}}
+					</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputEmail">&nbsp;</label>
+			<button type="submit" class="btn btn-primary submit">Save settings</button>
+		</div>
+	</form>
+    {{/with}}
+</template>
