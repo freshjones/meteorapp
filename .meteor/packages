@@ -9,6 +9,7 @@ preserve-inputs
 bootstrap
 jquery
 jquery-ui
-router
 font-awesome
 moment
+iron-router
+npm

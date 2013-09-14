@@ -24,17 +24,6 @@ Handlebars.registerHelper('active', function(path) {
     return curPath() == path ? 'active' : '';
 });
 
-(function() {
-    var rowCounter = 1;
-    Handlebars.registerHelper('rowCounter', function() {
-        return rowCounter++;
-    });
-    var colCounter = 1;
-    Handlebars.registerHelper('colCounter', function() {
-        return colCounter++;
-    });
-})();
-
 Handlebars.registerHelper('arrayify',function(obj){
     result = [];
     for (var key in obj) result.push({key:key,value:obj[key]});

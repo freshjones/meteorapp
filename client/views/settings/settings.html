@@ -17,6 +17,17 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label" for="inputEmail">Include Weekends</label>
+			<div class="controls">
+			    <label class="radio inline">
+			    	{{#isSelected weekends}}<input name="weekends" class="form-val" type="radio" id="weekends1" value="yes">{{/isSelected}}  Yes
+			    </label>
+			    <label class="radio inline">
+			    	{{#isSelected weekends}}<input name="weekends" class="form-val" type="radio" id="weekends2" value="no">{{/isSelected}}  No
+			    </label>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label" for="inputEmail">&nbsp;</label>
 			<button type="submit" class="btn btn-primary submit">Save settings</button>
 		</div>

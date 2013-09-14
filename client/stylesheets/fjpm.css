@@ -116,3 +116,8 @@ input.hour-cell:focus
 	padding:0;
 	text-align: center;
 }
+
+.day-0, .day-6
+{
+	background-color: #f3f3f3;
+}

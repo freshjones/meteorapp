@@ -1,8 +1,9 @@
 {
   "packages": {
     "jquery-ui": {},
-    "router": {},
     "font-awesome": {},
-    "moment": {}
+    "moment": {},
+    "iron-router": {},
+    "npm": {}
   }
 }

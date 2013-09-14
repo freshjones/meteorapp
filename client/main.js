@@ -1,25 +1,48 @@
+// Session variables
+Session.set('duration', 2);
+Session.set('units', 'weeks');
+Session.set('weekends', 'yes');
+Session.set('settingsLoaded',false);
+
+// Subscriptions
+App = {
+
+	subs : {
+
+		blah : Meteor.subscribe('settings', function(){
+			Session.set('settingsLoaded',true);
+		})
+
+	}
+};
+
+
+
+//Meteor.startup(function() {
+
+
+  //  Session.set('settings', false); 
+
+
+//});
+
 /*
-Meteor.startup(function() {
-    Session.set('settings', false); 
-}); 
+ 
 
 Meteor.subscribe('default_db_data', function(){
 	Session.set('settings', true); 
 });
 
 Deps.autorun(function () {});
-*/
+
 
 Deps.autorun(function () {
   Meteor.subscribe('settings');
 });
 
-
 var duration = Settings.find().count();
-
-
 console.log(duration);
-
+*/
 //var units = Settings.find({"key":"units"}, {limit:1}).fetch()[0];
 //var myDuration = getDuration(duration.value, units.value);
 

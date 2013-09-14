@@ -19,8 +19,6 @@ curPath=function(){
 	}
 };
 
-
-
 getSliderValue = function( array )
 {
 	var estValue = 0;
