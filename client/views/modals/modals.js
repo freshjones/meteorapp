@@ -60,22 +60,31 @@ Template.model.rendered = function() {
 	$('.modalButton').click(function(){
 		
 		var whichModal =  $(this).attr('id');
+		var modalTitle = '';
 		
 		switch(whichModal)
 		{
-		
 			case 'backlog':
 				var templateName = "modal-feature";
+				modalTitle = 'Feature';
 			break;
 			
 			case 'project':
 				var templateName = "modal-project";
+				modalTitle = 'Project';
+			break;
+			
+			case 'client':
+				var templateName = "modal-client";
+				modalTitle = 'Client';
 			break;
 		}
 		
 		var fragment = Meteor.render( function() {
 		   return Template[ templateName ](); // this calls the template and returns the HTML.
 		});
+		
+		$('#myModal #myModalLabel').html( modalTitle );
 		
 		$('#myModal .modal-body').html( fragment );
 		

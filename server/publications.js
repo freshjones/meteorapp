@@ -11,3 +11,10 @@ Meteor.publish("settings", function () {
 	return future.wait();
 
 });
+
+
+Meteor.publish("clients", function () {
+
+	return Clients.find();
+
+});

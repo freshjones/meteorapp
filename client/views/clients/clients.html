@@ -1,0 +1,16 @@
+<template name="clients">
+
+   <div class="row-fluid ">
+		<div class="vertical-padding pull-right">
+			<button class="btn btn-success btn-large modalButton" type="button" data-toggle="modal" data-target="#myModal" id="client"><i class="icon-thumbs-up icon-white"></i> New Client</button>
+		</div>
+	</div>
+   
+	<div class="row-fluid ">
+	    {{#each clients}}
+	    	<div>{{name}}</div>
+	    {{/each}}
+	</div>
+    
+</template>
+
