@@ -1,5 +1,5 @@
 Handlebars.registerHelper('select', function(value, options) {
-    // Create a select element 
+	// Create a select element 
     var select = document.createElement('select');
     // Populate it with the option HTML
     select.innerHTML = options.fn(this);
@@ -11,7 +11,26 @@ Handlebars.registerHelper('select', function(value, options) {
     return select.innerHTML;
 });
 
-Handlebars.registerHelper('isSelected', function (value, options) {
+
+Handlebars.registerHelper('toHexString', function(value) {
+
+	return value.toHexString();
+
+});
+
+Handlebars.registerHelper('optionSelected', function(value) {
+	
+	var code ="";
+
+	if( value == this.code  ) { 
+		code = ' selected="selected" ';
+	}
+	return code;
+
+});
+
+
+Handlebars.registerHelper('checkboxIsChecked', function (value, options) {
 	var container = $('<div></div>');
 	var wrapped = container.html(options.fn(this));
 	if( value == $(options.fn(this)).val()  ) { 
@@ -19,6 +38,8 @@ Handlebars.registerHelper('isSelected', function (value, options) {
 	}
 	return $(wrapped).html();
 });
+
+
 
 Handlebars.registerHelper('active', function(path) {
     return curPath() == path ? 'active' : '';

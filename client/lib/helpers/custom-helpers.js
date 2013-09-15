@@ -5,6 +5,41 @@ formJSON = function()
 	return data;
 }
 
+
+formJSONByClass = function(whichClass, whichPrefix)
+{
+	var form = $(whichClass);
+	var data = getFormGroupData(form, whichPrefix);
+	
+	return data;
+}
+
+
+
+getFormGroupData = function($form, whichPrefix){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+    	
+    	var thisVal = n['value'];
+    	
+    	if( Math.floor(thisVal) == thisVal && $.isNumeric(thisVal)) { thisVal = parseInt(thisVal); }
+    	
+    	var thisName = n['name'];
+    	
+    	if(whichPrefix.length)
+    	{
+    		thisName = thisName.replace(whichPrefix + "-",""); 
+    	}
+    	
+        indexed_array[thisName] = thisVal;
+    });
+
+    return indexed_array;
+}
+
+
 curPath=function(){
 	var c=window.location.pathname;
 	var b=c.slice(0,-1);

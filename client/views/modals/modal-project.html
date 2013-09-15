@@ -1,3 +1,48 @@
-<template name="modal-project">
-	yeah loaded my project bitch!
+<template name="modal-projects">
+	
+	<input type="hidden" name="collection" value="Projects">
+	<input type="hidden" name="action" value="{{action}}">
+	
+	{{#if isUpdate}}
+		<input type="hidden" name="id" value="{{id}}">
+	{{/if}}
+
+	<div class="control-group">
+		<label class="control-label" for="client">Client</label>
+		<div class="controls">
+			<select name="client" class="modal-val">
+				{{#each data.clientSelect}}
+					<option value="{{code}}" {{optionSelected ../values.client}}>{{name}}</option>
+				{{/each}}
+			</select>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="name">Client Name</label>
+		<div class="controls">
+			<input type="text" name="name" placeholder="Project Name" class="modal-val" value="{{values.name}}">
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="startdate">Start Date</label>
+		<div class="controls">
+			<input class="span2 dateFinder modal-val" type="text" name="start" value="{{values.start}}">
+		</div>
+	</div>
+	
+	<fieldset class="fieldset">
+	
+		<legend>Milestones</legend>
+			{{> milestones}}
+			
+	    <div class="input-append ">
+		    <input type="text" placeholder="Milestone"  class="span3 modal-group" name="milestone-name" value="">
+		    <input type="text" placeholder="Date"  class="span2 modal-group dateFinder" name="milestone-date" value="">
+		    <button class="btn" id="addMilestone" type="button">Add</button>
+	    </div>
+	
+	</fieldset>
+	
+	
 </template>

@@ -1,0 +1,11 @@
+<template name="milestones">
+	<table>
+		{{#each milestones}}
+			<tr class="milestone-{{toHexString id}}">
+				<td>{{date}}</td>
+				<td>{{name}}</td>
+			    <td class="pull-remove"><i class="icon-remove"></i></td>
+			</tr>
+		{{/each}}
+	</table>
+</template>

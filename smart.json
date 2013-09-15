@@ -4,6 +4,10 @@
     "font-awesome": {},
     "moment": {},
     "iron-router": {},
-    "npm": {}
+    "npm": {},
+    "bootstrap-datepicker": {
+      "git": "https://github.com/ideiudicibus/bootstrap-datepicker.git",
+      "commit": "5b8b05dc778d47986de68ecf193083b26589c5b1"
+    }
   }
 }

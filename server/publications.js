@@ -18,3 +18,11 @@ Meteor.publish("allclients", function () {
 	return Clients.find({},{sort:{name:1}});
 
 });
+
+Meteor.publish("allprojects", function () {
+
+	return Projects.find({},{sort:{start:1, client:1, name:1}});
+
+});
+
+

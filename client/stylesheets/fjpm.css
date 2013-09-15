@@ -50,7 +50,7 @@ tr.ui-state-highlight
     cursor: move;
 }
 
-td.edit,td.remove { cursor: pointer; }
+td.edit,td.remove,td.pull-remove { cursor: pointer; }
 
 .calHeaderDates
 {
@@ -121,3 +121,5 @@ input.hour-cell:focus
 {
 	background-color: #f3f3f3;
 }
+
+.datepicker{z-index:9999;}
