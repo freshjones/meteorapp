@@ -61,7 +61,8 @@ Template.model.rendered = function() {
 		
 		var whichModal =  $(this).attr('id');
 		var modalTitle = '';
-		
+		var formAction = 'insert';
+		var isUpdate = false;
 		switch(whichModal)
 		{
 			case 'backlog':
@@ -74,19 +75,21 @@ Template.model.rendered = function() {
 				modalTitle = 'Project';
 			break;
 			
-			case 'client':
-				var templateName = "modal-client";
-				modalTitle = 'Client';
+			case 'clients':
+				var templateName = "modal-clients";
+				modalTitle = 'Clients';
+
 			break;
 		}
 		
 		var fragment = Meteor.render( function() {
-		   return Template[ templateName ](); // this calls the template and returns the HTML.
+		   //return Template[ templateName ](); // this calls the template and returns the HTML.
+		   return Template[ templateName ]({ 'isUpdate' : isUpdate, action : 'insert', values: null }); //
 		});
 		
 		$('#myModal #myModalLabel').html( modalTitle );
-		
 		$('#myModal .modal-body').html( fragment );
+		$('#action').val(formAction);
 		
 	});
 	

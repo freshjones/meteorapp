@@ -13,8 +13,8 @@ Meteor.publish("settings", function () {
 });
 
 
-Meteor.publish("clients", function () {
+Meteor.publish("allclients", function () {
 
-	return Clients.find();
+	return Clients.find({},{sort:{name:1}});
 
 });

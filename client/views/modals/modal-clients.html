@@ -1,0 +1,48 @@
+<template name="modal-clients">
+	
+	<input type="hidden" name="collection" value="Clients">
+	<input type="hidden" name="action" value="{{action}}">
+	
+	{{#if isUpdate}}
+		<input type="hidden" name="id" value="{{id}}">
+	{{/if}}
+
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Client Name</label>
+		<div class="controls">
+			<input type="text" name="name" placeholder="Client Name" class="modal-val" value="{{values.name}}">
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="assign">Account Rep.</label>
+		<div class="controls">
+		    <label class="radio inline">
+		    	{{#isSelected values.assign}}<input name="assign" class="modal-val" type="radio" id="assign1" value="Billy">{{/isSelected}} Billy
+		    </label>
+		    <label class="radio inline">
+		    	{{#isSelected values.assign}}<input name="assign" class="modal-val" type="radio" id="assign2" value="Chloe" >{{/isSelected}} Chloe
+		    </label>
+		    <label class="radio inline">
+		   	 	{{#isSelected values.assign}}<input name="assign" class="modal-val" type="radio" id="assign3" value="Kristen" >{{/isSelected}} Kristen
+		    </label>
+		</div>
+	</div>
+
+
+	<div class="control-group">
+		<label class="control-label" for="status">Status</label>
+		<div class="controls">
+		    <label class="radio inline">
+		    	{{#isSelected values.status}}<input name="status" class="modal-val" type="radio" id="status1" value="Billy">{{/isSelected}} Active
+		    </label>
+		    <label class="radio inline">
+		    	{{#isSelected values.status}}<input name="status" class="modal-val" type="radio" id="status2" value="Chloe" >{{/isSelected}} Archived
+		    </label>
+		    <label class="radio inline">
+		   	 	{{#isSelected values.status}}<input name="status" class="modal-val" type="radio" id="status3" value="Kristen" >{{/isSelected}} Pending
+		    </label>
+		</div>
+	</div>
+
+</template>

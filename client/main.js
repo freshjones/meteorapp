@@ -11,7 +11,8 @@ App = {
 
 		blah : Meteor.subscribe('settings', function(){
 			Session.set('settingsLoaded',true);
-		})
+		}),
+		allclients : Meteor.subscribe('allclients'),
 
 	}
 };
