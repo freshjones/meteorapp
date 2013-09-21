@@ -21,7 +21,7 @@ Meteor.publish("allclients", function () {
 
 Meteor.publish("allprojects", function () {
 
-	return Projects.find({},{sort:{start:1, client:1, name:1}});
+	return Projects.find({},{ sort:{start:1, client:1, name:1} });
 
 });
 

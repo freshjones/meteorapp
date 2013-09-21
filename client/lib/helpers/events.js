@@ -1,6 +1,7 @@
 crudEvents = function(thisCollection)
 {
 	return {
+
 	  'click .remove' : function(event)
 	  {
 		  eval(thisCollection).remove( this._id );
@@ -8,7 +9,7 @@ crudEvents = function(thisCollection)
 	  'click .edit' : function(event)
 	  {
 		  
-		  $('#myModal').modal('show');
+		$('#myModal').modal('show');
 		  
 		var thisID = this._id;  
 		var thisDocument = eval(thisCollection).findOne({"_id" : thisID });
@@ -34,9 +35,69 @@ crudEvents = function(thisCollection)
 		$('#myModal').modal('show');
 		$('#action').val(formAction);
 		
+	  },
+	  'click .modalButton' : function(event)
+	  {
+
+	  	//remove any pending first
+	  	Meteor.call("clearPending", thisCollection, function(error,result){
+		    if(error){
+		        console.log(error.reason);
+		    }
+		    else{
+		    	
+		    	console.log(result);
+
+		    	buildDynamicModal(thisCollection);
+		    }
+		});
+
 	  }
+
 	}
 };
+
+
+insertPendingDoc = function(thisCollection)
+{
+	var pendingData = {};
+	pendingData.status = 'pending';
+
+	return eval(thisCollection).insert( pendingData );
+
+}
+
+buildDynamicModal = function(thisCollection)
+{
+
+	var newDoc = insertPendingDoc(thisCollection);
+
+	//so now we have a pending doc
+	thisDocument = eval(thisCollection).findOne({"_id" : newDoc });
+	
+	var formAction = 'update';
+	var modalTitle = "Update " + thisCollection;
+	var modalData = {};
+	var templateName = "modal-" + thisCollection.toLowerCase();
+	
+	switch(thisCollection.toLowerCase())
+	{
+		case 'projects':
+			modalData.clientSelect = Clients.find();
+		break;
+	}
+	
+  	var fragment = Meteor.render( function() {
+  		
+	   return Template[templateName]({ isUpdate : true, id : newDoc, action : 'update', values: thisDocument, data:modalData }); // this calls the template and returns the HTML.
+	});
+  	
+	$('#myModal #myModalLabel').html( modalTitle );
+	$('#myModal .modal-body').html( fragment );
+	$('#myModal').modal('show');
+	$('#action').val(formAction);
+}
+
 
 modalEvents = function()
 {
@@ -70,7 +131,7 @@ modalEvents = function()
 		
 	});
 	
-	
+	/*
 	$('.modalButton').click(function(){
 		
 		var whichModal =  $(this).attr('id');
@@ -109,5 +170,6 @@ modalEvents = function()
 		$('#action').val(formAction);
 		
 	});
+	*/
 	
 }
