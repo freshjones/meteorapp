@@ -50,3 +50,8 @@ Handlebars.registerHelper('arrayify',function(obj){
     for (var key in obj) result.push({key:key,value:obj[key]});
     return result;
 });
+
+Handlebars.registerHelper('getSession', function(value) {
+    return Session.get(value);
+});
+

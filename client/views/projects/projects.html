@@ -2,7 +2,7 @@
 
 	<div class="row-fluid ">
 		<div class="vertical-padding pull-right">
-			<button class="btn btn-success btn-large modalButton" type="button" data-toggle="modal" data-target="#myModal" id="projects"><i class="icon-thumbs-up icon-white"></i> New Project</button>
+			<button class="btn btn-success btn-large modalButton" type="button" id="newProject"><i class="icon-thumbs-up icon-white"></i> New Project</button>
 		</div>
 	</div>
    
@@ -34,5 +34,87 @@
 	    </table>
 	    
 	</div>
-    
+	
+    {{#if getSession 'showModal'}}
+		{{> project}}
+	{{/if}}
+	
+</template>
+
+<template name="project">
+
+	<!-- Modal -->
+	<div id="zzzmyModal" class="zzzmodal">
+		<form name="modalForm" id="modalForm" autocomplete="off">
+		<div class="modal-header">
+			<button type="button" class="close">x</button>
+			<h3 id="myModalLabel">Edit Project</h3>
+		</div>
+		<div class="modal-body form-horizontal">
+		
+			{{#with project}}
+				
+				<input type="hidden" name="collection" value="Projects">
+				<input type="hidden" name="action" value="{{action}}">
+				<input type="hidden" name="id" value="{{id}}">
+			
+				<div class="control-group">
+					<label class="control-label" for="client">Client</label>
+					<div class="controls">
+						<select name="client" class="modal-val">
+							{{#each clientselect}}
+								<option value="{{code}}" {{optionSelected ../client}}>{{name}}</option>
+							{{/each}}
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="name">Project Name</label>
+					<div class="controls">
+						<input type="text" name="name" placeholder="Project Name" class="modal-val" value="{{name}}">
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="startdate">Start Date</label>
+					<div class="controls">
+						<input class="span2 dateFinder modal-val" type="text" name="start" value="{{start}}">
+					</div>
+				</div>
+				
+				<fieldset class="fieldset">
+				
+					<legend>Milestones</legend>
+					
+					<table>
+						{{#each milestones}}
+							<tr class="milestone">
+								<td>{{date}}</td>
+								<td>{{name}}</td>
+							    <td class="pull-remove"><i class="icon-remove"></i></td>
+							</tr>
+						{{/each}}
+					</table>
+				
+					<div class="input-append ">
+						
+					    <input type="text" placeholder="Milestone"  class="span3 modal-group" name="milestone-name" value="">
+					    <input type="text" placeholder="Date"  class="span2 modal-group dateFinder" name="milestone-date" value="" autocomplete="off">
+					    <button class="btn" id="addMilestone" type="button">Add</button>
+					</div>
+			
+				</fieldset>
+			
+			{{/with}}
+
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary submit">Save changes</button>
+			<button class="btn close-modal">Cancel</button>
+		</div>
+		</form>
+	</div>
+	
+	<div class="zzzzmodal-backdrop in"></div>
+	
 </template>

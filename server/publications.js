@@ -25,4 +25,8 @@ Meteor.publish("allprojects", function () {
 
 });
 
+Meteor.publish('singleproject', function (project_id) {
+  check(project_id, String);
+  return Projects.find({_id:project_id});
+});
 

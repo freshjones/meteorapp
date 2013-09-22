@@ -13,7 +13,8 @@ App = {
 			Session.set('settingsLoaded',true);
 		}),
 		allclients : Meteor.subscribe('allclients'),
-		allprojects : Meteor.subscribe('allprojects')
+		allprojects : Meteor.subscribe('allprojects'),
+		singleproject : Meteor.subscribe('singleproject')
 
 	}
 };

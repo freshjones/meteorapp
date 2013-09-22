@@ -34,17 +34,10 @@
 	<fieldset class="fieldset">
 	
 		<legend>Milestones</legend>
-		{{#each values.milestones}}
+		
+		{{> milestones}}
 
-			{{date}} - {{name}}<br/>
-		{{/each}}
-
-		<div class="input-append ">
-		    <input type="text" placeholder="Milestone"  class="span3 modal-group" name="milestone-name" value="">
-		    <input type="text" placeholder="Date"  class="span2 modal-group dateFinder" name="milestone-date" value="">
-		    <button class="btn" id="addMilestone" type="button">Add</button>
-		</div>
-	    
+		
 	
 	</fieldset>
 	
