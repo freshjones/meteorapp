@@ -44,13 +44,13 @@ Template.projects.events({
 		
 		
   	}, 'click button.submit ': function (event) {
-  		event.preventDefault();
   		
+  		console.log(this._id);
+  		event.preventDefault();
   		var data = formJSON();
-		 
 		data.status = 'active';
   		
-  		console.log(data);
+  		
 	}, 'click .pull-remove ': function (event) {
   		event.preventDefault();
   		
