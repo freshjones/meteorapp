@@ -100,7 +100,7 @@ iterationFeatures = function(duration, days)
 		data.push(obj);
 		 
 	}
-	console.log(data);
+	//console.log(data);
 
 	return data;
 

@@ -1,6 +1,3 @@
-//set modal to off initially
-Session.setDefault('showModal', null);
-
 //Currently selected project
 Session.setDefault('project_id', null);
 

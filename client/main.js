@@ -13,12 +13,14 @@ App = {
 
 	subs : {
 
-		blah : Meteor.subscribe('settings', function(){
+		settings : Meteor.subscribe('settings', function(){
 			Session.set('settingsLoaded',true);
 		}),
-		allclients : Meteor.subscribe('allclients'),
-		allprojects : Meteor.subscribe('allprojects'),
-		singleproject : Meteor.subscribe('singleproject')
+		clients : Meteor.subscribe('clients'),
+		projects : Meteor.subscribe('projects'),
+		project : Meteor.subscribe('project'),
+		features : Meteor.subscribe('features'),
+		feature : Meteor.subscribe('feature')
 
 	}
 };

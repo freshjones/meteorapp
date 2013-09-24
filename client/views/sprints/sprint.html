@@ -1,0 +1,130 @@
+<template name="sprint">
+	{{#with feature}}
+	<!-- Modal -->
+	<div id="myModal" class="modal">
+		<form name="modalForm" id="modalForm" autocomplete="off">
+		<div class="modal-header">
+			<button type="button" class="close">x</button>
+			<h3 id="myModalLabel">Edit Feature</h3>
+		</div>
+		<div class="modal-body form-horizontal">
+		
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Feature Name</label>
+				<div class="controls">
+				<input type="text" name="name" placeholder="Feature Name" class="modal-val" value="{{name}}">
+				</div>
+			</div>
+		
+				<div class="control-group">
+				<label class="control-label" for="inputEmail">Project</label>
+				<div class="controls">
+					<select name="project" class="modal-val">
+						{{#select project}}
+						<option value="Chroma Calendar" >Chroma Calendar</option>
+						<option value="SAASafari Sales Website">SAASafari Sales Website</option>
+						<option value="YMCA Web Sales Site">YMCA Web Sales Site</option>
+						{{/select}}
+					</select>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Assigned To</label>
+				<div class="controls">
+				    <label class="radio inline">
+				    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" id="assign1" value="Billy">{{/isChecked}} Billy
+				    </label>
+				    <label class="radio inline">
+				    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" id="assign2" value="Chloe" >{{/isChecked}} Chloe
+				    </label>
+				    <label class="radio inline">
+				   	 	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" id="assign3" value="Kristen" >{{/isChecked}} Kristen
+				    </label>
+		  			<label class="radio inline">
+				   	 	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" id="assign4" value="Andy" >{{/isChecked}} Andy
+				    </label>
+				</div>
+			</div>
+		
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Feature Type</label>
+				<div class="controls">
+				    <label class="radio inline">
+				    	{{#isChecked type}}<input name="type" class="modal-val" type="radio" value="feature">{{/isChecked}} Feature
+				    </label>
+				    <label class="radio inline">
+				    	{{#isChecked type}}<input name="type" class="modal-val" type="radio" value="issue">{{/isChecked}} Issue
+				    </label>
+				    <label class="radio inline">
+				    	{{#isChecked type}}<input name="type" class="modal-val" type="radio" value="release">{{/isChecked}} Release
+				    </label>
+				    <label class="radio inline">
+				    	{{#isChecked type}}<input name="type" class="modal-val" type="radio" value="administrative">{{/isChecked}} Administrative
+				    </label>
+				</div>
+			</div>
+			
+			
+			<div class="control-group">
+				<input type="hidden" value="{{estimate}}" id="estimate" name="estimate" class="modal-val estimate" />
+				<label class="control-label" for="inputEmail">Estimate</label>
+				<div id="estimate-label">{{estimate}}</div>
+				<div class="slider span2" id="slider"></div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Description</label>
+				<div class="controls">
+				    <textarea name="description" rows="3" class="modal-val">{{description}}</textarea>
+				</div>
+			</div>
+			
+			<fieldset class="fieldset">
+			
+				<legend>Tasks</legend>
+				
+				<table>
+					{{#each task_items}}
+						<tr class="tasks">
+							<td>{{#isChecked task.status}}<input type="checkbox" class="complete-task" value="done" />{{/isChecked}}</td>
+							<td>{{task.name}}</td>
+						    <td class="remove-task"><i class="icon-remove"></i></td>
+						</tr>
+					{{/each}}
+				</table>
+					
+			    <div class="input-append ">
+				    <input  class="span5" type="text" name="task" value="" placeholder="Add a task">
+				    <button class="btn" type="button" id="addTask">Add</button>
+			    </div>
+			
+			</fieldset>
+			
+			<fieldset class="fieldset">
+			
+				<legend>Activities</legend>
+				<ul>
+				{{#each activity_items}}
+					<li>{{activity.description}}</li>
+				{{/each}}
+				</ul>
+			    
+			    <div >
+				    <textarea class="input-block-level" id="activity"></textarea>
+				    <button class="btn pull-right" type="button" id="addActivity">Add</button>
+			    </div>
+			
+			</fieldset>
+			
+
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary submit">Save changes</button>
+			<button class="btn close-modal">Cancel</button>
+		</div>
+		</form>
+	</div>
+	<div class="modal-backdrop in"></div>
+	{{/with}}
+</template>

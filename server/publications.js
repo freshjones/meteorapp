@@ -13,20 +13,37 @@ Meteor.publish("settings", function () {
 });
 
 
-Meteor.publish("allclients", function () {
-
-	return Clients.find({},{sort:{name:1}});
-
+//clients
+Meteor.publish("clients", function () {
+	return Clients.find({},{status:{"pending":0}});
 });
 
-Meteor.publish("allprojects", function () {
-
-	return Projects.find({},{ sort:{start:1, client:1, name:1} });
-
+Meteor.publish('client', function (client_id) {
+  check(client_id, String);
+  return Clients.find({_id:client_id});
 });
 
-Meteor.publish('singleproject', function (project_id) {
+
+//projects
+Meteor.publish("projects", function () {
+	return Projects.find({},{ status:{"pending":0}, sort:{start:1, client:1, name:1} });
+});
+
+Meteor.publish('project', function (project_id) {
   check(project_id, String);
   return Projects.find({_id:project_id});
 });
 
+
+//features
+Meteor.publish("features", function () {
+	return Features.find({},{status:{"pending":0}});
+});
+
+Meteor.publish('feature', function (feature_id) {
+  check(feature_id, String);
+  return [
+          	Features.find({_id:feature_id}),
+          	activity.find({feature_id: feature_id})
+          ];
+});

@@ -30,7 +30,7 @@ Handlebars.registerHelper('optionSelected', function(value) {
 });
 
 
-Handlebars.registerHelper('checkboxIsChecked', function (value, options) {
+Handlebars.registerHelper('isChecked', function (value, options) {
 	var container = $('<div></div>');
 	var wrapped = container.html(options.fn(this));
 	if( value == $(options.fn(this)).val()  ) { 
