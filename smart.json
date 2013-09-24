@@ -6,8 +6,8 @@
     "iron-router": {},
     "npm": {},
     "bootstrap-datepicker": {
-      "git": "https://github.com/ideiudicibus/bootstrap-datepicker.git",
-      "commit": "5b8b05dc778d47986de68ecf193083b26589c5b1"
+      "git": "https://github.com/freshjones/meteor-bootstrap-datepicker.git",
+      "commit": "7c7992981969a2113d1887369e7c62a34260b5ce"
     }
   }
 }

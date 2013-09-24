@@ -87,11 +87,11 @@
 					<legend>Milestones</legend>
 					
 					<table>
-						{{#each milestones}}
+						{{#each milestone_items}}
 							<tr class="milestone">
-								<td>{{date}}</td>
-								<td>{{name}}</td>
-							    <td class="pull-remove"><i class="icon-remove"></i></td>
+								<td>{{milestone.date}}</td>
+								<td>{{milestone.name}}</td>
+							    <td class="remove-milestone"><i class="icon-remove"></i></td>
 							</tr>
 						{{/each}}
 					</table>
@@ -114,7 +114,6 @@
 		</div>
 		</form>
 	</div>
-	{{/with}}
 	<div class="modal-backdrop in"></div>
-	
+	{{/with}}
 </template>

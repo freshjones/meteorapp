@@ -7,8 +7,6 @@ Session.setDefault('project_id', null);
 //When editing project, ID of the project
 Session.setDefault('editing_project', null);
 
-
-
 Template.projects.events({
 
 	'click #newProject': function (event) {
@@ -24,38 +22,62 @@ Template.projects.events({
 		//Deps.flush();
 		Session.set('showModal', true);
 	  
-  	}, 'click .close, click .modal-backdrop, click .close-modal ': function (event) {
+  	},
+	'click .remove': function (event) {
+		event.preventDefault();
+		Projects.remove({_id:this._id});
+		//Session.set('project_id', this._id);
+		//Deps.flush();
+		//Session.set('showModal', true);
+  	}, 
+  	'click .close, click .modal-backdrop, click .close-modal ': function (event) {
 		  event.preventDefault();
 		  Session.set('project_id', null);
 		 // Deps.flush();
-		  Session.set('showModal', false);
-	}, 'click #addMilestone': function (event) {
+
+		//ditch the record if not needed
+		if(this.status === 'pending')
+		{
+		 	Projects.remove({_id:this._id});
+		}
+
+		Session.set('showModal', false);
+
+	}, 
+	'click #addMilestone': function (event) {
 		
 		event.preventDefault();
 		var thisName = $('input[name="milestone-name"]').val();
 		var thisDate = $('input[name="milestone-date"]').val();
-		Projects.update(this._id, {$addToSet: { milestones: { name:thisName, date:thisDate } } } );
+		Projects.update(this._id, {$push: { milestones: { name:thisName, date:thisDate } } } );
 		
 		//Deps.flush();	
 		$('.dateFinder').datepicker('remove');
 		
 		$('input[name="milestone-name"]').val('');
-		$('input[name="milestone-date"]').val('');
+		$('input[name="milestone-date"]').val('');	
 		
-		
-  	}, 'click button.submit ': function (event) {
+  	}, 
+  	'click button.submit ': function (event) {
   		
   		console.log(this._id);
   		event.preventDefault();
   		var data = formJSON();
 		data.status = 'active';
-  		
-  		
-	}, 'click .pull-remove ': function (event) {
+  		Projects.update( {_id:this._id }, { $set : data } );
+
+  		//close the modal
+  		Session.set('showModal', false);
+
+	}, 
+	'click .remove-milestone ': function (event) {
   		event.preventDefault();
-  		
-  		//Projects.update(this._id, {$addToSet: { milestones: [{name:value}] }});
-  		
+
+  		var milestone = this.milestone;
+    	var id = this.project_id;
+
+		Projects.update({_id: id}, {$pull: {milestones:milestone}});
+
 	}
 	
   	
@@ -78,3 +100,9 @@ Template.projects.rendered = function() {
 	});
 }
 
+Template.project.milestone_items = function () {
+  var project_id = this._id;
+  return _.map(this.milestones || [], function (milestone) {
+    return {project_id: project_id, milestone: milestone};
+  });
+};

@@ -8,7 +8,7 @@
       "iron-router": {},
       "npm": {},
       "bootstrap-datepicker": {
-        "git": "https://github.com/ideiudicibus/bootstrap-datepicker.git",
+        "git": "https://github.com/freshjones/meteor-bootstrap-datepicker.git",
         "branch": "master"
       }
     },
@@ -24,9 +24,9 @@
         "commit": "38bdfff72dfb8857b272f9a9b056045d6a015489"
       },
       "moment": {
-        "git": "https://github.com/possibilities/meteor-moment.git",
-        "tag": "v1.7.0",
-        "commit": "c64b6ec0e714b9556f4b6643d430b868ba69d3d7"
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.2.1",
+        "commit": "9ee12e714afe56b189f53076447b7b54f3012065"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -39,9 +39,9 @@
         "commit": "ad83acff83385d5ea05997c8bbc2d7493ba4c04e"
       },
       "bootstrap-datepicker": {
-        "git": "https://github.com/ideiudicibus/bootstrap-datepicker.git",
+        "git": "https://github.com/freshjones/meteor-bootstrap-datepicker.git",
         "branch": "master",
-        "commit": "5b8b05dc778d47986de68ecf193083b26589c5b1"
+        "commit": "7c7992981969a2113d1887369e7c62a34260b5ce"
       }
     }
   }

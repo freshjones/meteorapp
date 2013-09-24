@@ -4,6 +4,10 @@ Session.set('units', 'weeks');
 Session.set('weekends', 'yes');
 Session.set('settingsLoaded',false);
 
+//set modal to off initially
+Session.setDefault('showModal', null);
+
+
 // Subscriptions
 App = {
 
