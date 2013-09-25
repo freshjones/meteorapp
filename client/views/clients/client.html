@@ -1,0 +1,65 @@
+<template name="client">
+	{{#with client}}
+	<!-- Modal -->
+	<div id="myModal" class="modal">
+		<form name="modalForm" id="modalForm" autocomplete="off">
+		<div class="modal-header">
+			<button type="button" class="close">x</button>
+			<h3 id="myModalLabel">Edit Feature</h3>
+		</div>
+		<div class="modal-body form-horizontal">
+		
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Client Shortcode</label>
+				<div class="controls">
+					<input type="text" name="code" placeholder="Client Code" class="span2 modal-val" value="{{code}}">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Client Name</label>
+				<div class="controls">
+					<input type="text" name="name" placeholder="Client Name" class="modal-val" value="{{name}}">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="assign">Account Rep.</label>
+				<div class="controls">
+				    <label class="radio inline">
+				    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Billy">{{/isChecked}} Billy
+				    </label>
+				    <label class="radio inline">
+				    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Chloe" >{{/isChecked}} Chloe
+				    </label>
+				    <label class="radio inline">
+				   	 	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Kristen" >{{/isChecked}} Kristen
+				    </label>
+				</div>
+			</div>
+		
+			<div class="control-group">
+				<label class="control-label" for="status">Status</label>
+				<div class="controls">
+				    <label class="radio inline">
+				    	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Active">{{/isChecked}} Active
+				    </label>
+				    <label class="radio inline">
+				    	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Archived" >{{/isChecked}} Archived
+				    </label>
+				    <label class="radio inline">
+				   	 	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Pending" >{{/isChecked}} Pending
+				    </label>
+				</div>
+			</div>
+			
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary submit">Save changes</button>
+			<button class="btn close-modal">Cancel</button>
+		</div>
+		</form>
+	</div>
+	<div class="modal-backdrop in"></div>
+	{{/with}}
+</template>
