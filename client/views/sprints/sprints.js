@@ -9,6 +9,7 @@ Template.sprints.events({
 	'click #newFeature': function (event) {
 		event.preventDefault();
 		var newFeature = Features.insert({status:"pending", estimate:0, order:9999 });
+		
 		Session.set('feature_id', newFeature);
 		//Deps.flush();
 		Session.set('showModal', true);
@@ -16,9 +17,7 @@ Template.sprints.events({
 	'click .edit': function (event) {
 		event.preventDefault();
 		Session.set('feature_id', this._id);
-		//Deps.flush();
-		Session.set('showModal', true);
-	  
+		Session.set('showModal', true);	  
   	},
 	'click .remove': function (event) {
 		event.preventDefault();
@@ -85,17 +84,37 @@ Template.sprints.events({
 		
 		Activities.insert({'feature_id':this._id, 'description': thisActivity });
 		
+		$('#activity').val('');
+
   	},
   	
-	
-	
-  	
+
 });
 
+
 Template.sprint.feature = function () {
-	  var feature_id = Session.get('feature_id');
-	  return  Features.findOne({_id:feature_id});
+
+	var feature_id = Session.get('feature_id');
+	var featureHandle =  Meteor.subscribe('feature', feature_id );
+
+	if( featureHandle.ready() )
+	{
+
+	  var featureData = {};
+	  featureData = Features.findOne({_id:feature_id});
+	  featureData.activities = Activities.find({'feature_id':feature_id}).fetch();
+
+	  return featureData;
+
+	}
+
 };
+
+Template.sprint.projectselect = function () {
+	  var projectSelect = Projects.find({ status:{ $ne: 'pending'} });
+	  return projectSelect;
+};
+
 
 Template.sprint.task_items = function () {
   var feature_id = this._id;
@@ -104,7 +123,7 @@ Template.sprint.task_items = function () {
   });
 };
 
-	
+
 Template.sprints.rendered = function() {
 	
 	var estimate_array = [0, .1, .3, .5, 1, 3, 5, 10, 30, 50];

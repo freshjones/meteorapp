@@ -20,11 +20,10 @@
 				<label class="control-label" for="inputEmail">Project</label>
 				<div class="controls">
 					<select name="project" class="modal-val">
-						{{#select project}}
-						<option value="Chroma Calendar" >Chroma Calendar</option>
-						<option value="SAASafari Sales Website">SAASafari Sales Website</option>
-						<option value="YMCA Web Sales Site">YMCA Web Sales Site</option>
-						{{/select}}
+						<option value="">Select Project</option>
+						{{#each projectselect}}
+							<option value="{{name}}" {{projectOptions ../project}}>{{name}}</option>
+						{{/each}}
 					</select>
 				</div>
 			</div>
@@ -105,8 +104,8 @@
 			
 				<legend>Activities</legend>
 				<ul>
-				{{#each activity_items}}
-					<li>{{activity.description}}</li>
+				{{#each activities}}
+					<li>{{description}}</li>
 				{{/each}}
 				</ul>
 			    

@@ -19,9 +19,7 @@ App = {
 		clients : Meteor.subscribe('clients'),
 		projects : Meteor.subscribe('projects'),
 		project : Meteor.subscribe('project'),
-		features : Meteor.subscribe('features'),
-		feature : Meteor.subscribe('feature')
-
+		features : Meteor.subscribe('features')
 	}
 };
 

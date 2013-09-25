@@ -19,7 +19,7 @@ Handlebars.registerHelper('toHexString', function(value) {
 });
 
 Handlebars.registerHelper('optionSelected', function(value) {
-	
+
 	var code ="";
 
 	if( value == this.code  ) { 
@@ -29,6 +29,16 @@ Handlebars.registerHelper('optionSelected', function(value) {
 
 });
 
+Handlebars.registerHelper('projectOptions', function(value) {
+	
+	var name ="";
+
+	if( value == this.name  ) { 
+		name = ' selected="selected" ';
+	}
+	return name;
+
+});
 
 Handlebars.registerHelper('isChecked', function (value, options) {
 	var container = $('<div></div>');
@@ -54,4 +64,11 @@ Handlebars.registerHelper('arrayify',function(obj){
 Handlebars.registerHelper('getSession', function(value) {
     return Session.get(value);
 });
+
+/*
+Handlebars.registerHelper('getProjectName', function(value) {
+	var projectData = Projects.findOne({'_id':value});
+	return projectData.name;
+});
+*/
 

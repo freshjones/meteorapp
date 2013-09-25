@@ -44,6 +44,6 @@ Meteor.publish('feature', function (feature_id) {
   check(feature_id, String);
   return [
           	Features.find({_id:feature_id}),
-          	activity.find({feature_id: feature_id})
-          ];
+          	Activities.find({feature_id:feature_id})
+         ];
 });
