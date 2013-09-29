@@ -29,8 +29,6 @@ getDuration = function()
 		 
 	 }
 
-
-	 
 	 var length = duration * unit;
 	 
 	 return length;
@@ -46,8 +44,6 @@ iterationDates = function(duration)
 	
 	for(i=0; i<duration; i++)
 	{
-
-		
 
 		var start 		= Date.today().previous().monday();
 
@@ -70,6 +66,23 @@ iterationDates = function(duration)
 	    dayCounter++;
 	}
 
+	return data;
+}
+
+sprintDates = function(iterations, duration)
+{
+	var i;
+	var data 		= [];
+	for(i=0; i<iterations; i++)
+	{
+		var start 		= Date.today().previous().monday();
+		var thisDay 	= start.addDays(duration*i);
+		
+		data[i] = { 
+    				start : thisDay.toString("MM-dd-yy"),
+    				end : thisDay.addDays(duration-1).toString("MM-dd-yy")
+    			};
+	}
 	return data;
 }
 

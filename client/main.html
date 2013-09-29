@@ -7,11 +7,9 @@
 
 <template name="layout">
 
+  {{> navbar}}
+    
   <div class="container">
-    <h3 class="muted">Project Management</h3>
-    <div class="masthead">
-      {{> navtabs}}
-    </div>
     {{yield}}
   </div>
 </template>
