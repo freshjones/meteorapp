@@ -4,6 +4,9 @@ Session.setDefault('feature_id', null);
 //When editing project, ID of the project
 Session.setDefault('editing_feature', null);
 
+//When editing project, ID of the project
+Session.set('currentSprint', null);
+
 Template.sprints.events({
 
 	'click #newFeature': function (event) {

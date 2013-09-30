@@ -65,6 +65,25 @@ Handlebars.registerHelper('getSession', function(value) {
     return Session.get(value);
 });
 
+Handlebars.registerHelper('whichIteration', function(value) {
+    var curSprint = Session.get('currentSprint');
+    var thisSprint = 0;
+    
+    var container = $('<div></div>');
+    var wrapped = container.html('');
+    var bob = '';
+
+    if(curSprint === null)
+    {
+    	Session.set('currentSprint', 0);
+
+		wrapped = container.html('Iteration:' + thisSprint);
+
+    }
+
+    return $(wrapped).html();
+});
+
 /*
 Handlebars.registerHelper('getProjectName', function(value) {
 	var projectData = Projects.findOne({'_id':value});
