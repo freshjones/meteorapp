@@ -67,7 +67,7 @@ tr.ui-state-highlight
     cursor: move;
 }
 
-td.edit,td.remove,td.pull-remove { cursor: pointer; }
+.edit,.remove,.pull-remove { cursor: pointer; }
 
 .calHeaderDates
 {
@@ -144,4 +144,14 @@ input.hour-cell:focus
 .remove-milestone
 {
 	cursor:pointer;
+}
+
+.feature-item
+{
+	
+}
+
+.sortable-items
+{
+	margin:0;
 }

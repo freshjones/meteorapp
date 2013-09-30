@@ -14,8 +14,6 @@ formJSONByClass = function(whichClass, whichPrefix)
 	return data;
 }
 
-
-
 getFormGroupData = function($form, whichPrefix){
     var unindexed_array = $form.serializeArray();
     var indexed_array = {};
@@ -24,7 +22,7 @@ getFormGroupData = function($form, whichPrefix){
     	
     	var thisVal = n['value'];
     	
-    	if( Math.floor(thisVal) == thisVal && $.isNumeric(thisVal)) { thisVal = parseInt(thisVal); }
+    	if( thisVal && !isNaN(thisVal) ) { thisVal = parseFloat(thisVal); }
     	
     	var thisName = n['name'];
     	
@@ -60,14 +58,18 @@ getSliderValue = function( array )
 	if( $('#estimate').length )
 	{
 		var est = $('#estimate').val();
-		estValue = $.inArray( parseInt(est), array );
+		estValue = $.inArray( parseFloat(est), array );
 	}
 	if(estValue == -1 ) { estValue = 0; }
 	return estValue;
 }
 
-
-
+function isInteger(value) {
+    if ((undefined === value) || (null === value)) {
+        return false;
+    }
+    return value % 1 == 0;
+}
 
 getFormData = function($form){
     var unindexed_array = $form.serializeArray();
@@ -77,12 +79,14 @@ getFormData = function($form){
     	
     	var thisVal = n['value'];
     	
-    	if( Math.floor(thisVal) == thisVal && $.isNumeric(thisVal)) { thisVal = parseInt(thisVal); }
+    	if( thisVal && !isNaN(thisVal) ) { thisVal = parseFloat(thisVal); }
     	
         indexed_array[n['name']] = thisVal;
+        
     });
 
     return indexed_array;
+    
 }
 
 getSubmitData = function()

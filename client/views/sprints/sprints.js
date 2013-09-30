@@ -148,12 +148,15 @@ Template.sprints.rendered = function() {
 			}
 		);
 	
-	$("#sortable tbody").sortable({
+	$(".sortable-items").sortable({
 		
-	    handle: "td.move",
-	    update: function( event, ui ) {
-	    	$('.sortable-items .sortable-item').each(function(index){
-	    		Features.update( { "_id" : $(this).attr('id') }, { $set : { "order" : index } } );
+	    handle: ".move",
+	    connectWith: ".sortable-items",
+	    stop: function( event, ui ) {
+	    	$('.sortable-item').each(function(index){
+	    		var whichGroup = $(this).parents('fieldset').index()+1;
+	    		var order = parseInt("" + whichGroup + index);
+	    		Features.update( { "_id" : $(this).attr('id') }, { $set : { "order" : order } } );
 	    	});
 	    }
 	}).disableSelection();
