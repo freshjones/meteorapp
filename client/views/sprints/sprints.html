@@ -10,7 +10,13 @@
 		<div class="span12">
 		{{#each iterationList}} 
 			<fieldset>
-			<legend>{{iteration.start}}&mdash;{{iteration.end}}:<span class="pull-right">{{iteration.hoursUsed}} total hours ({{iteration.percentUtilized}}% team utilization)</span></legend>
+			<legend>{{iteration.start}}&mdash;{{iteration.end}}:<span class="pull-right">{{iteration.hoursUsed}} total hours ({{iteration.percentUtilized}}% team utilization)
+			{{#each userCounts}}
+				{{#checkuserhours this}}
+					<span class="badge badge-{{badge}}">{{name}} {{billablecount}}/{{count}}</span>
+				{{/checkuserhours}}
+			{{/each}}
+			</span></legend>
 			<div class="row-fluid">
 				<div class="sortable-items span12">
 					{{#each features}}
@@ -22,8 +28,11 @@
 				    		<li class="span1">{{estimate}}</li>
 				    		<li class="span2">{{project}}</li>
 				    		<li class="span2">{{type}}</li>
-				    		<li class="span1 edit"><i class="icon-edit"></i></li>
-				    		<li class="span1 remove"><i class="icon-remove"></i></li>
+				    		<li class="span1">{{billable}}</li>
+				    		<li class="span1">
+				    			<span class="edit"><i class="icon-edit"></i></span>
+				    			<span class="remove"><i class="icon-remove"></i></span>
+				    		</li>
 			    		</ul>
 		    		</div>
 		    		{{/each}}

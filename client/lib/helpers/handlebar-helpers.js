@@ -29,6 +29,31 @@ Handlebars.registerHelper('optionSelected', function(value) {
 
 });
 
+Handlebars.registerHelper('checkuserhours', function(context, options) {
+
+	context.badge = 'success';
+	
+	if( parseFloat(context.count ) > parseFloat(context.hoursperresource) )
+	{
+		context.badge = 'important';
+		
+	} else if ( parseFloat(context.billablecount) < parseFloat(context.hoursperresource)-10 )
+	{
+		context.badge = 'important';
+		
+	} else if ( parseFloat(context.billablecount) < parseFloat(context.hoursperresource)-5 )
+	{
+		context.badge = 'warning';
+	}
+	
+	//lets round the count as well
+	context.count = Math.round(context.count * 10) / 10;
+	context.billablecount = Math.round(context.billablecount * 10) / 10;
+	
+	return options.fn(context);
+	
+});
+
 Handlebars.registerHelper('projectOptions', function(value) {
 	
 	var name ="";

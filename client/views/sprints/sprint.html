@@ -64,6 +64,17 @@
 				</div>
 			</div>
 			
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Is this billable?</label>
+				<div class="controls">
+				    <label class="radio inline">
+				    	{{#isChecked billable}}<input name="billable" class="modal-val" type="radio" value="yes">{{/isChecked}} Yes
+				    </label>
+				    <label class="radio inline">
+				    	{{#isChecked billable}}<input name="billable" class="modal-val" type="radio" value="no">{{/isChecked}} No
+				    </label>
+				</div>
+			</div>
 			
 			<div class="control-group">
 				<input type="hidden" value="{{estimate}}" id="estimate" name="estimate" class="modal-val estimate" />
