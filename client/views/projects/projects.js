@@ -80,6 +80,8 @@ Template.projects.events({
   	
 });
 
+
+
 Template.project.project = function () {
 	  var project_id = Session.get('project_id');
 	  return  Projects.findOne({_id:project_id});

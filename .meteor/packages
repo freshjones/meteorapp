@@ -14,3 +14,4 @@ moment
 iron-router
 npm
 bootstrap-datepicker
+meteor-bootstrap-bigmodal
