@@ -6,7 +6,6 @@
 standard-app-packages
 insecure
 preserve-inputs
-bootstrap
 jquery
 jquery-ui
 font-awesome
@@ -14,4 +13,4 @@ moment
 iron-router
 npm
 bootstrap-datepicker
-meteor-bootstrap-bigmodal
+bootstrap-3

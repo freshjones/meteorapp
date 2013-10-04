@@ -9,7 +9,7 @@ crudEvents = function(thisCollection)
 	  'click .edit' : function(event)
 	  {
 		  
-		$('#myModal').modal('show');
+		$('#myModal').bigmodal('show');
 		  
 		var thisID = this._id;  
 		var thisDocument = eval(thisCollection).findOne({"_id" : thisID });
@@ -32,7 +32,7 @@ crudEvents = function(thisCollection)
 	  	
 		$('#myModal #myModalLabel').html( modalTitle );
 		$('#myModal .modal-body').html( fragment );
-		$('#myModal').modal('show');
+		$('#myModal').bigmodal('show');
 		$('#action').val(formAction);
 		
 	  },
@@ -94,7 +94,7 @@ buildDynamicModal = function(thisCollection)
   	
 	$('#myModal #myModalLabel').html( modalTitle );
 	$('#myModal .modal-body').html( fragment );
-	$('#myModal').modal('show');
+	$('#myModal').bigmodal('show');
 	$('#action').val(formAction);
 }
 

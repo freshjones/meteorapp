@@ -1,0 +1,34 @@
+.bigmodal {
+  width: 90%;
+  height: 80%;
+  left: 5%;
+  margin: 0;
+}
+.bigmodal.fade.in {
+  top: 5%;
+}
+.bigmodal .modal-body {
+  max-height: none;
+}
+
+.bigmodal form
+{
+	height: 100%;
+    margin: 0;
+    position: relative;
+	display: block;
+}
+
+.bigmodal .modal-footer
+{
+	bottom: 0;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.bigmodal .modal-footer div
+{
+	padding:10px;
+	
+}

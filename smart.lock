@@ -11,10 +11,7 @@
         "git": "https://github.com/freshjones/meteor-bootstrap-datepicker.git",
         "branch": "master"
       },
-      "meteor-bootstrap-bigmodal": {
-        "git": "https://github.com/freshjones/meteor-bootstrap-bigmodal.git",
-        "branch": "master"
-      }
+      "bootstrap-3": {}
     },
     "packages": {
       "jquery-ui": {
@@ -47,10 +44,10 @@
         "branch": "master",
         "commit": "7c7992981969a2113d1887369e7c62a34260b5ce"
       },
-      "meteor-bootstrap-bigmodal": {
-        "git": "https://github.com/freshjones/meteor-bootstrap-bigmodal.git",
-        "branch": "master",
-        "commit": "54ae026030f95dd1f69cf44280b7dc85ad503acc"
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v0.3.5",
+        "commit": "47996f67f3987c9f82117394effcbe1586a4fe29"
       }
     }
   }

@@ -9,9 +9,6 @@
       "git": "https://github.com/freshjones/meteor-bootstrap-datepicker.git",
       "commit": "7c7992981969a2113d1887369e7c62a34260b5ce"
     },
-    "meteor-bootstrap-bigmodal": {
-      "git": "https://github.com/freshjones/meteor-bootstrap-bigmodal.git",
-      "commit": "54ae026030f95dd1f69cf44280b7dc85ad503acc"
-    }
+    "bootstrap-3": {}
   }
 }

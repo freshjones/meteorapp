@@ -15,9 +15,11 @@ Template.projects.events({
   	},
 	'click .edit': function (event) {
 		event.preventDefault();
-		Session.set('project_id', this._id);
+		Router.go('project', { _id : this._id });
+		//Router.path('project' );
+		//Session.set('project_id', this._id);
 		//Deps.flush();
-		Session.set('showModal', true);
+		//Session.set('showModal', true);
 	  
   	},
 	'click .remove': function (event) {
@@ -81,27 +83,31 @@ Template.projects.events({
 });
 
 
-
+/*
 Template.project.project = function () {
-	  var project_id = Session.get('project_id');
 	  return  Projects.findOne({_id:project_id});
 };
+
 
 Template.project.clientselect = function () {
 	  var clientSelect = Clients.find();
 	  return clientSelect;
 };
+*/
 
 Template.projects.rendered = function() {
+
 	$('.dateFinder').datepicker({ 
 		format: 'mm-dd-yyyy', 
 		autoclose: true
 	});
 }
 
+/*
 Template.project.milestone_items = function () {
   var project_id = this._id;
   return _.map(this.milestones || [], function (milestone) {
     return {project_id: project_id, milestone: milestone};
   });
 };
+*/
