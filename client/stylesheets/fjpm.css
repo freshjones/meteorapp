@@ -117,9 +117,9 @@ input.hour-cell:focus
 	cursor:pointer;
 }
 
-.feature-item
+.control-icon
 {
-	
+	margin-left:5px;
 }
 
 .sortable-items

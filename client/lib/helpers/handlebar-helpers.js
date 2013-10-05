@@ -74,10 +74,26 @@ Handlebars.registerHelper('isChecked', function (value, options) {
 	return $(wrapped).html();
 });
 
-
-
 Handlebars.registerHelper('active', function(path) {
-    return curPath() == path ? 'active' : '';
+	
+	var thisPath = curPath();
+	
+	if(path == '/')
+	{
+		
+		return thisPath == path ? 'active' : '';
+		
+	} else {
+		
+		if(thisPath.indexOf(path) >= 0) 
+		{
+			return 'active';
+		} else {
+			return '';
+		}
+		
+	}
+	
 });
 
 Handlebars.registerHelper('arrayify',function(obj){

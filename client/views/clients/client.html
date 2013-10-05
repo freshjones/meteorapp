@@ -1,65 +1,196 @@
 <template name="client">
-	{{#with client}}
-	<!-- Modal -->
-	<div id="myModal" class="modal">
-		<form name="modalForm" id="modalForm" autocomplete="off">
-		<div class="modal-header">
-			<button type="button" class="close">x</button>
-			<h3 id="myModalLabel">Edit Feature</h3>
-		</div>
-		<div class="modal-body form-horizontal">
-		
-			<div class="control-group">
-				<label class="control-label" for="inputEmail">Client Shortcode</label>
-				<div class="controls">
-					<input type="text" name="code" placeholder="Client Code" class="span2 modal-val" value="{{code}}">
-				</div>
-			</div>
-			
-			<div class="control-group">
-				<label class="control-label" for="inputEmail">Client Name</label>
-				<div class="controls">
-					<input type="text" name="name" placeholder="Client Name" class="modal-val" value="{{name}}">
-				</div>
-			</div>
-			
-			<div class="control-group">
-				<label class="control-label" for="assign">Account Rep.</label>
-				<div class="controls">
-				    <label class="radio inline">
-				    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Billy">{{/isChecked}} Billy
-				    </label>
-				    <label class="radio inline">
-				    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Chloe" >{{/isChecked}} Chloe
-				    </label>
-				    <label class="radio inline">
-				   	 	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Kristen" >{{/isChecked}} Kristen
-				    </label>
-				</div>
-			</div>
-		
-			<div class="control-group">
-				<label class="control-label" for="status">Status</label>
-				<div class="controls">
-				    <label class="radio inline">
-				    	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Active">{{/isChecked}} Active
-				    </label>
-				    <label class="radio inline">
-				    	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Archived" >{{/isChecked}} Archived
-				    </label>
-				    <label class="radio inline">
-				   	 	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Pending" >{{/isChecked}} Pending
-				    </label>
-				</div>
-			</div>
-			
-		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-primary submit">Save changes</button>
-			<button class="btn close-modal">Cancel</button>
-		</div>
-		</form>
+	
+	<div class="section-nav">
+	    <a class="btn btn-large" href="#"><i class="icon-info"></i>Overview</a>
+	    <a class="btn btn-large" href="#"><i class="icon-road"></i>Milestones</a>
+	    <a class="btn btn-large" href="#"><i class="icon-comment"></i>Activity</a>
+	   	<a class="btn btn-large" href="#"><i class="icon-tags"></i>Features</a>
+	   	<a class="btn btn-large" href="#"><i class="icon-bug"></i>Issues</a>
+	   	<a class="btn btn-large" href="#"><i class="icon-gears"></i>Manage</a>
+    </div>
+	
+	<div class="row">
+	  <div class="col-md-6">{{> client-info}}</div>
+	  
+	  <div class="col-md-6">{{> client-projects}}</div>
+	  
+	  <div class="col-md-6">{{> client-issues}}</div>
+	  
+	  <div class="col-md-6">{{> client-manage}}</div>
+	  
 	</div>
-	<div class="modal-backdrop in"></div>
-	{{/with}}
+	
+</template>
+
+<template name="client-issues">
+	
+	<div class="panel panel-default">
+	 	 <!-- Default panel contents -->
+	  	<div class="panel-heading">
+		  	Current Issues
+		  	<div class="pull-right">
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	<div class="panel-body">
+	  	
+	  	</div>
+	</div>
+
+</template>
+
+<template name="client-manage">
+	
+	<div class="panel panel-default">
+	 	 <!-- Default panel contents -->
+	  	<div class="panel-heading">
+		  	Management
+		  	<div class="pull-right">
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	<div class="panel-body">
+	  	
+	  	</div>
+	</div>
+
+</template>
+
+<template name="client-projects">
+	
+	<div class="panel panel-default">
+	 	
+	  	<div class="panel-heading">
+		  	Current Projects
+		  	<div class="pull-right">
+			  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
+			  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	
+	  	<div class="panel-body">
+	  	
+	  		<table class="table table-condensed table-striped">
+				<thead>
+					<tr>
+						<th>Name</td>
+						<th>Start</td>
+					    <th>&nbsp;</td>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each projects}}
+					<tr class="milestone">
+						<td>{{name}}</td>
+						<td>{{start}}</td>
+					    <td>
+					    	<span class="pull-right">
+						    	<span class="control-icon edit-project"><i class="icon-edit"></i></span>
+						    	<span class="control-icon remove-project"><i class="icon-remove"></i></span>
+					    	</span>
+					    </td>
+					</tr>
+					{{/each}}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td><input type="text" placeholder="Project Name"  class="form-control modal-group" name="project-name" value=""></td>
+						<td><input type="text" placeholder="Start Date"  class="form-control modal-group dateFinder" name="project-start" value="" autocomplete="off"></td>
+					    <td>
+					    	<span class="pull-right">
+					    		<button class="btn btn-primary submit" id="addProject" type="button">Add</button>
+					    	</span>
+					    </td>
+					</tr>
+				</tfoot>
+			</table>
+			
+	  	</div>
+	  	
+	</div>
+
+</template>
+
+<template name="client-info">
+
+	<div class="panel panel-default">
+	 	 <!-- Default panel contents -->
+	  	<div class="panel-heading">
+		  	Client Overview
+		  	<div class="pull-right">
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	<div class="panel-body">
+	  	
+			{{#with client}}
+			
+				<form name="modalForm" id="modalForm" class="form-horizontal"  autocomplete="off" role="form">
+				
+					<div class="modal-body form-horizontal">
+					
+						<div class="form-group">
+							<label class="col-lg-3 control-label" for="inputEmail">Shortcode</label>
+							<div class="col-lg-9">
+								<input type="text" name="code" placeholder="Client Code" class="form-control modal-val" value="{{code}}">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-3 control-label" for="inputEmail">Client Name</label>
+							<div class="col-lg-9">
+								<input type="text" name="name" placeholder="Client Name" class="form-control modal-val" value="{{name}}">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-3 control-label" for="assign">Account Rep.</label>
+							<div class="col-lg-9">
+							    <label class="radio radio-inline">
+							    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Billy">{{/isChecked}} Billy
+							    </label>
+							    <label class="radio radio-inline">
+							    	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Chloe" >{{/isChecked}} Chloe
+							    </label>
+							    <label class="radio radio-inline">
+							   	 	{{#isChecked assign}}<input name="assign" class="modal-val" type="radio" value="Kristen" >{{/isChecked}} Kristen
+							    </label>
+							</div>
+						</div>
+					
+						<div class="form-group">
+							<label class="col-lg-3 control-label" for="status">Status</label>
+							<div class="col-lg-9">
+							    <label class="radio radio-inline">
+							    	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Active">{{/isChecked}} Active
+							    </label>
+							    <label class="radio radio-inline">
+							    	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Archived" >{{/isChecked}} Archived
+							    </label>
+							    <label class="radio radio-inline">
+							   	 	{{#isChecked state}}<input name="state" class="modal-val" type="radio" value="Pending" >{{/isChecked}} Pending
+							    </label>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="form-group pull-right">
+						<div class="col-lg-12">
+							<button class="btn">Cancel</button>
+							<button type="submit" class="btn btn-primary submit">Save changes</button>
+						</div>
+					</div>
+				
+				</form>
+		
+			{{/with}}
+	
+		</div>
+	
+	</div>	
+	
 </template>

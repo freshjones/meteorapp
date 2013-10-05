@@ -8,85 +8,112 @@
 	   	<a class="btn btn-large" href="#"><i class="icon-bug"></i>Issues</a>
 	   	<a class="btn btn-large" href="#"><i class="icon-gears"></i>Manage</a>
     </div>
-
-
-
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">
-  	Project Details
-  	<div class="pull-right">
-  	<button type="button" class="btn btn-info"><i class="icon-edit"></i>Edit</button>
-  	<button type="button" class="btn btn-info"><i class="icon-gears"></i>Manage</button>
-  	<button type="button" class="btn btn-info">Info</button>
-  	</div>
-  </div>
-  <div class="panel-body">
-    <p>...</p>
-  </div>
-
-  
-</div>
-
-	{{#with project}}
 	
-		<div class="hero-unit">
-		<form name="modalForm" id="modalForm" autocomplete="off">
-	
-		<div class="modal-body form-horizontal">
+	<div class="row">
+	  <div class="col-md-6">{{> project-info}}</div>
+	  
+	  <div class="col-md-6">{{> project-milestones}}</div>
+	</div>
+
+</template>
+
+<template name="project-milestones">
+
+	<div class="panel panel-default">
+	 	 <!-- Default panel contents -->
+	  	<div class="panel-heading">
+		  	Project Milestones
+		  	<div class="pull-right">
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	<div class="panel-body">
+			<table class="table table-condensed table-striped">
+				<thead>
+					<tr>
+						<th>Date</td>
+						<th>Name</td>
+					    <th>&nbsp;</td>
+					</tr>
+				</thead>
+				<tbody>
+				{{#each milestone_items}}
+					<tr class="milestone">
+						<td>{{milestone.date}}</td>
+						<td>{{milestone.name}}</td>
+					    <td class="remove-milestone" style="text-align:center;"><i class="icon-remove"></i></td>
+					</tr>
+				{{/each}}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td><input type="text" placeholder="Milestone"  class="form-control modal-group" name="milestone-name" value=""></td>
+						<td><input type="text" placeholder="Date"  class="form-control modal-group dateFinder" name="milestone-date" value="" autocomplete="off"></td>
+					    <td style="text-align:center;"><button class="btn btn-primary submit" id="addMilestone" type="button">Add</button></td>
+					</tr>
+				</tfoot>
+			</table>
+			
+		</div>
+	</div>	
+			
+</template>
+
+<template name="project-info">
+
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading">
+	  	Project Details
+	  	<div class="pull-right">
+	  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+	  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+	  	</div>
+	  </div>
+	  <div class="panel-body">
+	   
+	   {{#with project}}
 		
-				<div class="control-group">
-					<label class="control-label" for="client">Client</label>
-					<div class="controls">
-						<select name="client" class="modal-val">
+			<form name="modalForm" id="modalForm" class="form-horizontal"  autocomplete="off" role="form">
+			
+				<div class="form-group">
+					<label class="col-lg-3 control-label" for="client">Client</label>
+					<div class="col-lg-9">
+						<select name="client" class="form-control modal-val">
 							{{#each ../clientselect}}
 								<option value="{{code}}" {{optionSelected ../client}}>{{name}}</option>
 							{{/each}}
 						</select>
 					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label" for="name">Project Name</label>
-					<div class="controls">
-						<input type="text" name="name" placeholder="Project Name" class="modal-val" value="{{name}}">
+				
+				<div class="form-group">
+					<label class="col-lg-3 control-label" for="name">Project Name</label>
+					<div class="col-lg-9">
+						<input type="text" name="name" placeholder="Project Name" class="form-control modal-val" value="{{name}}">
 					</div>
 				</div>
 				
-				<div class="control-group">
-					<label class="control-label" for="startdate">Start Date</label>
-					<div class="controls">
-						<input class="span2 dateFinder modal-val" type="text" name="start" value="{{start}}">
+				<div class="form-group">
+					<label class="col-lg-3 control-label" for="startdate">Start Date</label>
+					<div class="col-lg-9">
+						<input class="form-control dateFinder modal-val" type="text" name="start" value="{{start}}">
 					</div>
 				</div>
 				
-				<fieldset class="fieldset">
-				
-					<legend>Milestones</legend>
-					
-					<table>
-						{{#each ../milestone_items}}
-							<tr class="milestone">
-								<td>{{milestone.date}}</td>
-								<td>{{milestone.name}}</td>
-							    <td class="remove-milestone"><i class="icon-remove"></i></td>
-							</tr>
-						{{/each}}
-					</table>
-				
-					<div class="input-append ">
-						
-					    <input type="text" placeholder="Milestone"  class="span3 modal-group" name="milestone-name" value="">
-					    <input type="text" placeholder="Date"  class="span2 modal-group dateFinder" name="milestone-date" value="" autocomplete="off">
-					    <button class="btn" id="addMilestone" type="button">Add</button>
+				<div class="form-group pull-right">
+					<div class="col-lg-12">
+						<button type="submit" class="btn btn-primary submit">Save changes</button>
 					</div>
-			
-				</fieldset>
-			
-				<button type="submit" class="btn btn-primary submit">Save changes</button>
-				<button class="btn close-modal">Cancel</button>
-		</div>
+				</div>
+				
+			</form>
 		
-		</form>
+		{{/with}}
+		
+	  </div>
+	
 	</div>
-	{{/with}}
+
 </template>

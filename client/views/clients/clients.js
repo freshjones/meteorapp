@@ -15,8 +15,9 @@ Template.clients.events({
   	},
 	'click .edit': function (event) {
 		event.preventDefault();
-		Session.set('client_id', this._id);
-		Session.set('showModal', true);	  
+		//Session.set('client_id', this._id);
+		//Session.set('showModal', true);
+		Router.go('client', { _id : this._id });
   	},
 	'click .remove': function (event) {
 		event.preventDefault();
@@ -46,18 +47,3 @@ Template.clients.events({
 	}
 
 });
-
-
-Template.client.client = function () {
-
-	var client_id = Session.get('client_id');
-	return Clients.findOne({_id:client_id});
-
-};
-
-
-
-
-Template.clients.rendered = function() {
-	
-}
