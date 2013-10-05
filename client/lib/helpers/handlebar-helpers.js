@@ -31,19 +31,19 @@ Handlebars.registerHelper('optionSelected', function(value) {
 
 Handlebars.registerHelper('checkuserhours', function(context, options) {
 
-	context.badge = 'success';
+	context.label = 'success';
 	
 	if( parseFloat(context.count ) > parseFloat(context.hoursperresource) )
 	{
-		context.badge = 'important';
+		context.label = 'danger';
 		
 	} else if ( parseFloat(context.billablecount) < parseFloat(context.hoursperresource)-10 )
 	{
-		context.badge = 'important';
+		context.label = 'danger';
 		
 	} else if ( parseFloat(context.billablecount) < parseFloat(context.hoursperresource)-5 )
 	{
-		context.badge = 'warning';
+		context.label = 'warning';
 	}
 	
 	//lets round the count as well

@@ -47,3 +47,10 @@ Meteor.publish('feature', function (feature_id) {
           	Activities.find({feature_id:feature_id})
          ];
 });
+
+
+//sprints
+Meteor.publish("sprints", function () {
+	return Sprints.find({});
+});
+

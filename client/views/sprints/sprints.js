@@ -113,6 +113,7 @@ Template.sprint.feature = function () {
 
 };
 
+
 Template.sprint.projectselect = function () {
 	  var projectSelect = Projects.find({ status:{ $ne: 'pending'} });
 	  return projectSelect;
@@ -153,13 +154,26 @@ Template.sprints.rendered = function() {
 	    handle: ".move",
 	    connectWith: ".sortable-items",
 	    stop: function( event, ui ) {
-	    	$('.sortable-item').each(function(index){
-	    		var whichGroup = $(this).parents('fieldset').index()+1;
-	    		var order = parseInt("" + whichGroup + index);
-	    		Features.update( { "_id" : $(this).attr('id') }, { $set : { "order" : order } } );
-	    	});
+	    	rebuildSprints();
 	    }
+
 	}).disableSelection();
+
+}
+
+rebuildSprints = function()
+{
+	
+	/* 
+	 * Collection.update({_id: {$in: [id1, id2, id3]}}, {...}, {multi:true});
+	 */
+	/*
+	$('.sortable-item').each(function(index){
+		var whichGroup = $(this).parents('fieldset').index()+1;
+		var order = parseInt("" + whichGroup + index);
+		Features.update( { "_id" : $(this).attr('id') }, { $set : { "order" : order } } );
+	});
+	*/
 
 }
 

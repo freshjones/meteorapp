@@ -1,45 +1,56 @@
 <template name="sprints">
 
-	<div class="row-fluid ">
+	<div class="row">
 		<div class="vertical-padding pull-right">
 			<button class="btn btn-success btn-large modalButton" type="button" id="newFeature"><i class="icon-thumbs-up icon-white"></i> New Feature</button>
 		</div>
 	</div>
    
-	<div class="row-fluid ">
-		<div class="span12">
+	<div class="row ">
+		<div class="col-md-12">
+		
 		{{#each iterationList}} 
-			<fieldset>
-			<legend>{{iteration.start}}&mdash;{{iteration.end}}:<span class="pull-right">{{iteration.hoursUsed}} total hours ({{iteration.percentUtilized}}% team utilization)
-			{{#each userCounts}}
-				{{#checkuserhours this}}
-					<span class="badge badge-{{badge}}">{{name}} {{billablecount}}/{{count}}</span>
-				{{/checkuserhours}}
-			{{/each}}
-			</span></legend>
-			<div class="row-fluid">
-				<div class="sortable-items span12">
-					{{#each features}}
-		    		<div class="row-fluid feature-item sortable-item" id="{{_id}}">
-		    			<ul>
-				    		<li class="span1 move"><i class="icon-move"></i></li>
-				    		<li class="span2">{{name}}</li>
-				    		<li class="span2">{{assign}}</li>
-				    		<li class="span1">{{estimate}}</li>
-				    		<li class="span2">{{project}}</li>
-				    		<li class="span2">{{type}}</li>
-				    		<li class="span1">{{billable}}</li>
-				    		<li class="span1">
-				    			<span class="edit"><i class="icon-edit"></i></span>
-				    			<span class="remove"><i class="icon-remove"></i></span>
-				    		</li>
-			    		</ul>
+		<div class="panel panel-default">
+		 	 <!-- Default panel contents -->
+		  	<div class="panel-heading">
+			  	{{iteration.startString}}&mdash;{{iteration.endString}}:
+			  	<div class="pull-right">
+				  	<span class="pull-right">{{iteration.hoursUsed}} total hours ({{iteration.percentUtilized}}% team utilization)
+					{{#each userCounts}}
+						{{#checkuserhours this}}
+							<span class="label label-{{label}}">{{name}} {{billablecount}}/{{count}}</span>
+						{{/checkuserhours}}
+					{{/each}}
+			  	</div>
+		  	</div>
+		  	<div class="panel-body">
+		  	
+			  	<div class="row">
+					<div class="sortable-items col-md-12">
+						{{#each features}}
+			    		<div class="row feature-item sortable-item" id="{{_id}}">
+			    			<div>
+					    		<div class="col-sm-1 move"><i class="icon-move"></i></div>
+					    		<div class="col-sm-2">{{name}}</div>
+					    		<div class="col-sm-2">{{assign}}</div>
+					    		<div class="col-sm-1">{{estimate}}</div>
+					    		<div class="col-sm-2">{{project}}</div>
+					    		<div class="col-sm-2">{{type}}</div>
+					    		<div class="col-sm-1">{{billable}}</div>
+					    		<div class="col-sm-1">
+					    			<span class="edit"><i class="icon-edit"></i></span>
+					    			<span class="remove"><i class="icon-remove"></i></span>
+					    		</div>
+				    		</div>
+			    		</div>
+			    		{{/each}}
 		    		</div>
-		    		{{/each}}
 	    		</div>
-    		</div>
-    		</fieldset>
-	    {{/each}}
+    		
+		  	</div>
+		</div>
+		{{/each}}
+	
 	    </div>
 	</div>
 	
