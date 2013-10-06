@@ -7,6 +7,7 @@ Session.setDefault('editing_feature', null);
 //When editing project, ID of the project
 Session.set('currentSprint', null);
 
+/*
 Deps.autorun(function (c) {
   
   if (Session.equals("updateSprint", true))
@@ -16,7 +17,7 @@ Deps.autorun(function (c) {
   }
     
 });
-
+*/
 
 Template.sprints.events({
 
@@ -165,30 +166,136 @@ Template.sprints.rendered = function() {
 	    handle: ".move",
 	    connectWith: ".sortable-items",
 	    stop: function( event, ui ) {
-	    	//rebuildSprints();
-	    	//Deps.flush();
-	    	Session.set('updateSprint', true);
+	    	rebuildSprints();
 	    }
 
 	}).disableSelection();
 
 }
 
+hoursPreResource = function() {
+	
+	var hoursinday = 6;
+	var numresources = 2;
+	
+	/* duration = num days in the sprint */
+	var duration = getDuration();
+
+	var hours_per_resource = hoursinday * duration;
+	
+	return hours_per_resource;
+}
+
+
 rebuildSprints = function()
 {
 	
-	var updateQuery = [];
+	var hoursinday = 6;
+	var numresources = 2;
+	
+	/* duration = num days in the sprint */
+	var duration = getDuration();
 
+	var hours_per_resource = hoursPreResource();
+	
+	/* potentialhours are the amount of hours available for the team to use */
+	var potentialhours = ( duration * hoursinday) * numresources;
+	
+	/* total estimate for all features */
+	var estimatedHours = 0;
+	$('.sortable-item').each(function(index){
+		estimatedHours += parseFloat( $(this).find('.estimate').text() );
+	});
+	
+	/* now we can divide total estimates by total potential to get num sprints required */
+	var numSprints = 0;
+	
+	if(potentialhours > estimatedHours)
+	{
+		numSprints = 1
+	} else {
+		numSprints = Math.ceil(estimatedHours / potentialhours);
+	}
+	
+	//console.log(potentialhours);
+	var hourCount=0;
+	var curSprint=0;
+	var iterations = [];
+	var userCounts = [];
+	var i=0;
+	var start,end;
+	var showWeekends = getSetting('weekends', 'yes');
+	var weekends = 0;
+	
+	if(showWeekends === 'no')
+	{
+		weekends = 2;
+	} 
+	
+	//we have resorted our features we can now create an array for rebuilding the sprints
+	//based on how we've reordered things
+	//create a variable to hold the data
+	
 	$('.sortable-item').each(function(index){
 		
-		var whichGroup = $(this).parents('.panel').index()+1;
-		var order = parseInt("" + whichGroup + index);
+		var thisFeatureID = $(this).attr('id');
+		var thisEstimate = parseFloat( $(this).find('.estimate').text() );
+		var thisBillable = $(this).find('.billable').text();
+		
+		hourCount += thisEstimate;
+		
+		if(hourCount > potentialhours)
+		{
+			hourCount=thisEstimate;
+			curSprint++;
+		}
+		
+		var whichIteration = curSprint; 
 
-		updateQuery.push({ _id:$(this).attr('id'), 'order' : order });
+		if(whichIteration in iterations == false){
+			iterations[whichIteration] = {}; 
+		}
+		
+		if('iteration' in iterations[whichIteration] == false){
+			
+			var baseDate 	= Date.today().previous().monday();
+			start 			= baseDate.addDays( (duration + weekends) *curSprint);
+			end 			= start.clone().addDays(duration-1);
+			
+			startString 	= start.toString("MMM d, yyyy");
+			endString		= end.toString("MMM d, yyyy")
+			
+			iterations[whichIteration]['iteration'] = {}; 
+			iterations[whichIteration]['iteration']['start'] 			= startString;
+			iterations[whichIteration]['iteration']['end'] 				= endString;
+			iterations[whichIteration]['iteration']['startString'] 		= whichIteration === 0 ?  'Current' : startString;
+			iterations[whichIteration]['iteration']['endString'] 		= endString;
+			
+		}
+		
+		var hourEstimated = Math.round(hourCount * 10 ) / 10;
+		var hourWasted = Math.round((potentialhours - hourCount) * 10 ) / 10;
+		var percentUtilization = Math.round( ( (hourEstimated / potentialhours) * 100) * 10 ) / 10;
+		
+		iterations[whichIteration]['iteration']['hoursUsed'] 			= hourEstimated;
+		iterations[whichIteration]['iteration']['hoursNotUsed'] 		= hourWasted;
+		iterations[whichIteration]['iteration']['percentUtilized'] 		= percentUtilization;
+		
+		if('features' in iterations[whichIteration] == false){
+			iterations[whichIteration]['features'] = []; 
+		}
+
+		iterations[whichIteration]['features'].push({ '_id' : thisFeatureID });
+
+		var order = parseInt("" + (whichIteration+1) + i);
+
+		//feature iterator
+		i++;
 	
-	});	
+	});
 
-	Meteor.call("featureSort", updateQuery, function(error,result){
+	//once we have our iteration script we can reenter into the DB
+	Meteor.call("sprintRebuild", iterations, function(error,result){
 	    if(error){
 	        console.log(error.reason);
 	    }
@@ -196,7 +303,7 @@ rebuildSprints = function()
 	    	console.log(result);
 	    }
 	});
-
+	
 }
 
 /*

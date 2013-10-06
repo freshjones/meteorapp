@@ -7,9 +7,9 @@
 	</div>
    
 	<div class="row ">
-		<div class="col-md-12">
+		<div class="col-md-12 sprints">
 		
-		{{#each iterationList}} 
+		{{#each sprintList}} 
 		<div class="panel panel-default">
 		 	 <!-- Default panel contents -->
 		  	<div class="panel-heading">
@@ -31,12 +31,12 @@
 			    		<div class="row feature-item sortable-item" id="{{_id}}">
 			    			<div>
 					    		<div class="col-sm-1 move"><i class="icon-move"></i></div>
-					    		<div class="col-sm-2">{{name}}</div>
-					    		<div class="col-sm-2">{{assign}}</div>
-					    		<div class="col-sm-1">{{estimate}}</div>
-					    		<div class="col-sm-2">{{project}}</div>
-					    		<div class="col-sm-2">{{type}}</div>
-					    		<div class="col-sm-1">{{billable}}</div>
+					    		<div class="name col-sm-2">{{name}}</div>
+					    		<div class="assign col-sm-2">{{assign}}</div>
+					    		<div class="estimate col-sm-1">{{estimate}}</div>
+					    		<div class="project col-sm-2">{{project}}</div>
+					    		<div class="type col-sm-2">{{type}}</div>
+					    		<div class="billable col-sm-1">{{billable}}</div>
 					    		<div class="col-sm-1">
 					    			<span class="edit"><i class="icon-edit"></i></span>
 					    			<span class="remove"><i class="icon-remove"></i></span>
