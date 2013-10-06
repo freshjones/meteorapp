@@ -7,6 +7,17 @@ Session.setDefault('editing_feature', null);
 //When editing project, ID of the project
 Session.set('currentSprint', null);
 
+Deps.autorun(function (c) {
+  
+  if (Session.equals("updateSprint", true))
+  {
+  	getBob();
+  	Session.set('updateSprint', false);
+  }
+    
+});
+
+
 Template.sprints.events({
 
 	'click #newFeature': function (event) {
@@ -154,7 +165,9 @@ Template.sprints.rendered = function() {
 	    handle: ".move",
 	    connectWith: ".sortable-items",
 	    stop: function( event, ui ) {
-	    	rebuildSprints();
+	    	//rebuildSprints();
+	    	//Deps.flush();
+	    	Session.set('updateSprint', true);
 	    }
 
 	}).disableSelection();
@@ -164,16 +177,25 @@ Template.sprints.rendered = function() {
 rebuildSprints = function()
 {
 	
-	/* 
-	 * Collection.update({_id: {$in: [id1, id2, id3]}}, {...}, {multi:true});
-	 */
-	/*
+	var updateQuery = [];
+
 	$('.sortable-item').each(function(index){
-		var whichGroup = $(this).parents('fieldset').index()+1;
+		
+		var whichGroup = $(this).parents('.panel').index()+1;
 		var order = parseInt("" + whichGroup + index);
-		Features.update( { "_id" : $(this).attr('id') }, { $set : { "order" : order } } );
+
+		updateQuery.push({ _id:$(this).attr('id'), 'order' : order });
+	
+	});	
+
+	Meteor.call("featureSort", updateQuery, function(error,result){
+	    if(error){
+	        console.log(error.reason);
+	    }
+	    else{
+	    	console.log(result);
+	    }
 	});
-	*/
 
 }
 
