@@ -57,10 +57,14 @@ td.calHeader
 	-moz-transform:rotate(270deg);
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	
-	bottom: 25px;
+	bottom: 40px;
     position: absolute;
-    right: -15px;
-	
+    right: -25px;
+	text-transform: capitalize;
+	line-height:0;
+	font-size:100%;
+	width: 75px;
+	text-align:left;
 }
 
 .iteration-table.table
@@ -75,6 +79,13 @@ td.calHeader
 	vertical-align: middle;
 }
 
+
+
+.iteration-table td.sprint-feature
+{
+	text-align: left;
+}
+
 td.hour-cell span
 {
 	display:block;
@@ -85,8 +96,9 @@ td.hour-cell, td.sprint-total
 	padding:5px;
 }
 
-.iteration-table td.active,
-.iteration-table td.active input
+
+#schedules .iteration-table td.active,
+#schedules .iteration-table td.active input
 {
 	background-color:#FCF8E3;
 }
@@ -125,4 +137,14 @@ input.hour-cell:focus
 .sortable-items
 {
 	margin:0;
+}
+
+.table-centered .hour-cell
+{
+	text-align:center;
+}
+
+#schedules .day-end
+{
+	border-right: 2px solid #000;
 }

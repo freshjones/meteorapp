@@ -1,71 +1,74 @@
 <template name="schedules">
-	{{title}}
-	<div id="current">
-		<table class="iteration-table table table-bordered">
-			<thead>
-				<tr>
-					<td class="calHeader">&nbsp;</td>
-					<td class="calHeader">&nbsp;</td>
-				{{#each theads}}
-					<td class="calHeader"><div class="calHeaderDates"><div>{{time}}</div></div></td>
-				{{/each}}
-				</tr>
-			</thead>
-			<tbody id="interation-hours">
-				{{#each tfeatures}}
-					<tr class="row-{{this.key}}">
-						<td>{{feature}}</td>
-						<td class="sprint-total">0</td>
-						{{#each data}}
-							<td class="hour-cell column-{{this.key}} day-{{this.day}}"><span>{{value}}</span></td>
-						{{/each}}
-					</tr>
-				{{/each}}
-				<tr>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					{{#each tfoot}}
-						<td class="column-{{key}}-total" >{{value}}</td>
-					{{/each}}
-				</tr>
-			</tbody>
-		</table>
+	{{#each sprintList}} 
+	<div id="schedules" class="row">
+		<div class="col-md-12">
+			
+			<div class="panel panel-default">
+			 	 <!-- Default panel contents -->
+			  	<div class="panel-heading">
+				  	{{iteration.startString}}&mdash;{{iteration.endString}}:
+			  	</div>
+			  	<div class="panel-body">
+				  	<div class="row">
+						<div class="col-md-12">
+						
+				    		
+				    		<div class="col-md-12" >
+				    			
+								<table class="iteration-table table table-bordered">
+									<thead>
+										<tr>
+							    			<td class="cal-header">&nbsp;</td>
+							    			<td class="cal-header">&nbsp;</td>
+							    			{{#each iteration.iterationDays}}
+							    				{{#each ../userCounts}}
+							    					<td class="cal-header"><div class="calHeaderDates"><div>{{name}}</div></div></td>
+										    	{{/each}}
+								    		{{/each}}
+							    		</tr>
+							    		<tr>
+							    			<td class="cal-header">&nbsp;</td>
+							    			<td class="cal-header">&nbsp;</td>
+							    			{{#each iteration.iterationDays}}
+							    					<td class="cal-header day-end" colspan="{{../iteration.userCount}}">{{time}}</td>
+								    		{{/each}}
+							    		</tr>
+					    			</thead>
+					    			<tbody id="interation-hours">
+							    		{{#each features}}
+							    		<tr>
+							    			<td class="sprint-feature">{{name}}</td>
+							    			<td class="sprint-total">0</td>
+							    			{{#each ../iteration.iterationDays}}
+							    				{{#each ../../userCounts}}
+										    		<td class="hour-cell"><span>0</span></td>
+										    	{{/each}}
+								    		{{/each}}
+							    		</tr>
+							    		{{/each}}
+						    		</tbody>
+						    		<tfoot>
+						    			<tr>
+							    			<td>Totals</td>
+							    			<td>&nbsp;</td>
+							    			{{#each iteration.iterationDays}}
+							    				{{#each ../userCounts}}
+										    		<td class="column-{{key}}-total">0</td>
+										    	{{/each}}
+								    		{{/each}}
+							    		</tr>
+						    		</tfoot>
+								</table>
+								
+						    </div>
+	    
+			    		</div>
+		    		</div>
+			  	</div>
+			</div>
+	    </div>
+	    
 	</div>
-
+	{{/each}}
 	
-</template>
-
-
-<template name="gridder">
-	<div id="current">
-		<table class="iteration-table table table-bordered">
-		<thead>
-			<tr>
-				<td class="calHeader">&nbsp;</td>
-				<td class="calHeader">&nbsp;</td>
-			{{#each grid.times}}
-				<td class="calHeader"><div class="calHeaderDates"><div>{{this}}</div></div></td>
-			{{/each}}
-			</tr>
-		</thead>
-		<tbody id="interation-hours">
-			{{#each arrayify grid.features}}
-				<tr class="row-{{key}}">
-					<td>{{value.name}}</td>
-					<td class="sprint-total">0</td>
-					{{#each arrayify grid.cells}}
-						<td class="hour-cell column-{{key}}"><span>{{value}}</span></td>
-					{{/each}}
-				</tr>
-			{{/each}}
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				{{#each arrayify grid.cells}}
-					<td class="column-{{key}}-total" >0</td>
-				{{/each}}
-			</tr>
-		</tbody>
-		</table>
-	</div>
 </template>

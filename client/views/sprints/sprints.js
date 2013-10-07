@@ -166,7 +166,7 @@ Template.sprints.rendered = function() {
 	    handle: ".move",
 	    connectWith: ".sortable-items",
 	    stop: function( event, ui ) {
-	    	rebuildSprints();
+	    	rebuildSprints(false);
 	    }
 
 	}).disableSelection();
@@ -187,9 +187,9 @@ hoursPreResource = function() {
 }
 
 
-rebuildSprints = function()
+rebuildSprints = function(useDB)
 {
-	
+
 	var hoursinday = 6;
 	var numresources = 2;
 	
@@ -203,9 +203,22 @@ rebuildSprints = function()
 	
 	/* total estimate for all features */
 	var estimatedHours = 0;
-	$('.sortable-item').each(function(index){
-		estimatedHours += parseFloat( $(this).find('.estimate').text() );
-	});
+	
+	var sortableItems = $('.sortable-item');
+	
+	if(useDB && useDB === true)
+	{
+		sortableItems = Features.find({'status':{ $ne: 'pending'} }, {sort:{order:1}}).fetch();
+	
+		sortableItems.forEach(function (doc) { estimatedHours += parseFloat(doc.estimate); }); 
+		
+	} else {
+		
+		sortableItems.each(function(index){
+			estimatedHours += parseFloat( $(this).find('.estimate').text() );
+		});
+		
+	}
 	
 	/* now we can divide total estimates by total potential to get num sprints required */
 	var numSprints = 0;
@@ -236,64 +249,129 @@ rebuildSprints = function()
 	//based on how we've reordered things
 	//create a variable to hold the data
 	
-	$('.sortable-item').each(function(index){
-		
-		var thisFeatureID = $(this).attr('id');
-		var thisEstimate = parseFloat( $(this).find('.estimate').text() );
-		var thisBillable = $(this).find('.billable').text();
-		
-		hourCount += thisEstimate;
-		
-		if(hourCount > potentialhours)
-		{
-			hourCount=thisEstimate;
-			curSprint++;
-		}
-		
-		var whichIteration = curSprint; 
-
-		if(whichIteration in iterations == false){
-			iterations[whichIteration] = {}; 
-		}
-		
-		if('iteration' in iterations[whichIteration] == false){
-			
-			var baseDate 	= Date.today().previous().monday();
-			start 			= baseDate.addDays( (duration + weekends) *curSprint);
-			end 			= start.clone().addDays(duration-1);
-			
-			startString 	= start.toString("MMM d, yyyy");
-			endString		= end.toString("MMM d, yyyy")
-			
-			iterations[whichIteration]['iteration'] = {}; 
-			iterations[whichIteration]['iteration']['start'] 			= startString;
-			iterations[whichIteration]['iteration']['end'] 				= endString;
-			iterations[whichIteration]['iteration']['startString'] 		= whichIteration === 0 ?  'Current' : startString;
-			iterations[whichIteration]['iteration']['endString'] 		= endString;
-			
-		}
-		
-		var hourEstimated = Math.round(hourCount * 10 ) / 10;
-		var hourWasted = Math.round((potentialhours - hourCount) * 10 ) / 10;
-		var percentUtilization = Math.round( ( (hourEstimated / potentialhours) * 100) * 10 ) / 10;
-		
-		iterations[whichIteration]['iteration']['hoursUsed'] 			= hourEstimated;
-		iterations[whichIteration]['iteration']['hoursNotUsed'] 		= hourWasted;
-		iterations[whichIteration]['iteration']['percentUtilized'] 		= percentUtilization;
-		
-		if('features' in iterations[whichIteration] == false){
-			iterations[whichIteration]['features'] = []; 
-		}
-
-		iterations[whichIteration]['features'].push({ '_id' : thisFeatureID });
-
-		var order = parseInt("" + (whichIteration+1) + i);
-
-		//feature iterator
-		i++;
+	/*
+	 * @todo - make this DRY
+	 */
 	
-	});
+	if(useDB && useDB === true)
+	{
+		
+		sortableItems.forEach(function(doc){
+			
+			var thisFeatureID = doc._id;
+			var thisEstimate = parseFloat(doc.estimate);
+			var thisBillable = doc.billable;
+			
+			hourCount += thisEstimate;
+			
+			if(hourCount > potentialhours)
+			{
+				hourCount=thisEstimate;
+				curSprint++;
+			}
+			
+			var whichIteration = curSprint; 
 
+			if(whichIteration in iterations == false){
+				iterations[whichIteration] = {}; 
+			}
+			
+			if('iteration' in iterations[whichIteration] == false){
+				
+				var baseDate 	= Date.today().previous().monday();
+				start 			= baseDate.addDays( (duration + weekends) *curSprint);
+				end 			= start.clone().addDays(duration-1);
+				
+				startString 	= start.toString("MMM d, yyyy");
+				endString		= end.toString("MMM d, yyyy")
+				
+				iterations[whichIteration]['iteration'] = {}; 
+				iterations[whichIteration]['iteration']['start'] 			= startString;
+				iterations[whichIteration]['iteration']['end'] 				= endString;
+				iterations[whichIteration]['iteration']['startString'] 		= whichIteration === 0 ?  'Current' : startString;
+				iterations[whichIteration]['iteration']['endString'] 		= endString;
+				
+			}
+			
+			var hourEstimated = Math.round(hourCount * 10 ) / 10;
+			var hourWasted = Math.round((potentialhours - hourCount) * 10 ) / 10;
+			var percentUtilization = Math.round( ( (hourEstimated / potentialhours) * 100) * 10 ) / 10;
+			
+			iterations[whichIteration]['iteration']['hoursUsed'] 			= hourEstimated;
+			iterations[whichIteration]['iteration']['hoursNotUsed'] 		= hourWasted;
+			iterations[whichIteration]['iteration']['percentUtilized'] 		= percentUtilization;
+			
+			if('features' in iterations[whichIteration] == false){
+				iterations[whichIteration]['features'] = []; 
+			}
+
+			iterations[whichIteration]['features'].push({ '_id' : thisFeatureID });
+
+			//feature iterator
+			i++;
+		
+		});
+		
+	} else {
+		
+		sortableItems.each(function(index){
+			
+			var thisFeatureID = $(this).attr('id');
+			var thisEstimate = parseFloat( $(this).find('.estimate').text() );
+			var thisBillable = $(this).find('.billable').text();
+			
+			hourCount += thisEstimate;
+			
+			if(hourCount > potentialhours)
+			{
+				hourCount=thisEstimate;
+				curSprint++;
+			}
+			
+			var whichIteration = curSprint; 
+
+			if(whichIteration in iterations == false){
+				iterations[whichIteration] = {}; 
+			}
+			
+			if('iteration' in iterations[whichIteration] == false){
+				
+				var baseDate 	= Date.today().previous().monday();
+				start 			= baseDate.addDays( (duration + weekends) *curSprint);
+				end 			= start.clone().addDays(duration-1);
+				
+				startString 	= start.toString("MMM d, yyyy");
+				endString		= end.toString("MMM d, yyyy")
+				
+				iterations[whichIteration]['iteration'] = {}; 
+				iterations[whichIteration]['iteration']['start'] 			= startString;
+				iterations[whichIteration]['iteration']['end'] 				= endString;
+				iterations[whichIteration]['iteration']['startString'] 		= whichIteration === 0 ?  'Current' : startString;
+				iterations[whichIteration]['iteration']['endString'] 		= endString;
+				
+			}
+			
+			var hourEstimated = Math.round(hourCount * 10 ) / 10;
+			var hourWasted = Math.round((potentialhours - hourCount) * 10 ) / 10;
+			var percentUtilization = Math.round( ( (hourEstimated / potentialhours) * 100) * 10 ) / 10;
+			
+			iterations[whichIteration]['iteration']['hoursUsed'] 			= hourEstimated;
+			iterations[whichIteration]['iteration']['hoursNotUsed'] 		= hourWasted;
+			iterations[whichIteration]['iteration']['percentUtilized'] 		= percentUtilization;
+			
+			if('features' in iterations[whichIteration] == false){
+				iterations[whichIteration]['features'] = []; 
+			}
+
+			iterations[whichIteration]['features'].push({ '_id' : thisFeatureID });
+
+			//feature iterator
+			i++;
+		
+		});
+		
+	}
+	
 	//once we have our iteration script we can reenter into the DB
 	Meteor.call("sprintRebuild", iterations, function(error,result){
 	    if(error){
@@ -312,7 +390,7 @@ Template.sprints.myfeatures = function(){
 	return Features.find({}, {sort: {order: 1}});
 
 };
-
+	
 Template.sprints.events = crudEvents('Features');
   
 Template.sprints.rendered = function() {

@@ -35,7 +35,7 @@ getDuration = function()
 	 
 }
 
-iterationDates = function(duration)
+iterationDates = function(startDate, duration)
 {
 	var i;
 	var data 		= [];
@@ -45,7 +45,7 @@ iterationDates = function(duration)
 	for(i=0; i<duration; i++)
 	{
 
-		var start 		= Date.today().previous().monday();
+		var start 		= Date.parse(startDate); //Date.today().previous().monday();
 
 		var thisDay 	= start.addDays(dayCounter);
 
@@ -142,19 +142,21 @@ calculateRow = function(cell)
 	thisRow.children('td.hour-cell').each(function(i){
 		
 		var thisVal = $(this).find('span').text();
-		
-		if( Math.floor(thisVal) == thisVal && $.isNumeric(thisVal)) { 
 			
-			totalCount += parseInt(thisVal); 
+		if( thisVal && !isNaN(thisVal) ) { 
+			
+			totalCount +=	parseFloat(thisVal); 
+			
 		}
 		
 	});
 	
-	updateRowTotalCell(thisRow, totalCount);
+	updateRowTotalCell(thisRow, Math.round(totalCount * 10) / 10 );
 	
 }
 
-calculateColumn = function( cell ){
+calculateColumn = function( cell ) { 
+	
 	var totalCount = 0;
 	var thisColumn;
 	var thisClass = $(cell).attr('class');
