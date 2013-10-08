@@ -138,6 +138,24 @@ Handlebars.registerHelper('whichIteration', function(value) {
     return $(wrapped).html();
 });
 
+Handlebars.registerHelper('getUserDayTotals', function(context, options) {
+   
+	var returnVal = 0;
+	
+	var scheduleData = Schedules.findOne({ _id:'DwZGcNSADzvHL9SPZ' });
+	
+	if(scheduleData.hoursinday > 0 )
+	{
+		returnVal = scheduleData.hoursinday;
+	}
+	
+    return returnVal;
+    
+});
+
+
+
+
 /*
 Handlebars.registerHelper('getProjectName', function(value) {
 	var projectData = Projects.findOne({'_id':value});

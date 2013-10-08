@@ -40,17 +40,24 @@ Template.schedules.events({
             
         });
         
+  	},
+  	
+  	'click .level-schedule': function (event) {
+  		
+  		autolevel(this);
+  		
   	}
   	
 });
 
 Template.schedules.helpers({
-
+	
+	/*
     grid: function(){
         return Session.get('settingsLoaded') ? 'awesome': 'not cool';
     }
 
-    /*
+    
     var settingsLoaded = Session.get('settingsLoaded');
 
     console.log('no settings loaded');

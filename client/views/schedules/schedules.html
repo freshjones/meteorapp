@@ -6,18 +6,32 @@
 			<div class="panel panel-default">
 			 	 <!-- Default panel contents -->
 			  	<div class="panel-heading">
-				  	{{iteration.startString}}&mdash;{{iteration.endString}}:
+				  	{{iteration.startString}}&mdash;{{iteration.endString}}: 
+				  	
+				  	<div class="pull-right">
+				  		<button type="button" class="level-schedule btn btn-primary btn-xs">level</button>
+			  		</div>
 			  	</div>
 			  	<div class="panel-body">
 				  	<div class="row">
 						<div class="col-md-12">
 						
-				    		
 				    		<div class="col-md-12" >
 				    			
 								<table class="iteration-table table table-bordered">
 									<thead>
 										<tr>
+							    			<td class="cal-header">&nbsp;</td>
+							    			<td class="cal-header">&nbsp;</td>
+							    			<td class="cal-header day-end">&nbsp;</td>
+							    			{{#each iteration.iterationDays}}
+							    					<td class="cal-header day-end" colspan="{{../iteration.userCount}}">{{time}}</td>
+								    		{{/each}}
+								    		
+								    		<td class="cal-header totals" colspan="{{iteration.userCount}}">Totals</td>
+							    		</tr>
+										<tr>
+							    			<td class="cal-header">&nbsp;</td>
 							    			<td class="cal-header">&nbsp;</td>
 							    			<td class="cal-header day-end">&nbsp;</td>
 							    			{{#each iteration.iterationDays}}
@@ -25,37 +39,63 @@
 							    					<td class="cal-header {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}}"><div class="calHeaderDates"><div>{{name}}</div></div></td>
 										    	{{/each}}
 								    		{{/each}}
+								    		
+								    		{{#each userCounts}}
+							    				<td class="cal-header totals"><div class="calHeaderDates"><div>{{name}}</div></div></td>
+										    {{/each}} 
+										    	
 							    		</tr>
 							    		<tr>
 							    			<td class="cal-header">&nbsp;</td>
-							    			<td class="cal-header day-end">&nbsp;</td>
+							    			<td class="cal-header">Estimated</td>
+							    			<td class="cal-header day-end">Used</td>
+							    			
 							    			{{#each iteration.iterationDays}}
-							    					<td class="cal-header day-end" colspan="{{../iteration.userCount}}">{{time}}</td>
+							    				{{#each ../userCounts}}
+							    					<td class="cal-header {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}}">{{hoursperday}}</td>
+										    	{{/each}}
 								    		{{/each}}
+								    		
+								    		{{#each userCounts}}
+							    				<td class="cal-header totals"><div class=""><div>{{hoursperresource}}</div></div></td>
+										    {{/each}}
+										    
 							    		</tr>
 					    			</thead>
 					    			<tbody id="interation-hours">
 							    		{{#each features}}
 							    		<tr>
 							    			<td class="sprint-feature">{{name}}</td>
+							    			<td class="sprint-feature-estimate">{{estimate}}</td>
 							    			<td class="sprint-total day-end">0</td>
 							    			{{#each ../iteration.iterationDays}}
 							    				{{#each ../../userCounts}}
 										    		<td class="hour-cell {{#checkEnd ../../../iteration.userCount}}{{num}}{{/checkEnd}}"><span>0</span></td>
 										    	{{/each}}
 								    		{{/each}}
+								    		
+								    		{{#each ../userCounts}}
+									    		<td class="hour-cell-totals totals"><span>0</span></td>
+									    	{{/each}}
+										    	
 							    		</tr>
 							    		{{/each}}
 						    		</tbody>
 						    		<tfoot>
 						    			<tr>
-							    			<td>Totals</td>
-							    			<td class="day-end">&nbsp;</td>
-							    			{{#each iteration.iterationDays}}
-							    				{{#each ../userCounts}}
-										    		<td class="column-{{key}}-total {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}}">0</td>
+							    			<td class="align-left">Totals</td>
+							    			<td>{{iteration.hoursUsed}}</td>
+							    			<td class="sprint-hours-spent day-end">0</td>
+							    			{{#each userDayTotals.days}}
+							    				{{#each users}}
+										    		<td class="column-{{../day}}-{{num}}-total {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}}">{{user_day_total}}</td>
 										    	{{/each}}
 								    		{{/each}}
+								    		
+								    		{{#each userCounts}}
+									    		<td class="hour-user-totals totals"><span>0</span></td>
+									    	{{/each}}
+									    	
 							    		</tr>
 						    		</tfoot>
 								</table>

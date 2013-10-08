@@ -148,3 +148,14 @@ input.hour-cell:focus
 {
 	border-right: 2px solid #000;
 }
+
+.iteration-table td.align-left,
+.align-left
+{
+	text-align:left;
+}
+
+.totals
+{
+	background-color:#e9f2f7;
+}

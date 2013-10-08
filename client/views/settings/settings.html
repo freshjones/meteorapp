@@ -1,7 +1,7 @@
 <template name="settings">
 	{{#with settings}}
 	<form id="settingsForm" class="form-horizontal" autocomplete="off">
-		<div class="control-group">
+		<div class="form-group">
 		 	<label class="control-label" for="inputEmail">Iteration Duration</label>
 			<div class="controls">	
 				<input class="span1 form-val" id="iterationLength" style="text-align:center;" name="duration" placeholder="Number" value="{{duration}}" type="text">
@@ -16,7 +16,7 @@
 					</select>
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="form-group">
 			<label class="control-label" for="inputEmail">Include Weekends</label>
 			<div class="controls">
 			    <label class="radio inline">
@@ -27,7 +27,15 @@
 			    </label>
 			</div>
 		</div>
-		<div class="control-group">
+		
+		<div class="form-group">
+			<label class="control-label" for="inputEmail">Hours Per Day</label>
+			<div class="controls">
+			    <input class="span1 form-val" style="text-align:center;" name="hoursperday" placeholder="Hours" value="{{hoursperday}}" type="text">
+			</div>
+		</div>
+		
+		<div class="form-group">
 			<label class="control-label" for="inputEmail">&nbsp;</label>
 			<button type="submit" class="btn btn-primary submit">Save settings</button>
 		</div>

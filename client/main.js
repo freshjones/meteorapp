@@ -7,7 +7,6 @@ Session.set('settingsLoaded',false);
 //set modal to off initially
 Session.setDefault('showModal', null);
 
-
 // Subscriptions
 App = {
 
@@ -20,7 +19,8 @@ App = {
 		projects : Meteor.subscribe('projects'),
 		project : Meteor.subscribe('project'),
 		features : Meteor.subscribe('features'),
-		sprints : Meteor.subscribe('sprints')
+		sprints : Meteor.subscribe('sprints'),
+		schedules : Meteor.subscribe('schedules')
 	}
 };
 

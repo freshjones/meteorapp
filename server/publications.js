@@ -48,9 +48,13 @@ Meteor.publish('feature', function (feature_id) {
          ];
 });
 
-
 //sprints
 Meteor.publish("sprints", function () {
 	return Sprints.find({});
+});
+
+//schedules
+Meteor.publish("schedules", function () {
+	return Schedules.find({});
 });
 

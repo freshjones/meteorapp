@@ -175,7 +175,7 @@ Template.sprints.rendered = function() {
 
 hoursPreResource = function() {
 	
-	var hoursinday = 6;
+	var hoursinday = getSetting('hoursperday', 6);
 	var numresources = 2;
 	
 	/* duration = num days in the sprint */
@@ -190,7 +190,7 @@ hoursPreResource = function() {
 rebuildSprints = function(useDB)
 {
 
-	var hoursinday = 6;
+	var hoursinday = getSetting('hoursperday', 6);;
 	var numresources = 2;
 	
 	/* duration = num days in the sprint */
