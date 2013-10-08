@@ -18,6 +18,19 @@ Handlebars.registerHelper('toHexString', function(value) {
 
 });
 
+Handlebars.registerHelper('checkEnd', function(value, options) {
+
+	var classVal = '';
+
+	if(options.fn(this) == value )
+	{
+		classVal = 'day-end';
+	}
+
+	return classVal;
+
+});
+
 Handlebars.registerHelper('optionSelected', function(value) {
 
 	var code ="";

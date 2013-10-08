@@ -19,16 +19,16 @@
 									<thead>
 										<tr>
 							    			<td class="cal-header">&nbsp;</td>
-							    			<td class="cal-header">&nbsp;</td>
+							    			<td class="cal-header day-end">&nbsp;</td>
 							    			{{#each iteration.iterationDays}}
 							    				{{#each ../userCounts}}
-							    					<td class="cal-header"><div class="calHeaderDates"><div>{{name}}</div></div></td>
+							    					<td class="cal-header {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}}"><div class="calHeaderDates"><div>{{name}}</div></div></td>
 										    	{{/each}}
 								    		{{/each}}
 							    		</tr>
 							    		<tr>
 							    			<td class="cal-header">&nbsp;</td>
-							    			<td class="cal-header">&nbsp;</td>
+							    			<td class="cal-header day-end">&nbsp;</td>
 							    			{{#each iteration.iterationDays}}
 							    					<td class="cal-header day-end" colspan="{{../iteration.userCount}}">{{time}}</td>
 								    		{{/each}}
@@ -38,10 +38,10 @@
 							    		{{#each features}}
 							    		<tr>
 							    			<td class="sprint-feature">{{name}}</td>
-							    			<td class="sprint-total">0</td>
+							    			<td class="sprint-total day-end">0</td>
 							    			{{#each ../iteration.iterationDays}}
 							    				{{#each ../../userCounts}}
-										    		<td class="hour-cell"><span>0</span></td>
+										    		<td class="hour-cell {{#checkEnd ../../../iteration.userCount}}{{num}}{{/checkEnd}}"><span>0</span></td>
 										    	{{/each}}
 								    		{{/each}}
 							    		</tr>
@@ -50,10 +50,10 @@
 						    		<tfoot>
 						    			<tr>
 							    			<td>Totals</td>
-							    			<td>&nbsp;</td>
+							    			<td class="day-end">&nbsp;</td>
 							    			{{#each iteration.iterationDays}}
 							    				{{#each ../userCounts}}
-										    		<td class="column-{{key}}-total">0</td>
+										    		<td class="column-{{key}}-total {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}}">0</td>
 										    	{{/each}}
 								    		{{/each}}
 							    		</tr>
