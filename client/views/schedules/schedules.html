@@ -68,14 +68,14 @@
 							    			<td class="sprint-feature">{{name}}</td>
 							    			<td class="sprint-feature-estimate">{{estimate}}</td>
 							    			<td class="sprint-total day-end">0</td>
-							    			{{#each ../iteration.iterationDays}}
-							    				{{#each ../../userCounts}}
-										    		<td class="hour-cell {{#checkEnd ../../../iteration.userCount}}{{num}}{{/checkEnd}}"><span>0</span></td>
+							    			{{#each userdaytotals}}
+							    				{{#each dayUsers}}
+										    		<td class="hour-cell {{#checkEnd ../../../iteration.userCount}}{{num}}{{/checkEnd}} {{setCellValueClass count}}"><span>{{count}}</span></td>
 										    	{{/each}}
 								    		{{/each}}
 								    		
-								    		{{#each ../userCounts}}
-									    		<td class="hour-cell-totals totals"><span>0</span></td>
+								    		{{#each usertotals}}
+									    		<td class="hour-cell-totals totals"><span>{{feature_user_total}}</span></td>
 									    	{{/each}}
 										    	
 							    		</tr>
@@ -88,12 +88,12 @@
 							    			<td class="sprint-hours-spent day-end">0</td>
 							    			{{#each userDayTotals.days}}
 							    				{{#each users}}
-										    		<td class="column-{{../day}}-{{num}}-total {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}}">{{user_day_total}}</td>
+										    		<td class="column-{{../day}}-{{num}}-total {{#checkEnd ../../iteration.userCount}}{{num}}{{/checkEnd}} {{setCellValueClass user_day_total}}">{{user_day_total}}</td>
 										    	{{/each}}
 								    		{{/each}}
 								    		
 								    		{{#each userCounts}}
-									    		<td class="hour-user-totals totals"><span>0</span></td>
+									    		<td class="hour-user-totals totals"><span>{{count}}</span></td>
 									    	{{/each}}
 									    	
 							    		</tr>

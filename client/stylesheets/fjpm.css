@@ -159,3 +159,23 @@ input.hour-cell:focus
 {
 	background-color:#e9f2f7;
 }
+
+
+
+#schedules .schedule-default
+{
+	background-color:#F9F9F9;
+	color:#E1E1E1;
+}
+
+#schedules .schedule-good
+{
+	background-color: #eef3e9;
+	color: #336600;
+}
+
+#schedules .schedule-danger
+{
+	background-color: #ffe4db;
+	color: #D9534F;
+}

@@ -31,7 +31,6 @@ autolevel = function(data)
 		
 	});
 	
-	
 	//create a totals counter for keeping track of user hours per feature
 	var featureUserTotals = {};
 	
@@ -63,7 +62,7 @@ autolevel = function(data)
 	{
 		var feature_id = feature._id;
 		var featureEst = feature.estimate;
-		var hoursRequired = hoursinday;
+		
 		
 		if(feature_id in scheduleData['data'] == false){
 			scheduleData['data'][feature_id] = {};
@@ -81,19 +80,22 @@ autolevel = function(data)
 				scheduleData['data'][feature_id][day_id] = {};
 			}
 			
+			var runningTtl = 0;
+			
 			data.userCounts.forEach(function(user)
 			{
-			
+				
+				var hoursRequired = hoursinday;
 				var user_id = user._id;
 				
-				var incrementValue = Math.round( (user.count / num_days) * 10) / 10;
+				var incrementValue = user.count / num_days; // Math.round( (user.count / num_days) * 1000) / 1000;
 				
 				//if increment value is more than hoursperday then we use that instead;
 				if(incrementValue > hoursRequired)
 				{
 					hoursRequired = incrementValue;
 				}
-
+				
 				if(user_id in scheduleData['data'][feature_id][day_id] == false) 
 				{
 					scheduleData['data'][feature_id][day_id][user_id] = 0;
@@ -112,13 +114,22 @@ autolevel = function(data)
 						var this_feature_user_id = feature_id + "_" + user_id;
 						
 						//increment the counter
-					
+						//console.log( userDayTotals[this_user_day_id] + ' <= ' + hoursRequired );
+						
+						runningTtl = userDayTotals[this_user_day_id];
+						
+						//console.log( featureEst + ' <= (' + hoursRequired + " - " + runningTtl + " ) " );
+						
+						//console.log( runningTtl + ' <= (' + hoursRequired + " - " + runningTtl + " ) " );
+						
 						//we need to make sure that we don't go over the increment value for the day
-						if(userDayTotals[this_user_day_id] <  hoursRequired )
+						if( runningTtl <=  hoursRequired )
 						{
 							
+							var newValue = 0;
+							
 							//if the estimate is less than the increment value
-							if(featureEst < hoursRequired)
+							if(featureEst <= (hoursRequired - runningTtl) )
 							{
 								scheduleData['data'][feature_id][day_id][user_id] += Math.round(featureEst*10) / 10;
 								
@@ -128,17 +139,17 @@ autolevel = function(data)
 								
 							} else {
 								
-								scheduleData['data'][feature_id][day_id][user_id] += Math.round(hoursRequired * 10) / 10;
+								scheduleData['data'][feature_id][day_id][user_id] += Math.round( (hoursRequired - runningTtl) * 10) / 10;
 								
-								userDayTotals[this_user_day_id] += Math.round(hoursRequired * 10) / 10;
+								userDayTotals[this_user_day_id] += Math.round( (hoursRequired - runningTtl) * 10) / 10;
 								
-								featureUserTotals[this_feature_user_id] += Math.round(hoursRequired * 10) / 10;
+								featureUserTotals[this_feature_user_id] += Math.round( (hoursRequired - runningTtl) * 10) / 10;
 								
+								newValue = Math.round( (featureEst - (hoursRequired - runningTtl) ) * 10 ) / 10;
+
 							}
 							
-							var newValue = Math.round( (featureEst - hoursRequired) * 10 ) / 10;
-							
-							//reduce the feature est by the hours avail (for now we just say 6
+							//reduce the feature est by the hours avail
 							if( newValue <= 0 )
 							{
 								featureEst = 0;
@@ -146,10 +157,11 @@ autolevel = function(data)
 								featureEst = newValue;
 							}
 							
-							
 						} else {
 							
-							//we can't go over on the amount of hours since we are leveling
+							
+							//we can't go over on the amount of hours since we are leveling ?
+							alert('shit this isn\'t supposed to happen.');
 							
 						}
 						

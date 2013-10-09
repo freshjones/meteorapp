@@ -3,6 +3,7 @@ Session.set('duration', 2);
 Session.set('units', 'weeks');
 Session.set('weekends', 'yes');
 Session.set('settingsLoaded',false);
+Session.set('hoursperday', 6);
 
 //set modal to off initially
 Session.setDefault('showModal', null);

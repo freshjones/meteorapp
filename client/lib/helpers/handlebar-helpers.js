@@ -153,6 +153,27 @@ Handlebars.registerHelper('getUserDayTotals', function(context, options) {
     
 });
 
+Handlebars.registerHelper('setCellValueClass', function(context) {
+	
+	var returnVal = 'schedule-default';
+	
+	var hoursperday = Session.get('hoursperday');
+	
+	if(context > 0)
+	{
+		returnVal = 'schedule-good';
+		
+		if(context > hoursperday)
+		{
+			returnVal = 'schedule-danger';
+		}
+		
+	}
+	
+    return returnVal;
+    
+});
+
 
 
 
