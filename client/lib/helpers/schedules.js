@@ -8,7 +8,7 @@ autolevel = function(data)
 	 */
 	
 	//console.log(data);
-	
+	var roundtonearest = 1000;
 	var iteration_id = data._id;
 	var iterationDays = data.iteration.iterationDays;
 	
@@ -55,6 +55,7 @@ autolevel = function(data)
 	var num_days = iterationDays.length;
 	var hoursinday = getSetting('hoursperday', 6);
 	
+	
 	scheduleData['data'] = {};
 	
 	//loop features
@@ -88,7 +89,7 @@ autolevel = function(data)
 				var hoursRequired = hoursinday;
 				var user_id = user._id;
 				
-				var incrementValue = user.count / num_days; // Math.round( (user.count / num_days) * 1000) / 1000;
+				var incrementValue = Math.round( (user.count / num_days) * roundtonearest ) / roundtonearest;
 				
 				//if increment value is more than hoursperday then we use that instead;
 				if(incrementValue > hoursRequired)
@@ -118,7 +119,7 @@ autolevel = function(data)
 						
 						runningTtl = userDayTotals[this_user_day_id];
 						
-						//console.log( featureEst + ' <= (' + hoursRequired + " - " + runningTtl + " ) " );
+						console.log( featureEst + ' <= (' + hoursRequired + " - " + runningTtl + " ) " );
 						
 						//console.log( runningTtl + ' <= (' + hoursRequired + " - " + runningTtl + " ) " );
 						
@@ -131,21 +132,21 @@ autolevel = function(data)
 							//if the estimate is less than the increment value
 							if(featureEst <= (hoursRequired - runningTtl) )
 							{
-								scheduleData['data'][feature_id][day_id][user_id] += Math.round(featureEst*10) / 10;
+								scheduleData['data'][feature_id][day_id][user_id] += Math.round(featureEst * roundtonearest ) / roundtonearest;
 								
-								userDayTotals[this_user_day_id] += Math.round(featureEst*10) / 10;
+								userDayTotals[this_user_day_id] += Math.round(featureEst * roundtonearest ) / roundtonearest;
 								
-								featureUserTotals[this_feature_user_id] += Math.round(featureEst*10) / 10;
+								featureUserTotals[this_feature_user_id] += Math.round(featureEst * roundtonearest ) / roundtonearest;
 								
 							} else {
 								
-								scheduleData['data'][feature_id][day_id][user_id] += Math.round( (hoursRequired - runningTtl) * 10) / 10;
+								scheduleData['data'][feature_id][day_id][user_id] += Math.round( (hoursRequired - runningTtl ) * roundtonearest ) / roundtonearest;
 								
-								userDayTotals[this_user_day_id] += Math.round( (hoursRequired - runningTtl) * 10) / 10;
+								userDayTotals[this_user_day_id] += Math.round( (hoursRequired - runningTtl) * roundtonearest ) / roundtonearest;
 								
-								featureUserTotals[this_feature_user_id] += Math.round( (hoursRequired - runningTtl) * 10) / 10;
+								featureUserTotals[this_feature_user_id] += Math.round( (hoursRequired - runningTtl ) * roundtonearest) / roundtonearest;
 								
-								newValue = Math.round( (featureEst - (hoursRequired - runningTtl) ) * 10 ) / 10;
+								newValue = Math.round( (featureEst - (hoursRequired - runningTtl) ) * roundtonearest ) / roundtonearest;
 
 							}
 							
