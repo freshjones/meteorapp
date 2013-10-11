@@ -1,0 +1,49 @@
+<template name="team">
+	<h1>My Schedule</h1>
+	<h2>Week of {{weekStart}}&mdash;{{weekEnd}}</h2>
+	<div class="row">
+		<div class="vertical-padding pull-right">
+			<button class="btn btn-success btn-large modalButton" type="button" id="newFeature"><i class="icon-thumbs-up icon-white"></i> New Feature</button>
+		</div>
+	</div>
+   
+	<div class="row ">
+		<div class="col-md-12 sprints">
+		
+		<div class="panel panel-default">
+		 	 <!-- Default panel contents -->
+		  	<div class="panel-heading">
+			  	Daily schedule for {{today}}
+			  	<div class="pull-right">
+				  	
+			  	</div>
+		  	</div>
+		  	<div class="panel-body">
+		  	
+			  	<div class="row">
+					<div class="sortable-items col-md-12">
+						{{#each features}}
+			    		<div class="row feature-item sortable-item" id="{{_id}}">
+			    			<div>
+					    		<div class="name col-sm-2">{{name}}</div>
+					    		<div class="assign col-sm-2">{{assign}}</div>
+					    		<div class="estimate col-sm-1">{{estimate}}</div>
+					    		<div class="project col-sm-2">{{project}}</div>
+					    		<div class="type col-sm-2">{{type}}</div>
+					    		<div class="billable col-sm-1">{{billable}}</div>
+					    		<div class="col-sm-1">
+					    			<button class="btn btn-sm btn-primary" type="button">Start</button>
+					    		</div>
+				    		</div>
+			    		</div>
+			    		{{/each}}
+		    		</div>
+	    		</div>
+    		
+		  	</div>
+		</div>
+	
+	    </div>
+	</div>
+
+</template>
