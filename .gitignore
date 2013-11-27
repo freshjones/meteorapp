@@ -1,0 +1,7 @@
+smart.lock
+.meteor
+.settings
+.project
+.buildpath
+.DS_Store
+
