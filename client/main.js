@@ -21,7 +21,8 @@ App = {
 		project : Meteor.subscribe('project'),
 		features : Meteor.subscribe('features'),
 		sprints : Meteor.subscribe('sprints'),
-		schedules : Meteor.subscribe('schedules')
+		schedules : Meteor.subscribe('schedules'),
+		users : Meteor.subscribe('users')
 	}
 };
 

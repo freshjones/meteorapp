@@ -14,3 +14,5 @@ iron-router
 npm
 bootstrap-datepicker
 bootstrap-3
+accounts-base
+accounts-password

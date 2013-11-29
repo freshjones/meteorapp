@@ -1,0 +1,175 @@
+<template name="users">
+{{#if managedUserError}}
+              <div class="row-fluid span11 alert alert-error">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      <h4>Error</h4>
+                      {{managedUserError}}
+              </div>
+      {{/if}}
+	<table class="table table-condensed table-striped">
+		<thead>
+			<tr>
+				<th>Username</td>
+				<th>Full Name</td>
+				<th>Email</td>
+			    <th>&nbsp;</td>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each userList}}
+			<tr class="users">
+				<td>{{username}}</td>
+				<td>{{profile.name}}</td>
+				<td>{{emailAddress this}}</td>
+			    <td>
+			    	<span class="pull-right">
+			    		<i class="fa fa-edit edit-user" data-toggle="modal" data-target="#{{_id}}_edit"></i>
+                   		<i class="fa fa-times remove-user"></i>
+                       {{> managedUserEditModal}}                                 
+			    	</span>
+			    </td>
+			</tr>
+			{{/each}}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">
+				  <div class="row-fluid">
+			                <form id="newUser" class="well form-horizontal span6" autocomplete="off">
+			                        <legend>New User</legend>
+			                        {{#isolate}}
+			                                {{#if newManagedUserError}}
+			                                        <div class="row-fluid span11 alert alert-error">
+			                                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+			                                                <h4>Error</h4>
+			                                                {{newManagedUserError}}
+			                                        </div>
+			                                {{/if}}
+			                        {{/isolate}}
+			                        {{> newUserForm}}
+			                        <div class="control-group">
+			                                <div class="controls">
+			                                        <button id="submit" type="button" class="btn btn-primary">Save changes</button>
+			                                        <button id="cancel" type="button" class="btn">Cancel</button>
+			                                </div>
+			                        </div>
+			                </form>
+			        </div>
+			    </td>
+			</tr>
+		</tfoot>
+	</table>
+
+</template>
+
+
+<template name="newUserForm">
+        <fieldset>
+                <div class="control-group">
+                        <label class="control-label" for="username">Username</label>
+                        <div class="controls">
+                                <input class="username" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="name">Full Name</label>
+                        <div class="controls">
+                                <input class="name" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="email">Email</label>
+                        <div class="controls">
+                                <input class="email" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="email">Password</label>
+                        <div class="controls">
+                                <input class="password" type="password"/>
+                        </div>
+                </div>
+                {{#if permissions}}
+                        <div class="control-group">
+                                <label class="control-label">Permissions</label>
+                                <div class="controls permissions">
+                                        {{#each permissions}}
+                                                <label class="checkbox">
+                                                        <input class="{{name}} permission" type="checkbox">{{description}}
+                                                </label>
+                                        {{/each}}
+                                </div>
+                        </div>
+                {{/if}}
+        </fieldset>
+</template>
+
+<template name="managedUserEditModal">
+        <div id="{{_id}}_edit" class="modal fade editModal" role="dialog" aria-hidden="true">
+                <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3>Edit User</h3>
+                </div>
+                <div class="modal-body">
+                        <form class="well form-horizontal">
+                                {{#isolate}}
+                                        {{#if editManagedUserError}}
+                                                <div class="row-fluid span11 alert alert-error">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        <h4>Error</h4>
+                                                        {{editManagedUserError}}
+                                                </div>
+                                        {{/if}}
+                                {{/isolate}}
+                                {{> managedUserForm}}
+                        </form>
+                        
+                </div>
+                <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <button class="btn btn-primary edit-save">Save changes</button>
+                </div>
+        </div>
+</template>
+
+
+<template name="managedUserForm">
+        <fieldset>
+                <div class="control-group">
+                        <label class="control-label" for="username">Username</label>
+                        <div class="controls">
+                                <input class="username" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="name">Full Name</label>
+                        <div class="controls">
+                                <input class="name" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="email">Email</label>
+                        <div class="controls">
+                                <input class="email" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="email">Password</label>
+                        <div class="controls">
+                                <input class="password" type="password"/>
+                        </div>
+                </div>
+                {{#if permissions}}
+                        <div class="control-group">
+                                <label class="control-label">Permissions</label>
+                                <div class="controls permissions">
+                                        {{#each permissions}}
+                                                <label class="checkbox">
+                                                        <input class="{{name}} permission" type="checkbox">{{description}}
+                                                </label>
+                                        {{/each}}
+                                </div>
+                        </div>
+                {{/if}}
+        </fieldset>
+</template>

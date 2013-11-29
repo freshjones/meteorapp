@@ -58,3 +58,6 @@ Meteor.publish("schedules", function () {
 	return Schedules.find({});
 });
 
+Meteor.publish("users", function () {
+	return Meteor.users.find({});
+});
