@@ -4,6 +4,7 @@ Session.set('units', 'weeks');
 Session.set('weekends', 'yes');
 Session.set('settingsLoaded',false);
 Session.set('hoursperday', 6);
+Session.set('showModal', false);
 
 //set modal to off initially
 Session.setDefault('showModal', null);
@@ -22,9 +23,17 @@ App = {
 		features : Meteor.subscribe('features'),
 		sprints : Meteor.subscribe('sprints'),
 		schedules : Meteor.subscribe('schedules'),
-		users : Meteor.subscribe('users')
+		users : Meteor.subscribe('users'),
+		requests : Meteor.subscribe('requests')
 	}
 };
+
+Meteor.startup(function () {
+   if( !Meteor.userId() )
+   {
+	   Router.go('login');
+   } 
+});
 
 
 

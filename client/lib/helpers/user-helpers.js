@@ -23,13 +23,28 @@ Handlebars.registerHelper('hasPermission', function(permission) {
 
 Handlebars.registerHelper('logInButton', function() {
 	
-	var authString = '<a href="login"><i class="fa fa-power-off fa-white"></i>&nbsp;Login</a>';
+	var authString = '<a href="/login"><i class="fa fa-power-off fa-white"></i>&nbsp;Login</a>';
 
 	if(Meteor.userId())
 	{
-		authString = '<a href="logout"><i class="fa fa-power-off fa-white"></i>&nbsp;Logout</a>';
+		authString = '<a href="/logout"><i class="fa fa-power-off fa-white"></i>&nbsp;Logout</a>';
 	}
 
 	return new Handlebars.SafeString(authString);
 
 });
+
+Handlebars.registerHelper('userButton', function() {
+	
+	var userString = '';
+	var thisUser = Meteor.user();
+	
+	if(thisUser)
+	{
+		userString = '<a href="/myaccount"><i class="fa fa-user fa-white"></i>&nbsp;' + thisUser.profile.name + '</a>';
+	}
+
+	return new Handlebars.SafeString(userString);
+
+});
+

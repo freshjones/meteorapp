@@ -1,0 +1,12 @@
+<template name="requests">
+	{{#each activeRequests}}
+		<p style="margin:20px;">
+		Status: {{status}}<br/>
+		Subject: {{subject}}<br/>
+		Description: {{description}}<br/>
+		Attachments: {{attachments}}<br/>
+		</p>
+	{{else}}
+		No Active Requests
+	{{/each}}
+</template>

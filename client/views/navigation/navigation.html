@@ -24,17 +24,9 @@
 	</ul>
                 
     <ul class="nav navbar-nav navbar-right" id="secondary-nav">
-        <li><a href="#myModal" data-toggle="modal"><i class="fa fa-user fa-white"></i>&nbsp;John Doe</a></li>
-        <li class="dropdown {{active '/settings'}}"><a data-toggle="dropdown" href="{{pathFor 'settings'}}"><i class="fa fa-cog icon-white">
-        </i><span>Settings</span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#"><i class="fa fa-wrench"></i>&nbsp;Site Config</a></li>
-                <li><a href="#"><i class="fa fa-picture"></i>&nbsp;Themes</a></li>
-            </ul>
-        </li>
-        <li>
-        {{logInButton}}
-        </li>
+    	<li class="{{active '/myaccount'}}">{{userButton}}</li>
+        <li class="{{active '/settings'}}"><a href="{{pathFor 'settings'}}"><i class="fa fa-cog icon-white"></i><span>Settings</span></a></li>
+        <li class="{{active '/login'}}">{{logInButton}}</li>
     </ul>
 
   </div><!-- /.navbar-collapse -->

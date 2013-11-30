@@ -4,6 +4,8 @@ if(!u) {
         Accounts.createUser({username: "admin", password: "oldgorilla", email: "super@freshjones.com", profile: {name: "Administrator"}});
 }
 
+
+
 Meteor.publish("systemUsers", function () {
 	//if(this.userId)
 	return Meteor.users.find({username: {$ne: "admin"}}, {sort: {userId: 1}, fields: {username: 1, profile: 1, emails: 1, permissions: 1}});

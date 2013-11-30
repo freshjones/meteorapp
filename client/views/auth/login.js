@@ -12,7 +12,7 @@ Template.login.events({
                                                 Session.set("entryError", null);
                                         }, 3000);
         } else {
-          Router.go('home');
+          Router.go('myaccount');
         }
     });
 

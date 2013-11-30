@@ -34,6 +34,9 @@ Meteor.publish('project', function (project_id) {
   return Projects.find({_id:project_id});
 });
 
+Meteor.publish('requests', function () {
+	return Requests.find({},{status:{"active":1}});
+});
 
 //features
 Meteor.publish("features", function () {

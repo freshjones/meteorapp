@@ -5,3 +5,4 @@ Activities 	= new Meteor.Collection('activities');
 Projects 	= new Meteor.Collection('projects'); 
 Sprints 	= new Meteor.Collection('sprints');
 Schedules 	= new Meteor.Collection('schedules');
+Requests 	= new Meteor.Collection('requests');
