@@ -17,14 +17,6 @@ Template.users.clearForm = function() {
         $(".password").val("");
 }
 
-Template.managedUserForm.clearForm = function() {
-    $(".username").val("");
-    $(".name").val("");
-    $(".email").val("");
-    $(".permission").prop('checked', false);
-    $(".password").val("");
-}
-
 Template.users.events({
         'click .remove-user': function() {
                 var self = this;
@@ -48,7 +40,10 @@ Template.users.events({
                 });
         },
 
-        'click .edit-user': function() {
+        'click .edit-user': function(event) {
+            event.preventDefault();
+            Router.go('user', { _id : this._id });
+            /*
                 var self = this;
                 $("#"+self._id+"_edit .username").val(self.username);
                 $("#"+self._id+"_edit .name").val(self.profile.name);
@@ -60,8 +55,9 @@ Template.users.events({
                                 $("#"+self._id+"_edit .permissions ."+k).prop('checked', self.permissions[k]);
                         });
                 }
+            */
         },
-
+        /*
         'click .edit-save': function() {
                 var self = this;
                 var permissions = {};
@@ -106,7 +102,7 @@ Template.users.events({
                                 }
                         });
         },
-
+        */
         'click #submit' : function () {
                 var self = this;
                 var permissions = {};
@@ -136,21 +132,5 @@ Template.users.events({
 
         'click #cancel': function () {
                 Template.users.clearForm();        
-        }
-});
-
-//managedUserForm
-Template.managedUserForm.permissions = function() {
-        var permissions = new Array();
-        _.keys(Meteor.ManagedUsers.availablePermissions()).forEach(function(k) {
-                permissions.push({name: k, description: Meteor.ManagedUsers.availablePermissions()[k]});
-        });
-        return permissions;
-}
-
-//managedUserEditModal
-Template.managedUserEditModal.helpers({
-        editManagedUserError: function() {
-                return Session.get("editManagedUserError");
         }
 });

@@ -14,8 +14,8 @@ Meteor.methods({
         removeUser: function(userId) {
                // if(! Meteor.ManagedUsers.isAdmin())
                 //        throw new Meteor.Error(401, "Only admin is allowed to do this.");
-                if(Meteor.user()._id === userId)
-                        throw new Meteor.Error(401, "Admin can not be removed.");
+                //if(Meteor.user()._id === userId)
+                //        throw new Meteor.Error(401, "Admin can not be removed.");
                 Meteor.users.remove(userId);
                 return true;
         },
@@ -26,8 +26,8 @@ Meteor.methods({
                 Meteor.ManagedUsers.checkUsername(username, userId);
                 if(!name)
                         throw new Meteor.Error(400, "Name can not be blank.");
-                if(!password)
-                    throw new Meteor.Error(400, "Password can not be blank.");
+                //if(!password)
+                //    throw new Meteor.Error(400, "Password can not be blank.");
                 Meteor.ManagedUsers.checkEmailAddress(address, userId);
                 //if(Meteor.user()._id === userId) {
                 //        username = "admin";

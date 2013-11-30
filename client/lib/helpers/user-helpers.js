@@ -20,3 +20,16 @@ Handlebars.registerHelper('profileName', function() {
 Handlebars.registerHelper('hasPermission', function(permission) {
      return Meteor.ManagedUsers.hasPermission(permission);
 });
+
+Handlebars.registerHelper('logInButton', function() {
+	
+	var authString = '<a href="login"><i class="fa fa-power-off fa-white"></i>&nbsp;Login</a>';
+
+	if(Meteor.userId())
+	{
+		authString = '<a href="logout"><i class="fa fa-power-off fa-white"></i>&nbsp;Logout</a>';
+	}
+
+	return new Handlebars.SafeString(authString);
+
+});

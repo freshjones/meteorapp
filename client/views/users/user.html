@@ -1,0 +1,103 @@
+<template name="user">
+        
+        <div id="{{_id}}_edit">
+               
+               <form name="modalForm" id="modalForm" class="form-horizontal"  autocomplete="off" role="form">
+                        {{#isolate}}
+                                {{#if editManagedUserError}}
+                                        <div class="row-fluid span11 alert alert-error">
+                                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                <h4>Error</h4>
+                                                {{editManagedUserError}}
+                                        </div>
+                                {{/if}}
+                        {{/isolate}}      
+                        <div class="modal-body form-horizontal">
+                        
+                                <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="username">Username</label>
+                                        <div class="col-lg-9">
+                                                <input type="text" name="username" placeholder="UserName" class="form-control modal-val username" value="{{username}}">
+                                        </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="name">Full Name</label>
+                                        <div class="col-lg-9">
+                                                <input type="text" name="name" placeholder="Full Name" class="form-control modal-val name" value="{{profile.name}}">
+                                        </div>
+                                </div>
+                                
+
+                                <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="email">Full Name</label>
+                                        <div class="col-lg-9">
+                                                <input type="text" name="email" placeholder="Email Address" class="form-control modal-val email" value="{{emailAddress this}}">
+                                        </div>
+                                </div>
+                                
+                        
+                                <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="email">Password</label>
+                                        <div class="col-lg-9">
+                                                <input type="password" name="password" placeholder="Password" class="form-control modal-val password" value="">
+                                        </div>
+                                </div>
+
+                                
+                        </div>
+                        
+                        <div class="form-group pull-right">
+                                <div class="col-lg-12">
+                                        <button id="submit" type="submit" class="btn btn-primary submit">Save changes</button>
+                                        <button id="cancel" class="btn">Cancel</button>
+                                        
+                                </div>
+                        </div>
+                
+                </form>                        
+                
+        </div>
+</template>
+
+
+<template name="managedUserForm">
+        <fieldset>
+                <div class="control-group">
+                        <label class="control-label" for="username">Username</label>
+                        <div class="controls">
+                                <input class="username" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="name">Full Name</label>
+                        <div class="controls">
+                                <input class="name" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="email">Email</label>
+                        <div class="controls">
+                                <input class="email" type="text"/>
+                        </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label" for="email">Password</label>
+                        <div class="controls">
+                                <input class="password" type="password"/>
+                        </div>
+                </div>
+                {{#if permissions}}
+                        <div class="control-group">
+                                <label class="control-label">Permissions</label>
+                                <div class="controls permissions">
+                                        {{#each permissions}}
+                                                <label class="checkbox">
+                                                        <input class="{{name}} permission" type="checkbox">{{description}}
+                                                </label>
+                                        {{/each}}
+                                </div>
+                        </div>
+                {{/if}}
+        </fieldset>
+</template>
