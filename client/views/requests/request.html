@@ -1,0 +1,13 @@
+<template name="request">
+	<p style="margin:20px;">
+	Status: {{status}}<br/>
+	Subject: {{subject}}<br/>
+	Description: {{description}}<br/>
+	Time: {{timestamp}}<br/>
+	Sender: {{sender}}<br/><br/>
+	Attachments<br/>
+	{{#each files}}
+		<a href="{{url}}" target="blank">{{filename}} ({{type}})</a><br />
+	{{/each}}
+	</p>
+</template>

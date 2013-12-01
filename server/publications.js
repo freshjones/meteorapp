@@ -38,6 +38,11 @@ Meteor.publish('requests', function () {
 	return Requests.find({},{status:{"active":1}});
 });
 
+Meteor.publish('request', function (request_id) {
+  check(request_id, String);
+  return Requests.find({_id:request_id});
+});
+
 //features
 Meteor.publish("features", function () {
 	return Features.find({},{status:{"pending":0}});
