@@ -1,8 +1,14 @@
 <template name="request">
+<button class="removeHighlights"> Remove Highlights</button>
+<button class="moveHighlights"> New Request</button>
+
+
+
 	<p style="margin:20px;">
 	Status: {{status}}<br/>
 	Subject: {{subject}}<br/>
-	Description: {{description}}<br/>
+	Description: <br>
+	<span class="highlighter">{{breaklines description}}</span><br/>
 	Time: {{timestamp}}<br/>
 	Sender: {{sender}}<br/><br/>
 	Attachments<br/>
