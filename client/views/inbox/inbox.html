@@ -1,9 +1,9 @@
-<template name="requests">
+<template name="inbox">
 	
 		<div class="row-fluid clearfix">
 			<div class="vertical-padding">
-				<h1>Customer Requests
-				<button class="btn btn-success btn-large modalButton pull-right" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Request</button>
+				<h1>Inbox
+				<button class="btn btn-success btn-large modalButton pull-right" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Item</button>
 				</h1>
 			</div>
 		</div>
@@ -21,7 +21,7 @@
 		    		</tr>
 		    	</thead>
 		    	<tbody class="sortable-items">
-			    	{{#each activeRequests}}
+			    	{{#each items}}
 			    		<tr>
 				    		<td>{{status}}</td>
 				    		<td>{{subject}}</td>
@@ -36,7 +36,7 @@
 			    		</tr>
 			   		{{else}}
 						<tr>
-							<td colspan="5">No Active Requests</td>
+							<td colspan="5">No Active Items</td>
 						</tr>
 					{{/each}}
 		    	</tbody>

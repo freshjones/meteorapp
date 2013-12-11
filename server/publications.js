@@ -34,13 +34,13 @@ Meteor.publish('project', function (project_id) {
   return Projects.find({_id:project_id});
 });
 
-Meteor.publish('requests', function () {
-	return Requests.find({},{status:{"active":1}});
+Meteor.publish('inbox', function () {
+	return Inbox.find({},{status:{"active":1}});
 });
 
-Meteor.publish('request', function (request_id) {
-  check(request_id, String);
-  return Requests.find({_id:request_id});
+Meteor.publish('inboxitem', function (inbox_id) {
+  check(inbox_id, String);
+  return Inbox.find({_id:inbox_id});
 });
 
 //features

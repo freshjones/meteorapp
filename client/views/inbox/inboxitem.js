@@ -1,10 +1,10 @@
-Template.request.rendered = function() {
-
+Template.inboxitem.rendered = function() {
+	
 	$('.highlighter').textHighlighter();
-
+	
 }
 
-Template.request.events({
+Template.inboxitem.events({
 
 	'click .removeHighlights': function (event) 
 	{
@@ -14,7 +14,7 @@ Template.request.events({
 	'click .moveHighlights': function (event) 
 	{
 		event.preventDefault();
-		var thisText = $('.highlighter').getHighlighter().getAllHighlights('.highlighter');
+		var thisText = $('.highlighter').getHighlighter().serializeHighlights();
 
 		console.log(thisText);
 

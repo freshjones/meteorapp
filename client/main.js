@@ -24,7 +24,7 @@ App = {
 		sprints : Meteor.subscribe('sprints'),
 		schedules : Meteor.subscribe('schedules'),
 		users : Meteor.subscribe('users'),
-		requests : Meteor.subscribe('requests')
+		inbox : Meteor.subscribe('inbox')
 	}
 };
 

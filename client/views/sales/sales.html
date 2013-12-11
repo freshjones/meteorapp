@@ -1,0 +1,27 @@
+<template name="sales">
+	
+	{{> sales_nav}}
+	
+	<div class="row">
+	
+	  <div class="col-md-6">{{> lead-list}}</div>
+	  
+	  <div class="col-md-6">{{> contracts-list}}</div>
+	  
+	  <div class="col-md-6">{{> quotes-list}}</div>
+	  
+	</div>
+	
+</template>
+
+
+<template name="sales_nav">
+
+	<div class="section-nav">
+	    <a class="btn btn-large" href="{{pathFor 'sales'}}"><i class="fa fa-money"></i>Dashboard</a>
+	    <a class="btn btn-large" href="{{pathFor 'leads'}}"><i class="fa fa-heart"></i>Leads</a>
+	    <a class="btn btn-large" href="{{pathFor 'contracts'}}"><i class="fa fa-key"></i>Contracts</a>
+	    <a class="btn btn-large" href="{{pathFor 'quotes'}}"><i class="fa fa-quote-left"></i>Quotes</a>
+    </div>
+    
+</template>

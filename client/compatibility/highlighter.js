@@ -1,35 +1,520 @@
-/*
- jQuery Text Highlighter
- Copyright (C) 2011 - 2013 by mirz
+/**
+ * @license jQuery Text Highlighter
+ * Copyright (C) 2011 - 2013 by mirz
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
+(function($, window, document, undefined) {
+    var nodeTypes = {
+        ELEMENT_NODE: 1,
+        TEXT_NODE: 3
+    };
 
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
+    var plugin = {
+        name: 'textHighlighter'
+    };
 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
-*/
-(function(d,x,t,u){var r;function s(a,e){this.context=a;this.$context=d(a);this.options=d.extend({},d[k.name].defaults,e);this.init()}r=1;var k={name:"textHighlighter"};s.prototype={init:function(){this.$context.addClass(this.options.contextClass);this.bindEvents()},destroy:function(){this.unbindEvents();this.$context.removeClass(this.options.contextClass);this.$context.removeData(k.name)},bindEvents:function(){this.$context.bind("mouseup",{self:this},this.highlightHandler)},unbindEvents:function(){this.$context.unbind("mouseup",
-this.highlightHandler)},highlightHandler:function(a){a.data.self.doHighlight()},doHighlight:function(){var a=this.getCurrentRange();if(a&&!a.collapsed){var e=a.toString();if(!0==this.options.onBeforeHighlight(a)){var f=d.textHighlighter.createWrapper(this.options),a=this.highlightRange(a,f),a=this.normalizeHighlights(a);this.options.onAfterHighlight(a,e)}this.removeAllRanges()}},getCurrentRange:function(){var a=this.getCurrentSelection(),d;0<a.rangeCount&&(d=a.getRangeAt(0));return d},removeAllRanges:function(){this.getCurrentSelection().removeAllRanges()},
-getCurrentSelection:function(){var a=this.getCurrentWindow(),e;a.getSelection?e=a.getSelection():d("iframe").length?d("iframe",top.document).each(function(){if(this.contentWindow===a)return e=rangy.getIframeSelection(this),!1}):e=rangy.getSelection();return e},getCurrentWindow:function(){var a=this.getCurrentDocument();return a.defaultView?a.defaultView:a.parentWindow},getCurrentDocument:function(){return this.context.ownerDocument?this.context.ownerDocument:this.context},highlightRange:function(a,
-e){if(!a.collapsed){var f="SCRIPT STYLE SELECT BUTTON OBJECT APPLET".split(" "),c=a.startContainer,b=a.endContainer,h=a.commonAncestorContainer,g=!0;if(0==a.endOffset){for(;!b.previousSibling&&b.parentNode!=h;)b=b.parentNode;b=b.previousSibling}else 3==b.nodeType?a.endOffset<b.nodeValue.length&&b.splitText(a.endOffset):0<a.endOffset&&(b=b.childNodes.item(a.endOffset-1));3==c.nodeType?a.startOffset==c.nodeValue.length?g=!1:0<a.startOffset&&(c=c.splitText(a.startOffset),b==c.previousSibling&&(b=c)):
-c=a.startOffset<c.childNodes.length?c.childNodes.item(a.startOffset):c.nextSibling;var h=!1,l=[];do{if(g&&3==c.nodeType){if(/\S/.test(c.nodeValue)){var g=e.clone(!0).get(0),n=c.parentNode;if(d.contains(this.context,n)||n===this.context)g=d(c).wrap(g).parent().get(0),l.push(g)}g=!1}c!=b||b.hasChildNodes()&&g||(h=!0);-1!=d.inArray(c.tagName,f)&&(g=!1);g&&c.hasChildNodes()?c=c.firstChild:null!=c.nextSibling?(c=c.nextSibling,g=!0):(c=c.parentNode,g=!1)}while(!h);return l}},normalizeHighlights:function(a){this.flattenNestedHighlights(a);
-this.mergeSiblingHighlights(a);return d.map(a,function(a){return"undefined"!=typeof a.parentElement?null!=a.parentElement?a:null:null!=a.parentNode?a:null})},flattenNestedHighlights:function(a){var e=this;d.each(a,function(f){var c=d(this),b=c.parent(),h=b.prev(),g=b.next();e.isHighlight(b)&&(b.css("background-color")!=c.css("background-color")?(e.isHighlight(h)&&(!c.get(0).previousSibling&&h.css("background-color")!=b.css("background-color")&&h.css("background-color")==c.css("background-color"))&&
-c.insertAfter(h),e.isHighlight(g)&&(!c.get(0).nextSibling&&g.css("background-color")!=b.css("background-color")&&g.css("background-color")==c.css("background-color"))&&c.insertBefore(g),b.is(":empty")&&b.remove()):(c=t.createTextNode(b.text()),b.empty(),b.append(c),d(a[f]).remove()))})},mergeSiblingHighlights:function(a){function e(a,b){return b&&b.nodeType==r&&d(a).css("background-color")==d(b).css("background-color")&&d(b).hasClass(f.options.highlightedClass)?!0:!1}var f=this;d.each(a,function(){var a=
-this.previousSibling,b=this.nextSibling;if(e(this,a)){var f=d(a).text()+d(this).text();d(this).text(f);d(a).remove()}e(this,b)&&(f=d(this).text()+d(b).text(),d(this).text(f),d(b).remove())})},setColor:function(a){this.options.color=a},getColor:function(){return this.options.color},removeHighlights:function(a){var e=this;this.getAllHighlights(a!==u?a:this.context,!0).each(function(){if(!0==e.options.onRemoveHighlight(this)){var a=d(this).contents().unwrap().get(0),c=a.previousSibling,b=a.nextSibling;
-c&&3==c.nodeType&&(a.nodeValue=c.nodeValue+a.nodeValue,c.parentNode.removeChild(c));b&&3==b.nodeType&&(a.nodeValue+=b.nodeValue,b.parentNode.removeChild(b))}})},getAllHighlights:function(a,e){var f="."+this.options.highlightedClass,f=d(a).find(f);!0==e&&d(a).hasClass(this.options.highlightedClass)&&(f=f.add(a));return f},isHighlight:function(a){return a.hasClass(this.options.highlightedClass)},serializeHighlights:function(){var a=this.getAllHighlights(this.context),e=this.context,f=[];a.each(function(a,
-b){var h=0,g=b.firstChild.length,l=b,n=[];do{var k=d.inArray(l,l.parentNode.childNodes);n.unshift(k);l=l.parentNode}while(l!==e);l=d(b).clone().empty().get(0).outerHTML;b.previousSibling&&3===b.previousSibling.nodeType&&(h=b.previousSibling.length);f.push([l,b.innerText,n.join(":"),h,g])});return JSON.stringify(f)},deserializeHighlights:function(a){try{var e=JSON.parse(a)}catch(f){throw"Can't parse serialized highlights: "+f;}var c=[],b=this;d.each(e,function(a,e){try{for(var f=e[0],k=e[2].split(":"),
-r=e[3],s=e[4],p=k.pop(),v=null,q=b.context;(v=k.shift())!==u;)q=q.childNodes[v];q.childNodes[p-1]&&3===q.childNodes[p-1].nodeType&&(p-=1);var m=q.childNodes[p].splitText(r);m.splitText(s);m.nextSibling&&""==m.nextSibling.nodeValue&&m.parentNode.removeChild(m.nextSibling);m.previousSibling&&""==m.previousSibling.nodeValue&&m.parentNode.removeChild(m.previousSibling);var t=d(m).wrap(f).parent().get(0);c.push(t)}catch(w){return console&&console.warn&&console.warn("Can't deserialize "+a+"-th descriptor. Cause: "+
-w),!0}});return c}};d.fn.getHighlighter=function(){return this.data(k.name)};d.fn[k.name]=function(a){return this.each(function(){d.data(this,k.name)||d.data(this,k.name,new s(this,a))})};d.textHighlighter={createWrapper:function(a){return d("<span></span>").css("backgroundColor",a.color).addClass(a.highlightedClass)},defaults:{color:"#ffff7b",highlightedClass:"highlighted",contextClass:"highlighter-context",onRemoveHighlight:function(){return!0},onBeforeHighlight:function(){return!0},onAfterHighlight:function(){}}}})(jQuery,
-window,document);
+    function TextHighlighter(element, options) {
+        this.context = element;
+        this.$context = $(element);
+        this.options = $.extend({}, $[plugin.name].defaults, options);
+
+        this.init();
+    }
+
+    TextHighlighter.prototype = {
+        init: function() {
+            this.$context.addClass(this.options.contextClass);
+            this.bindEvents();
+        },
+
+        destroy: function() {
+            this.unbindEvents();
+            this.$context.removeClass(this.options.contextClass);
+            this.$context.removeData(plugin.name);
+        },
+
+        bindEvents: function() {
+            this.$context.bind('mouseup', {self: this}, this.highlightHandler);
+        },
+
+        unbindEvents: function() {
+            this.$context.unbind('mouseup', this.highlightHandler);
+        },
+
+        highlightHandler: function(event) {
+            var self = event.data.self;
+            self.doHighlight();
+        },
+
+        /**
+         * Highlights currently selected text.
+         */
+        doHighlight: function() {
+            var range = this.getCurrentRange();
+            if (!range || range.collapsed) return;
+            var rangeText = range.toString();
+
+            if (this.options.onBeforeHighlight(range) == true) {
+                var $wrapper = $.textHighlighter.createWrapper(this.options);
+
+                var createdHighlights = this.highlightRange(range, $wrapper);
+                var normalizedHighlights = this.normalizeHighlights(createdHighlights);
+
+                this.options.onAfterHighlight(normalizedHighlights, rangeText);
+            }
+
+            this.removeAllRanges();
+        },
+
+        /**
+         * Returns first range of current selection object.
+         */
+        getCurrentRange: function() {
+            var selection = this.getCurrentSelection();
+
+            var range;
+            if (selection.rangeCount > 0) {
+                range = selection.getRangeAt(0);
+            }
+            return range;
+        },
+
+        removeAllRanges: function() {
+            var selection = this.getCurrentSelection();
+            selection.removeAllRanges();
+        },
+
+        /**
+         * Returns current selection object.
+         */
+        getCurrentSelection: function() {
+            var currentWindow = this.getCurrentWindow();
+            var selection;
+
+            if (currentWindow.getSelection) {
+                selection = currentWindow.getSelection();
+            } else if ($('iframe').length) {
+                $('iframe', top.document).each(function() {
+                    if (this.contentWindow === currentWindow) {
+                        selection = rangy.getIframeSelection(this);
+                        return false;
+                    }
+                });
+            } else {
+                selection = rangy.getSelection();
+            }
+
+            return selection;
+        },
+
+        /**
+         * Returns owner window of this.context.
+         */
+        getCurrentWindow: function() {
+            var currentDoc = this.getCurrentDocument();
+            if (currentDoc.defaultView) {
+                return currentDoc.defaultView; // Non-IE
+            } else {
+                return currentDoc.parentWindow; // IE
+            }
+        },
+
+        /**
+         * Returns owner document of this.context.
+         */
+        getCurrentDocument: function() {
+            // if ownerDocument is null then context is document
+            return this.context.ownerDocument ? this.context.ownerDocument : this.context;
+        },
+
+        /**
+         * Wraps given range (highlights it) object in the given wrapper.
+         */
+        highlightRange: function(range, $wrapper) {
+            if (range.collapsed) return;
+
+            // Don't highlight content of these tags
+            var ignoreTags = ['SCRIPT', 'STYLE', 'SELECT', 'BUTTON', 'OBJECT', 'APPLET'];
+            var startContainer = range.startContainer;
+            var endContainer = range.endContainer;
+            var ancestor = range.commonAncestorContainer;
+            var goDeeper = true;
+
+            if (range.endOffset == 0) {
+                while (!endContainer.previousSibling && endContainer.parentNode != ancestor) {
+                    endContainer = endContainer.parentNode;
+                }
+                endContainer = endContainer.previousSibling;
+            } else if (endContainer.nodeType == nodeTypes.TEXT_NODE) {
+                if (range.endOffset < endContainer.nodeValue.length) {
+                    endContainer.splitText(range.endOffset);
+                }
+            } else if (range.endOffset > 0) {
+                endContainer = endContainer.childNodes.item(range.endOffset - 1);
+            }
+
+            if (startContainer.nodeType == nodeTypes.TEXT_NODE) {
+                if (range.startOffset == startContainer.nodeValue.length) {
+                    goDeeper = false;
+                } else if (range.startOffset > 0) {
+                    startContainer = startContainer.splitText(range.startOffset);
+                    if (endContainer == startContainer.previousSibling) endContainer = startContainer;
+                }
+            } else if (range.startOffset < startContainer.childNodes.length) {
+                startContainer = startContainer.childNodes.item(range.startOffset);
+            } else {
+                startContainer = startContainer.nextSibling;
+            }
+
+            var done = false;
+            var node = startContainer;
+            var highlights = [];
+
+            do {
+                if (goDeeper && node.nodeType == nodeTypes.TEXT_NODE) {
+                    if (/\S/.test(node.nodeValue)) {
+                        var wrapper = $wrapper.clone(true).get(0);
+                        var nodeParent = node.parentNode;
+
+                        // highlight if node is inside the context
+                        if ($.contains(this.context, nodeParent) || nodeParent === this.context) {
+                            var highlight = $(node).wrap(wrapper).parent().get(0);
+                            highlights.push(highlight);
+                        }
+                    }
+
+                    goDeeper = false;
+                }
+                if (node == endContainer && (!endContainer.hasChildNodes() || !goDeeper)) {
+                    done = true;
+                }
+
+                if ($.inArray(node.tagName, ignoreTags) != -1) {
+                    goDeeper = false;
+                }
+                if (goDeeper && node.hasChildNodes()) {
+                    node = node.firstChild;
+                } else if (node.nextSibling != null) {
+                    node = node.nextSibling;
+                    goDeeper = true;
+                } else {
+                    node = node.parentNode;
+                    goDeeper = false;
+                }
+            } while (!done);
+
+            return highlights;
+        },
+
+        /**
+         * Normalizes highlights - nested highlights are flattened and sibling higlights are merged.
+         */
+        normalizeHighlights: function(highlights) {
+            this.flattenNestedHighlights(highlights);
+            this.mergeSiblingHighlights(highlights);
+
+            // omit removed nodes
+            var normalizedHighlights = $.map(highlights, function(hl) {
+                if (typeof hl.parentElement != 'undefined') { // IE
+                    return hl.parentElement != null ? hl : null;
+                } else {
+                    return hl.parentNode != null ? hl : null;
+                }
+            });
+
+            return normalizedHighlights;
+        },
+
+        flattenNestedHighlights: function(highlights) {
+            var self = this;
+
+            $.each(highlights, function(i) {
+                var $highlight = $(this);
+                var $parent = $highlight.parent();
+                var $parentPrev = $parent.prev();
+                var $parentNext = $parent.next();
+
+                if (self.isHighlight($parent)) {
+                    if ($parent.css('background-color') != $highlight.css('background-color')) {
+                        if (self.isHighlight($parentPrev) && !$highlight.get(0).previousSibling
+                            && $parentPrev.css('background-color') != $parent.css('background-color')
+                            && $parentPrev.css('background-color') == $highlight.css('background-color')) {
+
+                            $highlight.insertAfter($parentPrev);
+                        }
+
+                        if (self.isHighlight($parentNext) && !$highlight.get(0).nextSibling
+                            && $parentNext.css('background-color') != $parent.css('background-color')
+                            && $parentNext.css('background-color') == $highlight.css('background-color')) {
+
+                            $highlight.insertBefore($parentNext);
+                        }
+
+                        if ($parent.is(':empty')) {
+                            $parent.remove();
+                        }
+                    } else {
+                        var newNode = document.createTextNode($parent.text());
+
+                        $parent.empty();
+                        $parent.append(newNode);
+                        $(highlights[i]).remove();
+                    }
+                }
+            });
+        },
+
+        mergeSiblingHighlights: function(highlights) {
+            var self = this;
+
+            function shouldMerge(current, node) {
+                return node && node.nodeType == nodeTypes.ELEMENT_NODE
+                    && $(current).css('background-color') == $(node).css('background-color')
+                    && $(node).hasClass(self.options.highlightedClass)
+                    ? true : false;
+            }
+
+            $.each(highlights, function() {
+                var highlight = this;
+
+                var prev = highlight.previousSibling;
+                var next = highlight.nextSibling;
+
+                if (shouldMerge(highlight, prev)) {
+                    var mergedTxt = $(prev).text() + $(highlight).text();
+                    $(highlight).text(mergedTxt);
+                    $(prev).remove();
+                }
+                if (shouldMerge(highlight, next)) {
+                    var mergedTxt = $(highlight).text() + $(next).text();
+                    $(highlight).text(mergedTxt);
+                    $(next).remove();
+                }
+            });
+        },
+
+        /**
+         * Sets color of future highlights.
+         */
+        setColor: function(color) {
+            this.options.color = color;
+        },
+
+        /**
+         * Returns current highlights color.
+         */
+        getColor: function() {
+            return this.options.color;
+        },
+
+        /**
+         * Removes all highlights in given element or in context if no element given.
+         */
+        removeHighlights: function(element) {
+            var container = (element !== undefined ? element : this.context);
+
+            var unwrapHighlight = function(highlight) {
+                return $(highlight).contents().unwrap().get(0);
+            };
+
+            var mergeSiblingTextNodes = function(textNode) {
+                var prev = textNode.previousSibling;
+                var next = textNode.nextSibling;
+
+                if (prev && prev.nodeType == nodeTypes.TEXT_NODE) {
+                    textNode.nodeValue = prev.nodeValue + textNode.nodeValue;
+                    prev.parentNode.removeChild(prev);
+                }
+                if (next && next.nodeType == nodeTypes.TEXT_NODE) {
+                    textNode.nodeValue = textNode.nodeValue + next.nodeValue;
+                    next.parentNode.removeChild(next);
+                }
+            };
+
+            var self = this;
+            var $highlights = this.getAllHighlights(container, true);
+            $highlights.each(function() {
+                if (self.options.onRemoveHighlight(this) == true) {
+                    var textNode = unwrapHighlight(this);
+                    mergeSiblingTextNodes(textNode);
+                }
+            });
+        },
+
+        /**
+         * Returns all highlights in given container. If container is a highlight itself and
+         * andSelf is true, container will be also returned
+         */
+        getAllHighlights: function(container, andSelf) {
+            var classSelectorStr = '.' + this.options.highlightedClass;
+            var $highlights = $(container).find(classSelectorStr);
+            if (andSelf == true && $(container).hasClass(this.options.highlightedClass)) {
+                $highlights = $highlights.add(container);
+            }
+            return $highlights;
+        },
+
+        /**
+         * Returns true if element is highlight, ie. has proper class.
+         */
+        isHighlight: function($el) {
+            return $el.hasClass(this.options.highlightedClass);
+        },
+
+        /**
+         * Serializes all highlights to stringified JSON object.
+         */
+        serializeHighlights: function() {
+            var $highlights = this.getAllHighlights(this.context);
+            var refEl = this.context;
+            var hlDescriptors = [];
+            var self = this;
+
+            var getElementPath = function (el, refElement) {
+                var path = [];
+
+                do {
+                    var elIndex = $.inArray(el, el.parentNode.childNodes);
+                    path.unshift(elIndex);
+                    el = el.parentNode;
+                } while (el !== refElement);
+
+                return path;
+            };
+
+            $highlights.each(function(i, highlight) {
+                var offset = 0; // Hl offset from previous sibling within parent node.
+                var length = highlight.firstChild.length;
+                var hlPath = getElementPath(highlight, refEl);
+                var wrapper = $(highlight).clone().empty().get(0).outerHTML;
+
+                if (highlight.previousSibling && highlight.previousSibling.nodeType === nodeTypes.TEXT_NODE) {
+                    offset = highlight.previousSibling.length;
+                }
+                
+                hlDescriptors.push([
+                    wrapper,
+                    highlight.textContent,
+                    hlPath.join(':'),
+                    offset,
+                    length
+                ]);
+            });
+
+            return JSON.stringify(hlDescriptors);
+        },
+
+        /**
+         * Deserializes highlights from stringified JSON given as parameter.
+         */
+        deserializeHighlights: function(json) {
+            try {
+                var hlDescriptors = JSON.parse(json);
+            } catch (e) {
+                throw "Can't parse serialized highlights: " + e;
+            }
+            var highlights = [];
+            var self = this;
+
+            var deserializationFn = function (hlDescriptor) {
+                var wrapper = hlDescriptor[0];
+                var hlText = hlDescriptor[1];
+                var hlPath = hlDescriptor[2].split(':');
+                var elOffset = hlDescriptor[3];
+                var hlLength = hlDescriptor[4];
+                var elIndex = hlPath.pop();
+                var idx = null;
+                var node = self.context;
+
+                while ((idx = hlPath.shift()) !== undefined) {
+                    node = node.childNodes[idx];
+                }
+
+                if (node.childNodes[elIndex-1] && node.childNodes[elIndex-1].nodeType === nodeTypes.TEXT_NODE) {
+                    elIndex -= 1;
+                }
+
+                var textNode = node.childNodes[elIndex];
+                var hlNode = textNode.splitText(elOffset);
+                hlNode.splitText(hlLength);
+
+                if (hlNode.nextSibling && hlNode.nextSibling.nodeValue == '') {
+                    hlNode.parentNode.removeChild(hlNode.nextSibling);
+                }
+
+                if (hlNode.previousSibling && hlNode.previousSibling.nodeValue == '') {
+                    hlNode.parentNode.removeChild(hlNode.previousSibling);
+                }
+
+                var highlight = $(hlNode).wrap(wrapper).parent().get(0);
+                highlights.push(highlight);
+            };
+
+            $.each(hlDescriptors, function(i, hlDescriptor) {
+                try {
+                    deserializationFn(hlDescriptor);
+                } catch (e) {
+                    console && console.warn
+                        && console.warn("Can't deserialize " + i + "-th descriptor. Cause: " + e);
+                    return true;
+                }
+            });
+
+            return highlights;
+        }
+
+    };
+
+    /**
+     * Returns TextHighlighter instance.
+     */
+    $.fn.getHighlighter = function() {
+        return this.data(plugin.name);
+    };
+
+    $.fn[plugin.name] = function(options) {
+        return this.each(function() {
+            if (!$.data(this, plugin.name)) {
+                $.data(this, plugin.name, new TextHighlighter(this, options));
+            }
+        });
+    };
+
+    $.textHighlighter = {
+        /**
+         * Returns HTML element to wrap selected text in.
+         */
+        createWrapper: function(options) {
+            return $('<span></span>')
+                .css('backgroundColor', options.color)
+                .addClass(options.highlightedClass);
+        },
+        defaults: {
+            color: '#ffff7b',
+            highlightedClass: 'highlighted',
+            contextClass: 'highlighter-context',
+            onRemoveHighlight: function() { return true; },
+            onBeforeHighlight: function() { return true; },
+            onAfterHighlight: function() { }
+        }
+    };
+
+})(jQuery, window, document);

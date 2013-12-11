@@ -1,16 +1,16 @@
-Template.requests.events({
+Template.inbox.events({
 
 	'click .view': function (event) {
 		event.preventDefault();
-		Router.go('request', { _id : this._id });
+		Router.go('inboxitem', { _id : this._id });
   	},
 	'click .edit': function (event) {
 		event.preventDefault();
-		Router.go('request', { _id : this._id });
+		Router.go('inboxitem', { _id : this._id });
   	},
 	'click .remove': function (event) {
 		event.preventDefault();
-		Requests.remove({_id:this._id});
+		Inbox.remove({_id:this._id});
   	},
 	'click .process': function (event) {
 		event.preventDefault();

@@ -1,0 +1,24 @@
+<template name="service">
+	
+	{{> service_nav}}
+	
+	<div class="row">
+	
+	  <div class="col-md-6">{{> lead-list}}</div>
+	  
+	  <div class="col-md-6">{{> contracts-list}}</div>
+	  
+	</div>
+	
+</template>
+
+
+<template name="service_nav">
+
+	<div class="section-nav">
+	    <a class="btn btn-large" href="{{pathFor 'service'}}"><i class="fa fa-medkit"></i>Dashboard</a>
+	    <a class="btn btn-large" href="{{pathFor 'support'}}"><i class="fa fa-heart"></i>Support</a>
+	    <a class="btn btn-large" href="{{pathFor 'problems'}}"><i class="fa fa-bug"></i>Problems</a>
+    </div>
+    
+</template>

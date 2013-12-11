@@ -14,7 +14,7 @@ Router.map(function ()
 			insertData.sender = this['request']['body']['sender'];
 			insertData.files = this['request']['body']['files'];
 			
-			Requests.insert(insertData );
+			Inbox.insert(insertData );
 			
 			this.response.writeHead(200, {'Content-Type': 'text/html'});
 			this.response.end('received');
