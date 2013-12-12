@@ -1,27 +1,29 @@
-<template name="problems">
+<template name="allsprints">
 	
-	{{> service_nav}}
+	{{> production_nav}}
 	
 	<div class="row">
-	  {{> problem-list}}
+	  
+	  {{> allsprints-list}}
+	 
 	</div>
 	
 </template>
 
 
-<template name="problem-list">
+<template name="allsprints-list">
  
  	<div class="panel panel-default">
 	 	 <!-- Default panel contents -->
 	  	<div class="panel-heading">
-		  	Problems
+		  	sprints
 		  	<div class="pull-right">
 		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
 		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
 		  	</div>
 	  	</div>
 	  	<div class="panel-body">
-	  	problem
+	  	sprints
 	  	</div>
 	</div>
  

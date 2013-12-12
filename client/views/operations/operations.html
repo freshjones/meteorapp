@@ -1,24 +1,21 @@
-<template name="service">
+<template name="operations">
 	
-	{{> service_nav}}
+	{{> operations_nav}}
 	
 	<div class="row">
-		<div class="col-md-4">{{> request-list}}</div>
-		<div class="col-md-4">{{> support-list}}</div>
-		<div class="col-md-4">{{> problem-list}}</div>
+		operations
 	</div>
 	
 </template>
 
 
-<template name="service_nav">
+<template name="operations_nav">
 
 	<div class="section-nav">
 	    <a class="btn btn-large" href="{{pathFor 'service'}}"><i class="fa fa-medkit"></i>Dashboard</a>
 	    <a class="btn btn-large" href="{{pathFor 'requests'}}"><i class="fa fa-bullhorn"></i>Requests</a>
 	    <a class="btn btn-large" href="{{pathFor 'support'}}"><i class="fa fa-heart"></i>Support</a>
 	    <a class="btn btn-large" href="{{pathFor 'problems'}}"><i class="fa fa-bug"></i>Problems</a>
-	    <a class="btn btn-large" href="{{pathFor 'preventive'}}"><i class="fa fa-shield"></i>Preventive</a>
     </div>
     
 </template>

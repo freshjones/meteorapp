@@ -1,0 +1,62 @@
+<template name="sprintplanning">
+	
+	{{> production_nav}}
+	
+	<div class="row">
+	  
+	  {{> sprint-planning}}
+	 
+	</div>
+	
+</template>
+
+
+<template name="sprint-planning">
+ 
+ 	<div class="row">
+	
+	  <div class="col-md-6">{{> planning-sprintlist}}</div>
+	  
+	  <div class="col-md-6">{{> planning-backloglist}}</div>
+	  
+	</div>
+	
+</template>
+
+
+<template name="planning-sprintlist">
+
+	<div class="panel panel-default">
+
+	  	<div class="panel-heading">
+		  	Scheduled
+		  	<div class="pull-right">
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	<div class="panel-body">
+	  	sprints
+	  	</div>
+	</div>
+
+</template>
+
+
+<template name="planning-backloglist">
+
+<div class="panel panel-default">
+
+	  	<div class="panel-heading">
+		  	backlog
+		  	<div class="pull-right">
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	<div class="panel-body">
+	  	backlog
+	  	</div>
+	</div>
+
+</template>

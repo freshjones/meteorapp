@@ -1,0 +1,42 @@
+<template name="production">
+	
+	{{> production_nav}}
+	
+	<div class="row">
+	
+	 {{> current-sprint}}
+	  
+	</div>
+	
+</template>
+
+
+<template name="production_nav">
+
+	<div class="section-nav">
+	    <a class="btn btn-large" href="{{pathFor 'production'}}"><i class="fa fa-flag"></i>Current</a>
+	    <a class="btn btn-large" href="{{pathFor 'allsprints'}}"><i class="fa fa-check-square-o"></i>Scheduled</a>
+	    <a class="btn btn-large" href="{{pathFor 'backlog'}}"><i class="fa fa-book"></i>Backlog</a>
+	    <a class="btn btn-large" href="{{pathFor 'sprintplanning'}}"><i class="fa fa-road"></i>Planning</a>
+    </div>
+    
+</template>
+
+
+<template name="current-sprint">
+
+	<div class="panel panel-default">
+	 	 <!-- Default panel contents -->
+	  	<div class="panel-heading">
+		  	Current Sprint
+		  	<div class="pull-right">
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
+		  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+		  	</div>
+	  	</div>
+	  	<div class="panel-body">
+	  	sprint
+	  	</div>
+	</div>
+	
+</template>
