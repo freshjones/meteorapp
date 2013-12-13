@@ -4,17 +4,13 @@ Template.inbox.events({
 		event.preventDefault();
 		Router.go('inboxitem', { _id : this._id });
   	},
-	'click .edit': function (event) {
-		event.preventDefault();
-		Router.go('inboxitem', { _id : this._id });
-  	},
 	'click .remove': function (event) {
 		event.preventDefault();
 		Inbox.remove({_id:this._id});
   	},
 	'click .process': function (event) {
 		event.preventDefault();
-		alert('process');
+		Router.go('inboxprocess', { _id : this._id });
   	}
 
 });
