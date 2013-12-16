@@ -1,15 +1,30 @@
 <template name="sales">
 	
-	{{> sales_nav}}
+	<div class="row-fluid clearfix">
+		<div class="vertical-padding">
+			<h1>Sales Inbox
+			<button class="btn btn-success btn-large modalButton pull-right" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Item</button>
+			</h1>
+		</div>
+	</div>
 	
-	<div class="row">
-	
-	  <div class="col-md-6">{{> lead-list}}</div>
-	  
-	  <div class="col-md-6">{{> contracts-list}}</div>
-	  
-	  <div class="col-md-6">{{> quotes-list}}</div>
-	  
+	<div class="row-fluid clearfix">
+		
+		<table class="table table-striped" >
+	    	<thead>
+	    		<tr>
+		    		<td>Status</td>
+		    		<td>Subject</td>
+		    		<td>Time</td>
+		    		<td>Sender</td>
+		    		<td>&nbsp;</td>
+	    		</tr>
+	    	</thead>
+	    	<tbody class="sortable-items">
+		    	
+	    	</tbody>
+	    </table>
+	    
 	</div>
 	
 </template>

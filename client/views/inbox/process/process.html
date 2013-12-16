@@ -9,54 +9,51 @@
 
 <template name="inboxprocess-content">
 	
-	<div class="panel panel-default">
-	 	 <!-- Default panel contents -->
-	  	<div class="panel-heading">
-		  	Content
-		  	<div class="pull-right">
-		  	<button type="button" class="btn btn-xs removeHighlights"><span class="glyphicon glyphicon-minus-sign"></span> Remove Highlights</button>
-		  	</div>
-	  	</div>
-	  	<div class="panel-body">
-	  		{{> inboxitem}}
-	  	</div>
+	<div class="row">
+			<button type="button" class="btn btn-lg btn-default forward"><i class="glyphicon glyphicon-circle-arrow-right"></i> Sales</button>
+			<button type="button" class="btn btn-lg btn-default forward"><i class="glyphicon glyphicon-circle-arrow-right"></i> Service</button>
+			<button type="button" class="btn btn-lg btn-default archive"><i class="fa fa-download"></i> Archive</button>
+			<!--  <button type="button" class="btn btn-lg btn-default delete"><i class="fa fa-exclamation-triangle"></i> Delete</button>  -->
+	</div>
+		
+	<div class="row">
+		{{> inboxitem}}
 	</div>
 	
 </template>
 
 <template name="inboxprocess-items">
 	
-	<div class="panel panel-default">
-	 	 <!-- Default panel contents -->
-	  	<div class="panel-heading">
-		  	Items
-		  	<div class="pull-right">
-		  	
-			  	<div class="btn-group">
-				  <button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown">
-				    Add <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu" role="menu">
-				    <li class="divider"></li>
-				    <li><a href="#">SALES</a></li>
-				    <li class="divider"></li>
-				    <li><a href="lead" class="processitem-type">Lead</a></li>
-				    <li><a href="quote" class="processitem-type">Quote</a></li>
-				    <li class="divider"></li>
-				    <li><a href="#">SERVICE</a></li>
-				    <li class="divider"></li>
-				    <li><a href="request" class="processitem-type">Request</a></li>
-				    <li><a href="support" class="processitem-type">Support</a></li>
-				    <li><a href="problem" class="processitem-type">Problem</a></li>
-				  </ul>
-				</div>
-		  	
-		  	</div>
-		  	
-	  	</div>
-	  	<div class="panel-body">
-	  		
-	  	</div>
+	<div class="row">
+		
+		
+		<form class="form-horizontal" role="form">
+		   <div class="form-group">
+		    <label for="to" class="col-sm-2 control-label">To:</label>
+		    <div class="col-sm-10">
+		       <input type="text" class="form-control" id="to" placeholder="Sales" value="Sales" disabled>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="title" class="col-sm-2 control-label">Title</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="title" placeholder="Title">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="Sent By" class="col-sm-2 control-label">Sent By</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="text" placeholder="Sent By">
+		    </div>
+		  </div>
+		 
+		 
+		</form>
+		
+		
+		
 	</div>
+	
+	
 	
 </template>

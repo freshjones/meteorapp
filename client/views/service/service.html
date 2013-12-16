@@ -1,11 +1,30 @@
 <template name="service">
 	
-	{{> service_nav}}
+	<div class="row-fluid clearfix">
+		<div class="vertical-padding">
+			<h1>Service Inbox
+			<button class="btn btn-success btn-large modalButton pull-right" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Item</button>
+			</h1>
+		</div>
+	</div>
 	
-	<div class="row">
-		<div class="col-md-4">{{> request-list}}</div>
-		<div class="col-md-4">{{> support-list}}</div>
-		<div class="col-md-4">{{> problem-list}}</div>
+	<div class="row-fluid clearfix">
+		
+		<table class="table table-striped" >
+	    	<thead>
+	    		<tr>
+		    		<td>Status</td>
+		    		<td>Subject</td>
+		    		<td>Time</td>
+		    		<td>Sender</td>
+		    		<td>&nbsp;</td>
+	    		</tr>
+	    	</thead>
+	    	<tbody class="sortable-items">
+		    	
+	    	</tbody>
+	    </table>
+	    
 	</div>
 	
 </template>

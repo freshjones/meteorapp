@@ -19,12 +19,21 @@ Template.inboxprocess.events({
 		console.log(thisText);
 
   	},
-  	'click .processitem-type': function (event) 
+  	'click .forward': function (event) 
 	{
   		event.preventDefault();
-  		var thisType = $(event.currentTarget).attr('href');
-  		Router.go('inboxprocess', {  _id:this._id, type:thisType.toLowerCase(), action:'add'  });
+  		alert('hellow');
+  		//var thisType = $(event.currentTarget).attr('href');
+  		//Router.go('inboxprocess', {  _id:this._id, type:thisType.toLowerCase(), action:'add'  });
 
-  	}
+  	},
+  	'click .archive': function (event) 
+	{
+  		event.preventDefault();
+  		alert('your done right?');
+  		//var thisType = $(event.currentTarget).attr('href');
+  		//Router.go('inboxprocess', {  _id:this._id, type:thisType.toLowerCase(), action:'add'  });
+
+  	},
   	
  });
