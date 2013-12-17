@@ -182,6 +182,14 @@ Handlebars.registerHelper('breaklines', function(text) {
     return new Handlebars.SafeString(text);
 });
 
+Handlebars.registerHelper('fmtTimestamp', function (value, options) {
+	
+	var date = new Date(value*1000);
+	
+	return date.toString("ddd, MMM d, yyyy");
+	
+});
+
 /*
 Handlebars.registerHelper('getProjectName', function(value) {
 	var projectData = Projects.findOne({'_id':value});

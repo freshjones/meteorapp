@@ -210,3 +210,22 @@ input.hour-cell:focus
     text-transform: uppercase;
     top: 15px;
 }
+
+.row-btm-brdr
+{
+	border-bottom:solid 1px #EEEEEE;
+}
+
+.bdr-right
+{
+	border-right:solid 1px #EEEEEE;
+}
+
+input.parsley-success, textarea.parsley-success {
+  border-color: #3C763D;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+input.parsley-error, textarea.parsley-error {
+  border-color: #A94442;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}

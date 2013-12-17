@@ -12,7 +12,9 @@
         "branch": "master"
       },
       "bootstrap-3": {},
-      "managedUsers": {}
+      "managedUsers": {},
+      "parsleyjs": {},
+      "jqbootstrapvalidation": {}
     },
     "packages": {
       "jquery-ui": {
@@ -54,6 +56,16 @@
         "git": "https://github.com/jzgoda/managedUsers.git",
         "tag": "v0.1.6",
         "commit": "becaa15e37cddb28d0da26bb57015c92242d2915"
+      },
+      "parsleyjs": {
+        "git": "https://github.com/nate-strauser/meteor-parsleyjs.git",
+        "tag": "v1.1.7",
+        "commit": "035a1e56a78e50369686b7e281aa71e3daf3729a"
+      },
+      "jqbootstrapvalidation": {
+        "git": "https://github.com/nate-strauser/meteor-jqbootstrapvalidation.git",
+        "tag": "v0.1.0",
+        "commit": "2af4625d41a9b24311544a53790f14fa38c27b10"
       }
     }
   }

@@ -1,129 +1,145 @@
 <template name="inboxprocess">
 
-	<div class="row">
-		<div class="btn-group">
-			<button type="button" class="btn btn-default back"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</button>
-			<button type="button" class="btn btn-default archive pull-right"><i class="fa fa-download"></i> Archive</button>
-		</div>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default back"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</button>
+		
 	</div>
-	<div class="row">
+	<div class="btn-group">
+		<button type="button" class="btn btn-default archive"><i class="fa fa-download"></i> Archive</button>
+		<button type="button" class="btn btn-primary forward"><span class="fa fa-share"></span> New Forward</button>
+	</div>
+	
+	<div class="">
 		<hr/>
 	</div>
+	
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-12">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-4 bdr-right">
 					{{> inboxprocess-content}}
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					{{> inboxprocess-items}}
+				<div class="col-md-5 bdr-right forward-container hidden">
+					{{> inboxprocess-forward}}
+				</div>
+				<div class="col-md-3">
+					{{> inboxprocess-summary}}
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4"></div>
 	</div>
-
+	
 </template>
 
 <template name="inboxprocess-content">
 	
-	<div class="panel panel-default">
-
-	  	<div class="panel-heading">
-	  		{{subject}}
-		  	<div class="pull-right">
-			  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Copy All</button>
-			  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span> Copy Selected</button>
-			  	<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span> Deselect</button>
-		  	</div>
-		</div>
-	  <div class="panel-body">
-	    	<h1></h1>
-			<p><span class="highlighter">{{breaklines description}}</span></p>
-	  </div>
+	<div class="btn-group forward-container pull-right hidden">
+		<button type="button" class="btn btn-sm btn-default copyAll">Copy All <i class="fa fa-share"></i></button>
 	</div>
+	{{#with thisInboxItem}}		
+	<p class="text-muted"><em>Sent on: {{fmtTimestamp timestamp}}</em><br/>
+	From: {{sender}}</p>
+	<h2 id="inbox-title">{{subject}}</h2>
+	<div id="inbox-description">
+		{{breaklines description}}
+	</div>
+	
+	<p>
+	<strong>Attachments</strong><br/>
+	{{#each files}}
+		<a href="{{url}}" target="blank">{{filename}} ({{type}})</a><br />
+	{{/each}}
+	</p>
+	{{/with}}
+	
+</template>
 
+
+<template name="inboxprocess-summary">
+	
+	<h5>Summary</h5>
+
+ 	{{#each summaryData}}
+   	 <h1>{{title}}</h1>
+  	{{else}}
+    	no forwards yet, <button type="button" class="btn btn-sm btn-default forward">create one</button>
+  	{{/each}}
+  
+</template>
+
+
+<template name="inboxprocess-forward">
+	
+	<form class="form-horizontal" id="ff-form" role="form">
+	   <div class="form-group">
+	    <label for="to" class="col-sm-2 control-label">To:</label>
+	    <div class="col-sm-10">
+	    	<input id="ff-to" type="hidden" value="" />
+			<button type="button" data-ff-to="sales" class="ff-to-button btn btn-default"><i class="fa fa-money"></i> Sales</button>
+			<button type="button" data-ff-to="service" class="ff-to-button btn btn-default"><i class="fa fa-medkit"></i> Service</button>
+			<!--  
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				    Project <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
+			-->
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="title" class="col-sm-2 control-label">Title</label>
+	    <div class="col-sm-10">
+	      <input id="ff-title" type="text" class="form-control" placeholder="Title" required>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="Sent By" class="col-sm-2 control-label">Description</label>
+	    <div class="col-sm-10">
+	      <textarea id="ff-description" class="form-control" placeholder="Description" rows="20" required></textarea>
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	  	<label for="Sent By" class="col-sm-2 control-label">Attachments</label>
+	    <div class="col-sm-10">
+		    {{#each files}}
+	    	<div class="checkbox">
+		        <label>
+		          <input type="checkbox" name="{{filename}}"> {{filename}} <a href="{{url}}" target="blank">(view)</a>
+		        </label>
+		    </div>
+			{{/each}}
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="button" id="ff-submit" class="btn btn-primary"><i class="fa fa-download"></i> Save</button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input id="ff-archive" type="hidden" value="no" />
+			<button type="button" class="btn btn-xs btn-default ff-archive-btn"><i class="fa fa-download"></i> Archive</button>
+	    </div>
+	  </div>
+
+	</form>
+	
 </template>
 
 
 
-<template name="inboxprocess-items">
-	
-	<div class="">
-		
-		
-		<form class="form-horizontal" role="form">
-		   <div class="form-group">
-		    <label for="to" class="col-sm-2 control-label">To:</label>
-		    <div class="col-sm-10">
-		       <div class="btn-group">
-					<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-circle-arrow-left"></i> Sales</button>
-					<button type="button" class="btn btn-default"><i class="fa fa-download"></i> Service</button>
-				</div>
-				<div class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					    Project <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					</ul>
-				</div>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="title" class="col-sm-2 control-label">Title</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="title" placeholder="Title">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="Sent By" class="col-sm-2 control-label">Description</label>
-		    <div class="col-sm-10">
-		      <textarea class="form-control" rows="20"></textarea>
-		    </div>
-		  </div>
 
-		  <div class="form-group">
-		  	<label for="Sent By" class="col-sm-2 control-label">Attachments</label>
-		    <div class="col-sm-10">
-		      <div class="checkbox">
-		        <label>
-		          <input type="checkbox"> 1347474321_Drink_Jug.png <a href="#">(view)</a>
-		        </label>
-		      </div>
-		      <div class="checkbox">
-		        <label>
-		          <input type="checkbox"> planning.xlsx <a href="#">(view)</a>
-		        </label>
-		      </div>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Save</button>
-				<button type="button" class="btn btn-link">Cancel</button>
-		    </div>
-		  </div>
-
-		  <div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="button" class="btn btn-xs btn-default"><i class="fa fa-download"></i> Archive</button>
-		    </div>
-		  </div>
-
-		</form>
-		
-		
-		
-	</div>
-	
-	
-	
+<template name="inboxprocess-itemslist">
+	all items from this post
 </template>

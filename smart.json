@@ -10,6 +10,8 @@
       "commit": "7c7992981969a2113d1887369e7c62a34260b5ce"
     },
     "bootstrap-3": {},
-    "managedUsers": {}
+    "managedUsers": {},
+    "parsleyjs": {},
+    "jqbootstrapvalidation": {}
   }
 }
