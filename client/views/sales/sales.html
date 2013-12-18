@@ -10,21 +10,42 @@
 	
 	<div class="row-fluid clearfix">
 		
-		<table class="table table-striped" >
-	    	<thead>
-	    		<tr>
-		    		<td>Status</td>
-		    		<td>Subject</td>
-		    		<td>Time</td>
-		    		<td>Sender</td>
-		    		<td>&nbsp;</td>
-	    		</tr>
-	    	</thead>
-	    	<tbody class="sortable-items">
-		    	
-	    	</tbody>
-	    </table>
-	    
+		{{#if items}}
+			<table class="table table-striped" >
+		    	<thead>
+		    		<tr>
+			    		<td>Status</td>
+			    		<td>Title</td>
+			    		<td>Time</td>
+			    		<td>Sender</td>
+			    		<td>&nbsp;</td>
+		    		</tr>
+		    	</thead>
+		    	<tbody class="sortable-items">
+			    	{{#each items}}
+			    		<tr>
+				    		<td>{{status}}</td>
+				    		<td>{{title}}</td>
+				    		<td>{{fmtTimestamp sent}}</td>
+				    		<td>{{sender}}</td>
+				    		<td>
+				    			<div class="btn-group">
+						    		<button class="btn btn-sm btn-default remove"><i class="fa fa-times"></i> Remove</button>
+						    		<button class="btn btn-sm btn-default process"><i class="fa fa-cog"></i> Process</button>
+					    		</div>
+				    		</td>
+			    		</tr>
+			   		{{/each}}
+		    	</tbody>
+		    </table>
+		{{else}}
+			
+			<div>
+				<h3>Good work.</h3>
+				<p class="lead">There's nothing to do here.</p>
+			</div>
+		{{/if}}
+			
 	</div>
 	
 </template>

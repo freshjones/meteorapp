@@ -1,6 +1,4 @@
-Template.inboxprocess.rendered = function() {
-	
-	$('.highlighter').textHighlighter();
+Template.salesprocess.rendered = function() {
 	
 	$('#ff-form').parsley({
 		    errors: {
@@ -14,40 +12,19 @@ Template.inboxprocess.rendered = function() {
 	
 }
 
-Template.inboxprocess.events({
-
-	'click .removeHighlights': function (event) 
-	{
-		event.preventDefault();
-		$('.highlighter').getHighlighter().removeHighlights('.highlighter');
-  	},
-	'click .moveHighlights': function (event) 
-	{
-		event.preventDefault();
-		var thisText = $('.highlighter').getHighlighter().serializeHighlights();
-
-		console.log(thisText);
-
-  	},
-  	'click .forward': function (event) 
+Template.salesprocess.events({
+	
+	'click .back': function (event) 
 	{
   		event.preventDefault();
-  		$('.forward-container').removeClass('hidden');
-  		$('.forward-button .btn').addClass('hidden');
-  		//var thisType = $(event.currentTarget).attr('href');
-  		//Router.go('inboxprocess', {  _id:this._id, type:thisType.toLowerCase(), action:'add'  });
-  	},
-  	'click .back': function (event) 
-	{
-  		event.preventDefault();
-  		Router.go('inbox');
+  		Router.go('sales');
   	},
   	'click .archive': function (event) 
 	{
   		event.preventDefault();
   		var thisItem 		= this;
   		var thisItemID		= thisItem.thisInboxItem._id;
-  		var itemForwards 	= InboxProcessData.find({inbox_id:thisItemID}).fetch();
+  		var itemForwards 	= salesProcessData.find({inbox_id:thisItemID}).fetch();
   		var numForwards 	= itemForwards.length;
   		
   		if(numForwards <= 0)
@@ -72,13 +49,35 @@ Template.inboxprocess.events({
   			
   		}
   		
-  		//var thisType = $(event.currentTarget).attr('href');
-  		//Router.go('inboxprocess', {  _id:this._id, type:thisType.toLowerCase(), action:'add'  });
+  	},
+  	'click .forward': function (event) 
+	{
+  		event.preventDefault();
+  		$('.forward-container').removeClass('hidden');
+  		$('.forward-button .btn').addClass('hidden');
   	},
   	'click .cancel': function (event) 
 	{
   		event.preventDefault();
   		clearForwardForm();
+  	},
+  	'click .copyAll': function (event) 
+	{
+  		event.preventDefault();
+  		
+  		var thisTitle = $('#inbox-title').text();
+  		$('#ff-title').val(thisTitle);
+  		
+  		var thisDesc = $('#inbox-description').html();
+  		
+  		thisDescString = $.trim(thisDesc)
+  		thisDescString = thisDescString.replace(/<br[^>]*>/gi, "\n");
+  		
+  		$('#ff-description').val( thisDescString );
+  		
+  		$('.checkbox input[type=checkbox]').prop('checked', true);
+  		
+  		
   	},
   	'click .ff-to-button': function (event) 
 	{
@@ -90,20 +89,6 @@ Template.inboxprocess.events({
   		$('.ff-to-button').removeClass('btn-danger btn-success').addClass('btn-default');
   		
   		$(event.currentTarget).removeClass('btn-default btn-danger').addClass('btn-success');
-  		
-  		
-  	},
-  	'click .copyAll': function (event) 
-	{
-  		event.preventDefault();
-  		
-  		var thisTitle = $('#inbox-title').text();
-  		$('#ff-title').val(thisTitle);
-  		
-  		var thisDesc = $('#inbox-description').text();
-  		$('#ff-description').val(thisDesc);
-  		
-  		$('.checkbox input[type=checkbox]').prop('checked', true);
   		
   		
   	},
@@ -130,6 +115,7 @@ Template.inboxprocess.events({
   		
   			if(isValid)
   	  		{
+  				
   				var thisID = new Meteor.Collection.ObjectID();
   				
   				var formEntry 			= {};
@@ -162,7 +148,8 @@ Template.inboxprocess.events({
   					
   				}
   				
-  				InboxProcessData.insert(formEntry);
+  				salesProcessData.insert(formEntry);
+  				
   				clearForwardForm();
   				
   	  		}
@@ -171,32 +158,12 @@ Template.inboxprocess.events({
   		
   	}
   	
- });
-
-Template.inboxProcessSummary.events({
-	
-	'click .ff-summaryitem': function (event) 
-	{
-  		event.preventDefault();
-  		
-  		InboxProcessData.remove({_id : this._id});
-  		
-  	}
-  	
 });
 
-var clearForwardForm = function()
-{
-	$('input, textarea').val('');
-	$('.checkbox input[type=checkbox]').prop('checked', false);
-	$('.ff-to-button').removeClass('btn-danger btn-success').addClass('btn-default');
-	$('.form-group').removeClass('has-success has-error');
-	$('.forward-container').addClass('hidden');
-	$('.forward-button .btn').removeClass('hidden');
-}
 
 var archiveInboxItem = function(data)
 {
+
 	var summaryData = data.summaryData;
 	var inboxItem = data.thisInboxItem;
 	
@@ -204,7 +171,7 @@ var archiveInboxItem = function(data)
 	{
 		
 		//ok we just need to archive this item
-		Inbox.update( {_id:inboxItem._id }, { $set : { status : "archive" } } );
+		Sales.update( {_id:inboxItem._id }, { $set : { status : "archive" } } );
 		
 	} else {
 		
@@ -221,26 +188,22 @@ var archiveInboxItem = function(data)
 			actionItem.title 		= eachItem.title;
 			actionItem.to 			= eachItem.to;
 			
-			switch(eachItem.to)
-			{
-				case 'sales':
-					Sales.insert(actionItem);
-				break;
-				
-				case 'service':
-					Service.insert(actionItem);
-				break;
-			
-			}
-			
 		});
 		
-		Inbox.update( {_id:inboxItem._id }, { $set : { status : "archive" } } );
+		Sales.update( {_id:inboxItem._id }, { $set : { status : "archive" } } );
 		
 	}
 	
-	Router.go('inbox');
+	Router.go('sales');
 
 }
 
-	
+var clearForwardForm = function()
+{
+	$('input, textarea').val('');
+	$('.checkbox input[type=checkbox]').prop('checked', false);
+	$('.ff-to-button').removeClass('btn-danger btn-success').addClass('btn-default');
+	$('.form-group').removeClass('has-success has-error');
+	$('.forward-container').addClass('hidden');
+	$('.forward-button .btn').removeClass('hidden');
+}

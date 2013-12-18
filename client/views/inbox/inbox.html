@@ -1,48 +1,45 @@
 <template name="inbox">
 	
-		<div class="row-fluid clearfix">
+		<div class="row-fluid row-btm-brdr clearfix">
 			<div class="vertical-padding">
-				<h1>Request Inbox
-				<button class="btn btn-success btn-large modalButton pull-right" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Request</button>
-				</h1>
+				<h1>Request Inbox</h1>
 			</div>
 		</div>
 		
 		<div class="row-fluid clearfix">
-			
-			<table class="table table-striped" >
-		    	<thead>
-		    		<tr>
-			    		<td>Status</td>
-			    		<td>Subject</td>
-			    		<td>Time</td>
-			    		<td>Sender</td>
-			    		<td>&nbsp;</td>
-		    		</tr>
-		    	</thead>
-		    	<tbody class="sortable-items">
-			    	{{#each items}}
+			{{#if items}}
+				<table class="table table-striped" >
+			    	<thead>
 			    		<tr>
-				    		<td>{{status}}</td>
-				    		<td>{{subject}}</td>
-				    		<td>{{timestamp}}</td>
-				    		<td>{{sender}}</td>
-				    		<td>
-					    		<button class="btn btn-xs btn-info view"><i class="fa fa-eye"></i> View</button>
-					    		<button class="btn btn-xs btn-info remove"><i class="fa fa-times"></i> Remove</button>
-					    		<button class="btn btn-xs btn-success process"><i class="fa fa-cog"></i> Process</button>
-				    		</td>
+				    		<td>Status</td>
+				    		<td>Subject</td>
+				    		<td>Time</td>
+				    		<td>Sender</td>
+				    		<td>&nbsp;</td>
 			    		</tr>
-			   		{{else}}
-						<tr>
-							<td colspan="5">No Active Items</td>
-						</tr>
-					{{/each}}
-		    	</tbody>
-		    </table>
-	
-		    
+			    	</thead>
+			    	<tbody class="sortable-items">
+				    	{{#each items}}
+				    		<tr>
+					    		<td>{{status}}</td>
+					    		<td>{{subject}}</td>
+					    		<td>{{fmtTimestamp timestamp}}</td>
+					    		<td>{{sender}}</td>
+					    		<td>
+						    		<button class="btn btn-xs btn-info view"><i class="fa fa-eye"></i> View</button>
+						    		<button class="btn btn-xs btn-info remove"><i class="fa fa-times"></i> Remove</button>
+						    		<button class="btn btn-xs btn-success process"><i class="fa fa-cog"></i> Process</button>
+					    		</td>
+				    		</tr>
+				   		{{/each}}
+			    	</tbody>
+			    </table>
+			{{else}}
+				<div>
+					<h3>Good work.</h3>
+					<p class="lead">There's nothing to do here.</p>
+				</div>
+			{{/if}}
 		</div>
-	
 	
 </template>

@@ -6,3 +6,7 @@ Projects 	= new Meteor.Collection('projects');
 Sprints 	= new Meteor.Collection('sprints');
 Schedules 	= new Meteor.Collection('schedules');
 Inbox 		= new Meteor.Collection('inbox');
+
+Sales 		= new Meteor.Collection('sales');
+Service		= new Meteor.Collection('service');
+

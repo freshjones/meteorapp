@@ -9,6 +9,7 @@ Session.set('showModal', false);
 //set modal to off initially
 Session.setDefault('showModal', null);
 
+
 // Subscriptions
 App = {
 
@@ -25,6 +26,7 @@ App = {
 		schedules : Meteor.subscribe('schedules'),
 		users : Meteor.subscribe('users'),
 		inbox : Meteor.subscribe('inbox')
+		
 	}
 };
 
@@ -37,13 +39,15 @@ Meteor.startup(function () {
 
 
 
-//Meteor.startup(function() {
+Meteor.startup(function() {
 
 
-  //  Session.set('settings', false); 
+	//create a local storage for now...
+	InboxProcessData 	= new Meteor.Collection(null);
+	salesProcessData 	= new Meteor.Collection(null);
+	serviceProcessData 	= new Meteor.Collection(null);
 
-
-//});
+});
 
 /*
  

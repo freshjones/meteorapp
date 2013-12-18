@@ -1,4 +1,4 @@
-<template name="inboxprocess">
+<template name="salesprocess">
 
 	<div class="btn-group">
 		<button type="button" class="btn btn-default back"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</button>
@@ -16,13 +16,13 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-4 bdr-right">
-					{{> inboxprocess-content}}
+					{{> salesProcessContent}}
 				</div>
 				<div class="col-md-5 bdr-right forward-container hidden">
-					{{> inboxprocess-forward}}
+					{{> salesProcessForm}}
 				</div>
 				<div class="col-md-3">
-					{{> inboxProcessSummary}}
+					{{> salesProcessSummary}}
 				</div>
 			</div>
 		</div>
@@ -30,23 +30,23 @@
 	
 </template>
 
-<template name="inboxprocess-content">
-	
+<template name="salesProcessContent">
+
 	<div class="btn-group forward-container pull-right hidden">
 		<button type="button" class="btn btn-sm btn-default copyAll">Copy All <i class="fa fa-share"></i></button>
 	</div>
 	
 	{{#with thisInboxItem}}		
-		<p class="text-muted"><em>Sent on: {{fmtTimestamp timestamp}}</em><br/>
+		<p class="text-muted"><em>Sent on: {{fmtTimestamp sent}}</em><br/>
 		From: {{sender}}</p>
-		<h2 id="inbox-title">{{subject}}</h2>
+		<h2 id="inbox-title">{{title}}</h2>
 		<div id="inbox-description">
 			{{breaklines description}}
 		</div>
 		
 		<p>
 		<strong>Attachments</strong><br/>
-		{{#each files}}
+		{{#each attachments}}
 			<a href="{{url}}" target="blank">{{filename}} ({{type}})</a><br />
 		{{/each}}
 		</p>
@@ -55,8 +55,72 @@
 </template>
 
 
-<template name="inboxProcessSummary">
-	
+<template name="salesProcessForm">
+
+	<form class="form-horizontal" id="ff-form" role="form">
+	   <div class="form-group">
+	    <label for="to" class="col-sm-2 control-label">To:</label>
+	    <div class="col-sm-10">
+	    	<input id="ff-to" type="hidden" value="" />
+			<button type="button" data-ff-to="leads" class="ff-to-button btn btn-default"><i class="fa fa-money"></i> Leads</button>
+			<button type="button" data-ff-to="contracts" class="ff-to-button btn btn-default"><i class="fa fa-medkit"></i> Contracts</button>
+			<button type="button" data-ff-to="quotes" class="ff-to-button btn btn-default"><i class="fa fa-medkit"></i> Quotes</button>
+			<!--  
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				    Project <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
+			-->
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="title" class="col-sm-2 control-label">Title</label>
+	    <div class="col-sm-10">
+	      <input id="ff-title" type="text" class="form-control" placeholder="Title" required>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="Sent By" class="col-sm-2 control-label">Description</label>
+	    <div class="col-sm-10">
+	      <textarea id="ff-description" class="form-control" placeholder="Description" rows="20" required></textarea>
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	  	<label for="Sent By" class="col-sm-2 control-label">Attachments</label>
+	    <div class="col-sm-10">
+		    {{#each thisInboxItem.attachments}}
+	    	<div class="checkbox">
+		        <label>
+		          <input type="checkbox" name="file_{{_id}}" value="{{_id}}" class="ff-attachment" /> {{filename}} <a href="{{url}}" target="blank">(view)</a>
+		        </label>
+		    </div>
+			{{/each}}
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="button" id="ff-submit" class="btn btn-primary"><i class="fa fa-download"></i> Save</button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	  </div>
+
+
+	</form>
+
+</template>
+
+<template name="salesProcessSummary">
+
 	<h3><i class="fa fa-share"></i> Action Items</h3>
 
 	{{#if summaryData}}
@@ -98,79 +162,5 @@
 		</div>
 		
 	{{/if}}
-
-</template>
-
-
-<template name="inboxprocess-forward">
-	
-	<form class="form-horizontal" id="ff-form" role="form">
-	   <div class="form-group">
-	    <label for="to" class="col-sm-2 control-label">To:</label>
-	    <div class="col-sm-10">
-	    	<input id="ff-to" type="hidden" value="" />
-			<button type="button" data-ff-to="sales" class="ff-to-button btn btn-default"><i class="fa fa-money"></i> Sales</button>
-			<button type="button" data-ff-to="service" class="ff-to-button btn btn-default"><i class="fa fa-medkit"></i> Service</button>
-			<!--  
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				    Project <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
-					<li><a href="#">Something else here</a></li>
-					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
-				</ul>
-			</div>
-			-->
-	    </div>
-	  </div>
-	  <div class="form-group">
-	    <label for="title" class="col-sm-2 control-label">Title</label>
-	    <div class="col-sm-10">
-	      <input id="ff-title" type="text" class="form-control" placeholder="Title" required>
-	    </div>
-	  </div>
-	  <div class="form-group">
-	    <label for="Sent By" class="col-sm-2 control-label">Description</label>
-	    <div class="col-sm-10">
-	      <textarea id="ff-description" class="form-control" placeholder="Description" rows="20" required></textarea>
-	    </div>
-	  </div>
-
-	  <div class="form-group">
-	  	<label for="Sent By" class="col-sm-2 control-label">Attachments</label>
-	    <div class="col-sm-10">
-		    {{#each thisInboxItem.files}}
-	    	<div class="checkbox">
-		        <label>
-		          <input type="checkbox" name="file_{{_id}}" value="{{_id}}" class="ff-attachment" /> {{filename}} <a href="{{url}}" target="blank">(view)</a>
-		        </label>
-		    </div>
-			{{/each}}
-	    </div>
-	  </div>
-	  
-	  <div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="button" id="ff-submit" class="btn btn-primary"><i class="fa fa-download"></i> Save</button>
-			<button type="button" class="btn btn-link cancel">Cancel</button>
-	    </div>
-	  </div>
-
-
-	</form>
-	
-</template>
-
-
-
-
-<template name="summary-table">
-	
-	
-	
 	
 </template>

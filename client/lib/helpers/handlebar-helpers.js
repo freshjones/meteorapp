@@ -182,6 +182,13 @@ Handlebars.registerHelper('breaklines', function(text) {
     return new Handlebars.SafeString(text);
 });
 
+Handlebars.registerHelper('addlinebreaks', function(text) {
+    text = Handlebars.Utils.escapeExpression(text);
+    text = text.toString();
+    text = text.replace(/(<br>)/gm, "\n");
+    return new Handlebars.SafeString(text);
+});
+
 Handlebars.registerHelper('fmtTimestamp', function (value, options) {
 	
 	var date = new Date(value*1000);

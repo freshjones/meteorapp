@@ -69,3 +69,21 @@ Meteor.publish("schedules", function () {
 Meteor.publish("users", function () {
 	return Meteor.users.find({});
 });
+
+
+//sales
+Meteor.publish("sales", function () {
+	return Sales.find({},{status:{"archive":0}});
+});
+
+Meteor.publish('salesitem', function (sales_id) {
+  check(sales_id, String);
+  return Sales.find({_id:sales_id});
+});
+
+
+
+//service
+Meteor.publish("service", function () {
+	return Service.find({},{status:{"archive":0}});
+});

@@ -124,7 +124,8 @@ input.hour-cell:focus
 
 .datepicker{z-index:9999;}
 
-.remove-milestone
+.remove-milestone,
+.ff-summaryitem
 {
 	cursor:pointer;
 }
