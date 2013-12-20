@@ -82,6 +82,9 @@ Template.salesprocess.events({
   	'click .ff-to-button': function (event) 
 	{
   		event.preventDefault();
+  		
+  		var thisInboxItem = this.thisInboxItem;
+  		
   		var to = $(event.currentTarget).attr('data-ff-to');
   		
   		$('#ff-to').val(to).parents('.form-group').removeClass('has-error').addClass('has-success');
@@ -89,6 +92,8 @@ Template.salesprocess.events({
   		$('.ff-to-button').removeClass('btn-danger btn-success').addClass('btn-default');
   		
   		$(event.currentTarget).removeClass('btn-default btn-danger').addClass('btn-success');
+  		
+  		Router.go('salesprocess', {  _id:thisInboxItem._id, type:to });
   		
   		
   	},
