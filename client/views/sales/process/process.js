@@ -53,8 +53,13 @@ Template.salesprocess.events({
   	'click .forward': function (event) 
 	{
   		event.preventDefault();
-  		$('.forward-container').removeClass('hidden');
-  		$('.forward-button .btn').addClass('hidden');
+  		
+  		var thisInboxItem = this.thisInboxItem;
+  		
+  		Router.go('salesprocess', {  _id:thisInboxItem._id, action:'new' });
+  		
+  		//$('.forward-container').removeClass('hidden');
+  		//$('.forward-button .btn').addClass('hidden');
   	},
   	'click .cancel': function (event) 
 	{
@@ -82,19 +87,14 @@ Template.salesprocess.events({
   	'click .ff-to-button': function (event) 
 	{
   		event.preventDefault();
-  		
   		var thisInboxItem = this.thisInboxItem;
-  		
   		var to = $(event.currentTarget).attr('data-ff-to');
   		
-  		$('#ff-to').val(to).parents('.form-group').removeClass('has-error').addClass('has-success');
+  		Router.go('salesprocess', {  _id:thisInboxItem._id, action:'new', type:to });
   		
-  		$('.ff-to-button').removeClass('btn-danger btn-success').addClass('btn-default');
-  		
-  		$(event.currentTarget).removeClass('btn-default btn-danger').addClass('btn-success');
-  		
-  		Router.go('salesprocess', {  _id:thisInboxItem._id, type:to });
-  		
+  		//$('#ff-to').val(to).parents('.form-group').removeClass('has-error').addClass('has-success');
+  		//$('.ff-to-button').removeClass('btn-danger btn-success').addClass('btn-default');
+  		//$(event.currentTarget).removeClass('btn-default btn-danger').addClass('btn-success');
   		
   	},
   	'click #ff-submit': function (event) 

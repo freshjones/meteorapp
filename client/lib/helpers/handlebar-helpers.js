@@ -203,12 +203,25 @@ Handlebars.registerHelper('getProjectName', function(value) {
 	return projectData.name;
 });
 */
-Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
-    if (arguments.length < 3)
-        throw new Error("Handlebars Helper equal needs 2 parameters");
-    if( lvalue!=rvalue ) {
-        return options.inverse(this);
+
+Handlebars.registerHelper('getTemplate', function(name, data) {
+	return Template[name](data);
+});
+
+Handlebars.registerHelper('whichFormClass', function(value, btn) {
+    var btnClass = 'btn-default';
+    if(value===btn)
+    {
+    	btnClass =  'btn-sucess';
+    }
+	return btnClass;
+});
+
+Handlebars.registerHelper('actionClass', function(value) {
+    if(value == false)
+    {
+    	return 'hidden';
     } else {
-        return options.fn(this);
+    	return value;
     }
 });
