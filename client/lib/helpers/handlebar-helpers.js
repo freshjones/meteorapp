@@ -209,11 +209,14 @@ Handlebars.registerHelper('getTemplate', function(name, data) {
 });
 
 Handlebars.registerHelper('whichFormClass', function(value, btn) {
+	
     var btnClass = 'btn-default';
+    
     if(value===btn)
     {
-    	btnClass =  'btn-sucess';
+    	btnClass =  'btn-success';
     }
+    
 	return btnClass;
 });
 

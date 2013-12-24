@@ -64,7 +64,9 @@ Template.salesprocess.events({
   	'click .cancel': function (event) 
 	{
   		event.preventDefault();
-  		clearForwardForm();
+  		var thisInboxItem = this.thisInboxItem;
+  		Router.go('salesprocess', {  _id:thisInboxItem._id });
+  		//clearForwardForm();
   	},
   	'click .copyAll': function (event) 
 	{

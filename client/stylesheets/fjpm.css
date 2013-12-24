@@ -230,3 +230,20 @@ input.parsley-error, textarea.parsley-error {
   border-color: #A94442;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
 }
+
+.form-group .form-inline .form-group 
+{
+	margin: 0;
+    padding: 0 0 0 15px;
+}
+
+.form-group .form-inline .form-group.first
+{
+	margin: 0;
+    padding: 0;
+}
+
+label.checkbox
+{
+	font-weight:normal;
+}

@@ -32,6 +32,7 @@
 
 <template name="salesProcessContent">
 
+	 
 	<div class="btn-group forward-container pull-right {{actionClass action}}">
 		<button type="button" class="btn btn-sm btn-default copyAll">Copy All <i class="fa fa-share"></i></button>
 	</div>
@@ -57,43 +58,34 @@
 
 <template name="salesProcessForm">
 
-	<form class="form-horizontal" id="ff-form" role="form">
+	<form class="form-horizontal" id="contractForm" role="form">
 	   <div class="form-group">
-	    <label for="to" class="col-sm-2 control-label">To:</label>
-	    <div class="col-sm-10">
+	    <label for="to" class="col-lg-3 control-label">Action:</label>
+	    <div class="col-lg-9">
 	    	<input id="ff-to" type="hidden" value="" />
-			<button type="button" data-ff-to="leads" class="ff-to-button btn {{whichFormClass type 'leads'}}"><i class="fa fa-money"></i> Leads</button>
-			<button type="button" data-ff-to="contracts" class="ff-to-button btn {{whichFormClass type 'contracts'}}"><i class="fa fa-medkit"></i> Contracts</button>
-			<button type="button" data-ff-to="quotes" class="ff-to-button btn {{whichFormClass type 'quotes'}}"><i class="fa fa-medkit"></i> Quotes</button>
-			<!--  
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				    Project <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
-					<li><a href="#">Something else here</a></li>
-					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
-				</ul>
-			</div>
-			-->
+			<button type="button" data-ff-to="leads" class="ff-to-button btn {{#if leadForm}}btn-success{{else}}btn-default{{/if}}"><i class="fa fa-money"></i> Leads</button>
+			<button type="button" data-ff-to="contracts" class="ff-to-button btn {{#if contactForm}}btn-success{{else}}btn-default{{/if}}"><i class="fa fa-medkit"></i> Contracts</button>
+			<button type="button" data-ff-to="quotes" class="ff-to-button btn {{#if quoteForm}}btn-success{{else}}btn-default{{/if}}"><i class="fa fa-medkit"></i> Quotes</button>
 	    </div>
 	  </div>
-	  
-	  <div class="sales-form-options">
-
-	  	{{#if type}}
-			{{{getTemplate type}}}
-	  	{{else}}
-	  		no form yet
-	  	{{/if}}
-	  	
-	  </div>
-
+			
+	{{#if showForm}}
+	
+			{{#if leadForm}}
+				{{> leadForm}}
+			{{/if}}
+			
+			{{#if contractForm}}
+				{{> contractForm}}
+			{{/if}}
+			
+			{{#if quoteForm}}
+				{{> quoteForm}}
+			{{/if}}
+		
+  	{{/if}}
+	
 	</form>
-
 </template>
 
 <template name="salesProcessSummary">
@@ -103,7 +95,6 @@
 	{{#if summaryData}}
 	
 		<table class="table table-condensed">
-		
 			<thead>
 				<tr>
 					<th>To</th>
@@ -111,7 +102,6 @@
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
-			
 			<tbody>
 				{{#each summaryData}}
 		 			<tr>
@@ -123,7 +113,6 @@
 					</tr>
 			  	{{/each}}
 			</tbody>
-			
 		</table>
 	
 		<div class="forward-button">
@@ -143,13 +132,138 @@
 </template>
 
 <template name="leadForm">
-	leads form
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Contact Name:</label>
+		<div class="col-lg-9">
+			<input id="name" type="text" class="form-control" placeholder="John Doe" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Contact Title:</label>
+		<div class="col-lg-9">
+			<input id="title" type="text" class="form-control" placeholder="Marketing Director" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Company:</label>
+		<div class="col-lg-9">
+			<input id="company" type="text" class="form-control" placeholder="Acme Jewelers" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Address:</label>
+		<div class="col-lg-9">
+			<input id="address" type="text" class="form-control" placeholder="Suite 1000, Penny Lane" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-lg-offset-3 col-lg-9 form-inline">
+			<div class="form-group col-lg-7 first">
+				<input id="city" type="text" class="form-control" placeholder="Greenfield" required>
+			</div>
+			<div class="form-group col-lg-2">
+				<input id="state" type="text" class="form-control" placeholder="MA" required>
+			</div>
+			<div class="form-group col-lg-3">
+				<input id="postal" type="text" class="form-control" placeholder="Postal Code" required>
+			</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-lg-offset-3 col-lg-9">
+			<input id="country" type="text" class="form-control" placeholder="USA" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Office Phone:</label>
+		<div class="col-lg-9">
+			<input id="office-phone" type="text" class="form-control" placeholder="(000) 000-0000" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Mobile Phone:</label>
+		<div class="col-lg-9">
+			<input id="mobile-phone" type="text" class="form-control" placeholder="(000) 000-0000" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Website:</label>
+		<div class="col-lg-9">
+			<input id="website" type="text" class="form-control" placeholder="http://www.acmejewelers.com" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Industry:</label>
+		<div class="col-lg-9">
+			<input id="industry" type="text" class="form-control" placeholder="High-end Jewelers" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Market:</label>
+		<div class="col-lg-9">
+			<input id="market" type="text" class="form-control" placeholder="Snooty old ladies" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Referred By:</label>
+		<div class="col-lg-9">
+			<input id="referrer" type="text" class="form-control" placeholder="Referred By" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="col-lg-3 control-label">Opportunities:</label>
+		<div class="col-lg-9">
+			<label class="checkbox">
+			  <input type="checkbox" id="inlineCheckbox1" value="option1"> Interactive Design/Development
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="inlineCheckbox2" value="option2"> Print/Packaging
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="inlineCheckbox3" value="option3"> Marketing/Advertising
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+	    <label for="Sent By" class="col-sm-3 control-label">Notes</label>
+	    <div class="col-sm-9">
+	      <textarea id="ff-description" class="form-control" placeholder="Notes" rows="5" required></textarea>
+	    </div>
+	</div>
+ 
+	<div class="form-group">
+		<div class="col-lg-offset-3 col-lg-9">
+			<button type="button" id="ff-submit" class="btn btn-primary"><i class="fa fa-download"></i> Save</button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-lg-offset-3 col-lg-9">
+			<button type="button" id="provide-quote" class="btn btn-xs btn-default"><i class="fa fa-download"></i> Provide Quote</button>
+	    </div>
+	</div>
+			
 </template>
 
 <template name="quoteForm">
-	quotes form
+	quotes
 </template>
 
 <template name="contractForm">
-	contracts form
+	contracts
 </template>
