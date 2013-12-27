@@ -2,8 +2,15 @@ Template.salesprocess.rendered = function() {
 	
 	$('#ff-form').parsley({
 		    errors: {
-		        classHandler: function ( elem, isRadioOrCheckbox ) {
-		            return $( elem ).parents('.form-group');
+		        classHandler: function ( element, isRadioOrCheckbox ) {
+		            return $( element ).parents('.form-group');
+		        },
+		        container: function (element, isRadioOrCheckbox) {
+		            var $container = element.parents('.form-group');
+		            if ($container.length === 0) {
+		                $container = $("<div></div>").insertAfter(element);
+		            }
+		            return $container;
 		        }
 		    },
 		    successClass: 'has-success', 
@@ -49,6 +56,18 @@ Template.salesprocess.events({
   			
   		}
   		
+  	},
+  	'click .action': function (event) 
+	{
+  		event.preventDefault();
+  		var thisInboxItem = this.thisInboxItem;
+  		
+  		var type = $(event.currentTarget).attr('data-action');
+  		
+  		Router.go('salesprocess', {  _id:thisInboxItem._id, action:'new', type:type });
+  		
+  		//$('.forward-container').removeClass('hidden');
+  		//$('.forward-button .btn').addClass('hidden');
   	},
   	'click .forward': function (event) 
 	{
@@ -104,7 +123,7 @@ Template.salesprocess.events({
   		event.preventDefault();
 
   		var thisInboxItem = this.thisInboxItem;
-  		var thisAttachments = thisInboxItem.files;
+  		var thisAttachments = thisInboxItem.attachments;
   		var isValid = false;
   		var toValue = $('#ff-to').val();
   		
@@ -130,9 +149,10 @@ Template.salesprocess.events({
   				formEntry.inbox_id 		= thisInboxItem._id;
   				formEntry.to 			= $('#ff-to').val();
   				formEntry.title 		= $('#ff-title').val();
-  				formEntry.sent 			= thisInboxItem.timestamp;
+  				formEntry.sent 			= thisInboxItem.sent;
   				formEntry.sender		= thisInboxItem.sender;
   				formEntry.description 	= $('#ff-description').val();
+  				formEntry.type 		= $('input[name="type"]:checked').val();
   				
   				formEntry.attachments 	= [];
   				
@@ -157,11 +177,26 @@ Template.salesprocess.events({
   				
   				salesProcessData.insert(formEntry);
   				
-  				clearForwardForm();
+  				Router.go('salesprocess', {  _id:thisInboxItem._id });
   				
+  				//clearForwardForm();
+
   	  		}
   	  		
   		}
+  		
+  	}
+  	
+});
+
+
+Template.salesProcessSummary.events({
+	
+	'click .ff-summaryitem': function (event) 
+	{
+  		event.preventDefault();
+  		
+  		salesProcessData.remove({_id : this._id});
   		
   	}
   	
@@ -204,6 +239,7 @@ var archiveInboxItem = function(data)
 	Router.go('sales');
 
 }
+
 
 var clearForwardForm = function()
 {

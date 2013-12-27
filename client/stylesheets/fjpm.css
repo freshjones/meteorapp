@@ -212,6 +212,24 @@ input.hour-cell:focus
     top: 15px;
 }
 
+.action-bar
+{
+	margin-bottom: 20px;
+    margin-top: 20px;
+}
+.action-bar:after {
+    color: #BBBBBB;
+    content: "Create Action:";
+    font-size: 12px;
+    font-weight: bold;
+    left: 15px;
+    letter-spacing: 1px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 0;
+}
+
+
 .row-btm-brdr
 {
 	border-bottom:solid 1px #EEEEEE;
@@ -243,7 +261,13 @@ input.parsley-error, textarea.parsley-error {
     padding: 0;
 }
 
-label.checkbox
+label.checkbox,label.radio
 {
 	font-weight:normal;
+}
+
+
+ul.vertical-padding li
+{
+	padding:10px 0;
 }

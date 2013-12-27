@@ -100,8 +100,12 @@ Template.inboxprocess.events({
   		var thisTitle = $('#inbox-title').text();
   		$('#ff-title').val(thisTitle);
   		
-  		var thisDesc = $('#inbox-description').text();
-  		$('#ff-description').val(thisDesc);
+  		var thisDesc = $('#inbox-description').html();
+  		
+  		thisDescString = $.trim(thisDesc)
+  		thisDescString = thisDescString.replace(/<br[^>]*>/gi, "\n");
+  		
+  		$('#ff-description').val(thisDescString);
   		
   		$('.checkbox input[type=checkbox]').prop('checked', true);
   		

@@ -15,13 +15,21 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
-				<div class="col-md-4 bdr-right">
-					{{> salesProcessContent}}
+				<div class="col-md-7 bdr-right">
+
+					<div class="action-bar">
+						<button type="button" data-action="lead" class="btn {{whichFormClass type 'lead'}} action ">Lead</button>
+					  	<button type="button" data-action="opportunity" class="btn {{whichFormClass type 'opportunity'}} action">Opportunity</button>
+					 	<button type="button" data-action="purchase" class="btn {{whichFormClass type 'purchase'}} action">Purchase</button>
+					</div>
+	
+					{{#if action}}
+						{{> salesProcessForm}}
+					{{else}}
+						{{> salesProcessContent}}
+					{{/if}}
 				</div>
-				<div class="col-md-5 bdr-right forward-container {{actionClass action}}">
-					{{> salesProcessForm}}
-				</div>
-				<div class="col-md-3">
+				<div class="col-md-5">
 					{{> salesProcessSummary}}
 				</div>
 			</div>
@@ -31,26 +39,26 @@
 </template>
 
 <template name="salesProcessContent">
-
-	 
-	<div class="btn-group forward-container pull-right {{actionClass action}}">
-		<button type="button" class="btn btn-sm btn-default copyAll">Copy All <i class="fa fa-share"></i></button>
-	</div>
 	
 	{{#with thisInboxItem}}		
-		<p class="text-muted"><em>Sent on: {{fmtTimestamp sent}}</em><br/>
-		From: {{sender}}</p>
-		<h2 id="inbox-title">{{title}}</h2>
-		<div id="inbox-description">
-			{{breaklines description}}
+		
+		<div class="vertical-padding">
+			<p class="text-muted"><em>Sent on: {{fmtTimestamp sent}}</em><br/>
+			From: {{sender}}</p>
+			<h2 id="inbox-title">{{title}}</h2>
+			<div id="inbox-description">
+				{{breaklines description}}
+			</div>
 		</div>
 		
-		<p>
-		<strong>Attachments</strong><br/>
-		{{#each attachments}}
-			<a href="{{url}}" target="blank">{{filename}} ({{type}})</a><br />
-		{{/each}}
-		</p>
+		<div class="well well-sm">
+			<ul class="list-unstyled">
+			{{#each attachments}}
+				<li>{{filename}} <a href="{{url}}" target="blank">(view)</a></li>
+			{{/each}}
+			</ul>
+		</div>
+		
 	{{/with}}
 	
 </template>
@@ -58,16 +66,7 @@
 
 <template name="salesProcessForm">
 
-	<form class="form-horizontal" id="contractForm" role="form">
-	   <div class="form-group">
-	    <label for="to" class="col-lg-3 control-label">Action:</label>
-	    <div class="col-lg-9">
-	    	<input id="ff-to" type="hidden" value="" />
-			<button type="button" data-ff-to="leads" class="ff-to-button btn {{#if leadForm}}btn-success{{else}}btn-default{{/if}}"><i class="fa fa-money"></i> Leads</button>
-			<button type="button" data-ff-to="contracts" class="ff-to-button btn {{#if contactForm}}btn-success{{else}}btn-default{{/if}}"><i class="fa fa-medkit"></i> Contracts</button>
-			<button type="button" data-ff-to="quotes" class="ff-to-button btn {{#if quoteForm}}btn-success{{else}}btn-default{{/if}}"><i class="fa fa-medkit"></i> Quotes</button>
-	    </div>
-	  </div>
+	<form id="ff-form" name="ff-form" role="form">
 			
 	{{#if showForm}}
 	
@@ -75,12 +74,12 @@
 				{{> leadForm}}
 			{{/if}}
 			
-			{{#if contractForm}}
-				{{> contractForm}}
+			{{#if opportunityForm}}
+				{{> opportunityForm}}
 			{{/if}}
 			
-			{{#if quoteForm}}
-				{{> quoteForm}}
+			{{#if purchaseForm}}
+				{{> purchaseForm}}
 			{{/if}}
 		
   	{{/if}}
@@ -98,6 +97,7 @@
 			<thead>
 				<tr>
 					<th>To</th>
+					<th>Type</th>
 					<th>Title</th>
 					<th class="text-center">Actions</th>
 				</tr>
@@ -106,6 +106,7 @@
 				{{#each summaryData}}
 		 			<tr>
 						<td>{{to}}</td>
+						<td>{{type}}</td>
 						<td>{{title}}</td>
 						<td class="text-center">
 							<i class="fa fa-times ff-summaryitem"></i>
@@ -116,7 +117,6 @@
 		</table>
 	
 		<div class="forward-button">
-			<button type="button" class="btn btn-primary forward">New Action</button>
 			<button type="button" class="btn btn-success archive">Save and Archive</button>
 		</div>
 		
@@ -124,14 +124,75 @@
 		
 		<div class="forward-button">
 			<p>No actions yet.</p>
-			<p><button type="button" class="btn btn-primary forward">Create One</button></p>
 		</div>
 		
 	{{/if}}
 	
 </template>
 
+
 <template name="leadForm">
+	
+	<input type="hidden" id="ff-to" name="ff-to" value="lead">
+	
+	{{#with thisInboxItem}}		
+		
+		<p class="text-muted"><em>Sent on: {{fmtTimestamp sent}}</em><br/>
+		From: {{sender}}</p>
+		
+		<div class="form-group">
+			<label for="title" class="sr-only">Title:</label>
+			<div >
+				<input id="ff-title" type="text" class="form-control" placeholder="John Doe" value="{{title}}" required>
+			</div>
+		</div>
+		
+		<div class="form-group">
+		    <label for="Sent By" class="sr-only">Description:</label>
+		    <div>
+		      <textarea id="ff-description" class="form-control" placeholder="Notes" rows="10" required>{{description}}</textarea>
+		    </div>
+		</div>
+		
+		<div class="form-group">
+			<label for="title" class="sr-only">Type:</label>
+			<div>
+				<label class="radio">
+				  <input type="radio" name="type" id="leadType1" value="contact" required> <strong>Contact:</strong> May or may not ever have a need.
+				</label>
+				<label class="radio">
+				  <input type="radio" name="type" id="leadType2" value="suspect" > <strong>Suspect:</strong> Has a possible need but has not expressed interest.
+				</label>
+				<label class="radio">
+				  <input type="radio" name="type" id="leadType3" value="prospect" > <strong>Prospect:</strong> Has an immediate need and has expressed interest.
+				</label>
+			</div>
+		</div>
+		
+		<div class="well well-sm">
+		    
+			{{#each attachments}}
+		    	<div class="checkbox">
+			        <label>
+			          <input type="checkbox" name="file_{{_id}}" value="{{_id}}" class="ff-attachment" checked="checked" /> {{filename}} <a href="{{url}}" target="blank">(view)</a>
+			        </label>
+			    </div>
+			{{/each}}
+	
+		</div>
+	
+	{{/with}}
+	
+	<div class="form-group">
+		<div>
+			<button type="button" id="ff-submit" class="btn btn-primary"><i class="fa fa-download"></i> Save Action</button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	</div>
+
+</template>
+
+<template name="leadFormLarge">
 	
 	<div class="form-group">
 		<label for="title" class="col-lg-3 control-label">Contact Name:</label>
@@ -289,10 +350,10 @@
 			
 </template>
 
-<template name="quoteForm">
-	quotes
+<template name="opportunityForm">
+	opportunity form
 </template>
 
-<template name="contractForm">
-	contracts
+<template name="purchaseForm">
+	purchase form
 </template>
