@@ -1,46 +1,26 @@
 <template name="sales">
-	
-
 	<div class="col-lg-1 bdr-right">
-		<div class="vertical-padding">
-			<button class="btn btn-danger btn-large" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Item</button>
-		</div>
-		<div class="vertical-padding">
-			<ul class="nav nav-pills nav-stacked">
-				<li><a href=""><span class="badge pull-right">{{counter 'inbox'}}</span>Inbox</a></li>
-				<li><a href=""><span class="badge pull-right">{{counter 'verify'}}</span>Verify</a></li>
-				<li><a href=""><span class="badge pull-right">{{counter 'clarify'}}</span>Clarify</a></li>
-				<li><a href="">Opportunities</a></li>
-				<li><a href="">Purchases</a></li>
-			</ul>
-		</div>
+		{{> salesNav}}
 	</div>
 	<div class="col-lg-11">
 		
 		{{#if items}}
-			<table class="table table-striped" >
+			<table class="table table-hover">
 		    	<thead>
 		    		<tr>
 			    		<td>Status</td>
 			    		<td>Title</td>
 			    		<td>Time</td>
 			    		<td>Sender</td>
-			    		<td>&nbsp;</td>
 		    		</tr>
 		    	</thead>
-		    	<tbody class="sortable-items">
+		    	<tbody>
 			    	{{#each items}}
-			    		<tr>
+			    		<tr class="process">
 				    		<td>{{status}}</td>
 				    		<td>{{title}}</td>
 				    		<td>{{fmtTimestamp sent}}</td>
 				    		<td>{{sender}}</td>
-				    		<td>
-				    			<div class="btn-group">
-						    		<button class="btn btn-sm btn-default remove"><i class="fa fa-times"></i> Remove</button>
-						    		<button class="btn btn-sm btn-default process"><i class="fa fa-cog"></i> Process</button>
-					    		</div>
-				    		</td>
 			    		</tr>
 			   		{{/each}}
 		    	</tbody>
@@ -58,13 +38,20 @@
 </template>
 
 
-<template name="sales_nav">
-
-	<div class="section-nav">
-	    <a class="btn btn-large" href="{{pathFor 'sales'}}"><i class="fa fa-money"></i>Dashboard</a>
-	    <a class="btn btn-large" href="{{pathFor 'leads'}}"><i class="fa fa-heart"></i>Leads</a>
-	    <a class="btn btn-large" href="{{pathFor 'contracts'}}"><i class="fa fa-key"></i>Contracts</a>
-	    <a class="btn btn-large" href="{{pathFor 'quotes'}}"><i class="fa fa-quote-left"></i>Quotes</a>
-    </div>
+<template name="salesNav">
+		
+	<div class="vertical-padding">
+		<button class="btn btn-danger btn-large" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Item</button>
+	</div>
+	<div class="vertical-padding">
+		<ul class="nav nav-pills nav-stacked">
+			<li class="{{activeSalesInbox 'active'}}"><a href="#" data-action="active" class="inbox"><span class="badge pull-right">{{counter 'active'}}</span>Inbox</a></li>
+			<li class="{{activeSalesInbox 'verify'}}"><a href="#" data-action="verify" class="inbox"><span class="badge pull-right">{{counter 'verify'}}</span>Verify</a></li>
+			<li class="{{activeSalesInbox 'clarify'}}"><a href="#" data-action="clarify" class="inbox"><span class="badge pull-right">{{counter 'clarify'}}</span>Clarify</a></li>
+			<li class="{{activeSalesInbox 'prospect'}}"><a href="#" data-action="prospect" class="inbox"><span class="badge pull-right">{{counter 'leads'}}</span>Prospects</a></li>
+			<li class="{{activeSalesInbox 'opportunity'}}"><a href="#" data-action="opportunity" class="inbox">Opportunities</a></li>
+			<li class="{{activeSalesInbox 'purchase'}}"><a href="#" data-action="purchase" class="inbox">Purchases</a></li>
+		</ul>
+	</div>
     
 </template>

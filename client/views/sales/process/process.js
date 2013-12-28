@@ -24,7 +24,8 @@ Template.salesprocess.events({
 	'click .back': function (event) 
 	{
   		event.preventDefault();
-  		Router.go('sales');
+  		var thisInbox = Router.current().params['inbox'];
+  		Router.go('sales', {inbox:thisInbox});
   	},
   	'click .archive': function (event) 
 	{
@@ -61,10 +62,10 @@ Template.salesprocess.events({
 	{
   		event.preventDefault();
   		var thisInboxItem = this.thisInboxItem;
-  		
+  		var thisInbox = Router.current().params['inbox'];
   		var type = $(event.currentTarget).attr('data-action');
   		
-  		Router.go('salesprocess', {  _id:thisInboxItem._id, action:'new', type:type });
+  		Router.go('salesprocess', { inbox:thisInbox, _id:thisInboxItem._id, action:'new', type:type });
   		
   		//$('.forward-container').removeClass('hidden');
   		//$('.forward-button .btn').addClass('hidden');
@@ -123,6 +124,7 @@ Template.salesprocess.events({
   		event.preventDefault();
 
   		var thisInboxItem = this.thisInboxItem;
+  		var thisInbox = Router.current().params['inbox'];
   		var thisAttachments = thisInboxItem.attachments;
   		var isValid = false;
   		var toValue = $('#ff-to').val();
@@ -152,7 +154,7 @@ Template.salesprocess.events({
   				formEntry.sent 			= thisInboxItem.sent;
   				formEntry.sender		= thisInboxItem.sender;
   				formEntry.description 	= $('#ff-description').val();
-  				formEntry.type 		= $('input[name="type"]:checked').val();
+  				formEntry.type 			= $('input[name="type"]:checked').val();
   				
   				formEntry.attachments 	= [];
   				
@@ -177,7 +179,7 @@ Template.salesprocess.events({
   				
   				salesProcessData.insert(formEntry);
   				
-  				Router.go('salesprocess', {  _id:thisInboxItem._id });
+  				Router.go('salesprocess', {  inbox:thisInbox, _id:thisInboxItem._id });
   				
   				//clearForwardForm();
 
@@ -205,7 +207,7 @@ Template.salesProcessSummary.events({
 
 var archiveInboxItem = function(data)
 {
-
+	var thisInbox = Router.current().params['inbox'];
 	var summaryData = data.summaryData;
 	var inboxItem = data.thisInboxItem;
 	
@@ -238,7 +240,7 @@ var archiveInboxItem = function(data)
 		
 	}
 	
-	Router.go('sales');
+	Router.go('sales', {inbox:thisInbox});
 
 }
 

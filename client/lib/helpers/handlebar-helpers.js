@@ -233,8 +233,16 @@ Handlebars.registerHelper('counter', function(value) {
 	var count = '';
 	switch(value)
 	{
+		case 'active':
+			var inboxCount = Sales.find({status:'active'}).count();
+			if(inboxCount > 0 )
+			{
+				count = inboxCount;
+			}
+		break;
+		
 		case 'verify':
-			var salesLeads = Sales.find({status:'lead'}).count();
+			var salesLeads = Sales.find({status:'verify'}).count();
 			if(salesLeads > 0 )
 			{
 				count = salesLeads;
@@ -246,4 +254,20 @@ Handlebars.registerHelper('counter', function(value) {
 	return count;
 
 });
+
+Handlebars.registerHelper('activeSalesInbox', function(value) {
+   
+	var returnClass = '';
+	var thisInbox = Router.current().params['inbox'];
+	
+	if(value === thisInbox)
+	{
+		returnClass = 'active';
+	}
+	
+	return returnClass;
+	
+});
+
+
 

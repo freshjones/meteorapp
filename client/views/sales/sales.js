@@ -6,7 +6,22 @@ Template.sales.events({
   	},
 	'click .process': function (event) {
 		event.preventDefault();
-		Router.go('salesprocess', { _id : this._id });
+		var thisInbox = Router.current().params['inbox'];
+		Router.go('salesprocess', { inbox:thisInbox, _id : this._id });
   	}
 
+});
+
+Template.salesNav.events({
+	
+	'click .inbox': function (event) {
+		
+		event.preventDefault();
+		
+		var to = $(event.currentTarget).attr('data-action');
+  		
+		Router.go('sales', {  inbox:to });
+  		
+  	}
+	
 });
