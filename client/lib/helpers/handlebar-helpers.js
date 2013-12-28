@@ -228,3 +228,22 @@ Handlebars.registerHelper('actionClass', function(value) {
     	return value;
     }
 });
+
+Handlebars.registerHelper('counter', function(value) {
+	var count = '';
+	switch(value)
+	{
+		case 'verify':
+			var salesLeads = Sales.find({status:'lead'}).count();
+			if(salesLeads > 0 )
+			{
+				count = salesLeads;
+			}
+			
+		break;
+	}
+
+	return count;
+
+});
+

@@ -220,16 +220,18 @@ var archiveInboxItem = function(data)
 		//ok we need to process the action items
 		summaryData.forEach(function(eachItem){
 			
-			var actionItem 			= {};
-			actionItem.status 		= 'active';
-			actionItem.attachments 	= eachItem.attachments;
-			actionItem.description 	= eachItem.description;
-			actionItem.inbox_id 	= eachItem.inbox_id;
-			actionItem.sender 		= eachItem.sender;
-			actionItem.sent 		= eachItem.sent;
-			actionItem.title 		= eachItem.title;
-			actionItem.to 			= eachItem.to;
+			var actionItem 			     = {};
+			actionItem.status 		   = eachItem.to;
+			actionItem.attachments 	 = eachItem.attachments;
+			actionItem.description 	 = eachItem.description;
+			actionItem.inbox_id 	   = eachItem.inbox_id;
+			actionItem.sender 		   = eachItem.sender;
+			actionItem.sent 		     = eachItem.sent;
+			actionItem.title 		     = eachItem.title;
+			actionItem.type 			   = eachItem.type;
 			
+      Sales.insert(actionItem);
+
 		});
 		
 		Sales.update( {_id:inboxItem._id }, { $set : { status : "archive" } } );
