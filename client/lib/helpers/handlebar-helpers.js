@@ -42,6 +42,12 @@ Handlebars.registerHelper('optionSelected', function(value) {
 
 });
 
+Handlebars.registerHelper('isSelected', function(value) {
+
+	
+
+});
+
 Handlebars.registerHelper('checkuserhours', function(context, options) {
 
 	context.label = 'success';
@@ -229,12 +235,12 @@ Handlebars.registerHelper('actionClass', function(value) {
     }
 });
 
-Handlebars.registerHelper('counter', function(value) {
+Handlebars.registerHelper('counter', function(value, collection) {
 	var count = '';
 	switch(value)
 	{
 		case 'active':
-			var inboxCount = Sales.find({status:'active'}).count();
+			var inboxCount = eval(collection).find({status:'active'}).count();
 			if(inboxCount > 0 )
 			{
 				count = inboxCount;
@@ -242,7 +248,7 @@ Handlebars.registerHelper('counter', function(value) {
 		break;
 		
 		case 'verify':
-			var salesLeads = Sales.find({status:'verify'}).count();
+			var salesLeads = eval(collection).find({status:'verify'}).count();
 			if(salesLeads > 0 )
 			{
 				count = salesLeads;
@@ -270,4 +276,17 @@ Handlebars.registerHelper('activeSalesInbox', function(value) {
 });
 
 
+Handlebars.registerHelper('activeServiceInbox', function(value) {
+	   
+	var returnClass = '';
+	var thisInbox = Router.current().params['inbox'];
+	
+	if(value === thisInbox)
+	{
+		returnClass = 'active';
+	}
+	
+	return returnClass;
+	
+});
 

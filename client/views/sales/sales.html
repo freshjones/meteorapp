@@ -1,9 +1,9 @@
 <template name="sales">
+
 	<div class="col-lg-1 bdr-right">
 		{{> salesNav}}
 	</div>
 	<div class="col-lg-11">
-		
 		{{#if items}}
 			<table class="table table-hover">
 		    	<thead>
@@ -26,13 +26,11 @@
 		    	</tbody>
 		    </table>
 		{{else}}
-			
 			<div>
 				<h3>Good work.</h3>
 				<p class="lead">There's nothing to do here.</p>
 			</div>
 		{{/if}}
-
 	</div>
 	
 </template>
@@ -45,10 +43,10 @@
 	</div>
 	<div class="vertical-padding">
 		<ul class="nav nav-pills nav-stacked">
-			<li class="{{activeSalesInbox 'active'}}"><a href="#" data-action="active" class="inbox"><span class="badge pull-right">{{counter 'active'}}</span>Inbox</a></li>
-			<li class="{{activeSalesInbox 'verify'}}"><a href="#" data-action="verify" class="inbox"><span class="badge pull-right">{{counter 'verify'}}</span>Verify</a></li>
-			<li class="{{activeSalesInbox 'clarify'}}"><a href="#" data-action="clarify" class="inbox"><span class="badge pull-right">{{counter 'clarify'}}</span>Clarify</a></li>
-			<li class="{{activeSalesInbox 'prospect'}}"><a href="#" data-action="prospect" class="inbox"><span class="badge pull-right">{{counter 'leads'}}</span>Prospects</a></li>
+			<li class="{{activeSalesInbox 'active'}}"><a href="#" data-action="active" class="inbox"><span class="badge pull-right">{{counter 'active' 'Sales'}}</span>Inbox</a></li>
+			<li class="{{activeSalesInbox 'verify'}}"><a href="#" data-action="verify" class="inbox"><span class="badge pull-right">{{counter 'verify' 'Sales'}}</span>Verify</a></li>
+			<li class="{{activeSalesInbox 'clarify'}}"><a href="#" data-action="clarify" class="inbox"><span class="badge pull-right">{{counter 'clarify' 'Sales'}}</span>Clarify</a></li>
+			<li class="{{activeSalesInbox 'prospect'}}"><a href="#" data-action="prospect" class="inbox"><span class="badge pull-right">{{counter 'leads' 'Sales'}}</span>Prospects</a></li>
 			<li class="{{activeSalesInbox 'opportunity'}}"><a href="#" data-action="opportunity" class="inbox">Opportunities</a></li>
 			<li class="{{activeSalesInbox 'purchase'}}"><a href="#" data-action="purchase" class="inbox">Purchases</a></li>
 		</ul>

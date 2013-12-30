@@ -87,3 +87,8 @@ Meteor.publish('salesitem', function (sales_id) {
 Meteor.publish("service", function () {
 	return Service.find({},{status:{"archive":0}});
 });
+
+Meteor.publish('serviceitem', function (service_id) {
+  check(service_id, String);
+  return Service.find({_id:service_id});
+});
