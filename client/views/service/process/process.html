@@ -163,9 +163,12 @@
 			<label for="title" class="">Company:</label>
 			<div>
 				<select class="selectCompany">
-					<option value="" {{isSelected ../company}}>Please Choose</option>
-					<option value="chr" {{isSelected ../company}}>Chroma Technology Corp</option>
-					<option value="fmk" {{isSelected ../company}}>FiberMark</option>
+					{{#select ../company}}
+						<option value="">Please Choose</option>
+						{{#each ../../companies}}
+							<option value="{{code}}">{{name}}</option>
+						{{/each}}
+					{{/select}}
 				</select>
 			</div>
 		</div>
