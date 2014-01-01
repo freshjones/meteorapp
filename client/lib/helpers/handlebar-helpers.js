@@ -42,9 +42,12 @@ Handlebars.registerHelper('optionSelected', function(value) {
 
 });
 
-Handlebars.registerHelper('isSelected', function(value) {
+Handlebars.registerHelper('isRadioChecked', function(value, option) {
 
-	
+	if(value === option)
+	{
+		return ' checked="checked" ';
+	}
 
 });
 
@@ -255,6 +258,16 @@ Handlebars.registerHelper('counter', function(value, collection) {
 			}
 			
 		break;
+		
+		case 'quote':
+			var quotes = eval(collection).find({status:'quote'}).count();
+			if(quotes > 0 )
+			{
+				count = quotes;
+			}
+			
+		break;
+		
 	}
 
 	return count;

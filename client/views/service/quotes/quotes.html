@@ -1,0 +1,440 @@
+<template name="quotebuild">
+	
+	<div class="col-lg-1 bdr-right">
+		{{> serviceNav}}
+	</div>
+	
+	<div class="col-lg-11">
+	
+		<div class="btn-group">
+			<button type="button" class="btn btn-default back"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</button>
+			
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default archive"><i class="fa fa-download"></i> Archive</button>
+		</div>
+		
+		<div class="">
+			<hr/>
+		</div>
+		
+		<div class="row">
+			
+			<div class="col-md-12">
+				<p class="lead">Project Quotation<br/><small class="text-muted"><em>{{quoteItem.company}}</em></small></p>
+			</div>
+		
+			<div class="col-md-12">
+			
+				<div class="row">
+				
+					<div class="col-md-1 multistep-nav">
+						
+						<ul class="nav nav-pills nav-stacked">
+							<li class="active"><a href=#" data-action="overview" class="step">Overview</a></li>
+							<li><a href=#" data-action="scope" class="step">Scope</a></li>
+							<li><a href=#" data-action="assumptions" class="step">Assumptions</a></li>
+							<li><a href=#" data-action="features" class="step">Features</a></li>
+						</ul>
+						
+					</div>
+					
+					<div class="col-md-11 bdr-right">
+						
+						{{#if step}}
+						
+							<form id="buildquoteform">
+							{{#if scopeStep}}
+								{{> scopeStep}}
+							{{/if}}
+							
+							{{#if assumptionsStep}}
+								{{> assumptionsStep}}
+							{{/if}}
+							</form>
+							
+							{{#if featuresStep}}
+								{{> featuresStep}}
+							{{/if}}
+							
+						{{else}}
+							<form id="buildquoteform">
+								{{> quoteMain}}
+							</form>
+						{{/if}}
+						
+					</div>
+				
+					
+				
+				</div>
+			
+			</div>
+		
+		</div>
+	
+	</div>
+
+</template>
+
+
+<template name="quoteMain">
+	
+	<input type="hidden" name="step" id="ff-step" value="overview" />
+	<div class="form-group">
+		<label for="title" class="control-label">Project Title:</label>
+		<div >
+			<input id="ff-title" type="text" class="form-control" placeholder="John Doe" value="{{quoteItem.title}}" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+	    <label for="Sent By" class="control-label">Project Overview:</label>
+	    <div>
+	      <textarea id="ff-description" class="form-control" placeholder="Notes" rows="5" required>{{quoteItem.description}}</textarea>
+	    </div>
+	</div>
+	
+	<div class="form-group">
+	    <label for="Sent By" class="control-label">Project Purpose:</label>
+	    <div>
+	      <textarea id="ff-purpose" class="form-control" placeholder="Notes" rows="3" required>{{quoteItem.purpose}}</textarea>
+	    </div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="control-label">Weight:</label>
+		<div >
+			<label class="radio-inline">
+			  <input type="radio" id="weight1" name="weight" value="optimistic" {{isRadioChecked 'optimistic' quoteItem.weight}} required> Optimistic
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" id="weight2" name="weight" value="pessimistic" {{isRadioChecked 'pessimistic' quoteItem.weight}}> Pessimistic
+			</label>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="control-label">Size:</label>
+		<div >
+			<label class="radio-inline">
+			  <input type="radio" id="size1" name="size" value="large" {{isRadioChecked 'large' quoteItem.size}} required> Large
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" id="size2" name="size" value="medium" {{isRadioChecked 'medium' quoteItem.size}}> Medium
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" id="size3" name="size" value="small" {{isRadioChecked 'small' quoteItem.size}}> Small
+			</label>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="title" class="control-label">Instinctive Estimate:</label>
+		<div class="input-group">
+			<span class="input-group-addon">Hours</span>
+		  	<input id="ff-instinct" type="text" class="form-control" placeholder="Instinctive estimate of total hours" value="{{quoteItem.instinctEstimate}}" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="">
+			<button type="submit" id="ff-submit" data-action="scope" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	</div>
+	 
+</template>
+
+
+<template name="scopeStep">
+	
+	<input type="hidden" name="step" id="ff-step" value="scope" />
+	
+	<div class="row ">
+		<div class="col-md-12">
+		
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+					    <label for="Sent By" class="control-label">What is included:</label>
+					    <div>
+					      <textarea id="ff-included" class="form-control" name="ff-included" placeholder="List each on one line" rows="10" required>{{quoteItem.scope.included}}</textarea>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+					    <label for="Sent By" class="control-label">What is Not included:</label>
+					    <div>
+					      <textarea id="ff-notincluded" class="form-control" name="ff-notincluded"  placeholder="List each on one line" rows="10" required>{{quoteItem.scope.notincluded}}</textarea>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="">
+			<button type="submit" id="ff-submit" data-action="assumptions" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	</div>
+	
+</template>
+
+<template name="assumptionsStep">
+
+	<input type="hidden" name="step" id="ff-step" value="assumptions" />
+	
+	<div class="form-group">
+	    <label for="Sent By" class="control-label">Assumptions:</label>
+	    <div>
+	      <textarea id="ff-assumptions" class="form-control" placeholder="List each on one line" rows="10" required>{{quoteItem.assumptions}}</textarea>
+	    </div>
+	</div>
+					
+	<div class="form-group">
+		<div class="">
+			<button type="submit" id="ff-submit" data-action="features" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	</div>
+
+</template>
+
+<template name="featuresStep">
+
+	<div class="row ">
+	
+		<div class="col-md-3 bdr-left">
+			<form id="newFeature" name="newFeature">
+				
+				<p class="lead">New Feature</p>
+				
+				<div class="form-group">
+				    <label for="Sent By" class="control-label">Name:</label>
+				    <div>
+				    	<input id="new-set" type="text" class="form-control" placeholder="Feature Name" value="" required>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="Sent By" class="control-label">Estimate:</label>
+				    <div>
+				    	<select name="ff-experience" class="form-control" required>
+				    		<option value="">Estimated Hours</option>
+				    		<option value=".1">0.1 hours</option>
+				    		<option value=".3">0.3 hours</option>
+				    		<option value=".5">0.5 hours</option>
+				    		<option value="1">1.0 hours</option>
+				    		<option value="3">3.0 hours</option>
+				    		<option value="5">5.0 hours</option>
+				    		<option value="10">10 hours</option>
+				    		<option value="30">30 hours</option>
+				    		<option value="50">50 hours</option>
+				    	</select>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="Sent By" class="control-label">Experience:</label>
+				    <div>
+				    	<label class="radio-inline">
+						  <input type="radio" id="size1" name="experience" value="5" checked="checked" required> 5
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" id="size2" name="experience" value="4"> 4
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" id="size3" name="experience" value="3"> 3
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" id="size3" name="experience" value="2"> 2
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" id="size3" name="experience" value="1"> 1
+						</label>
+						
+				    </div>
+				</div>
+				<div class="form-group ">
+				    <div>
+				    	<button type="button" id="set-submit" class="btn btn-default">Add</button>
+				    </div>
+				</div>
+			</form>
+			
+		</div>
+		
+		<div class="col-md-6 bdr-left">
+			<form id="buildquoteform">
+				<input type="hidden" name="step" id="ff-step" value="features" />
+				<p class="lead">Features</p>
+			</form>
+		</div>
+		
+		<div class="col-md-3 bdr-left">
+			<p class="lead">Summary</p>
+			{{estmodel}}
+			<form id="quoteSummary">
+			
+			<table class="table table-condensed">
+			
+			<tr>
+				<td colspan="2" class="td-label">Use Instinct Estimate</td>
+				<td class="text-center ">
+					<div class="make-switch" id="chooseEst">
+						<input type="checkbox" >
+					</div>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td colspan="2" class="td-label">Estimated Hours</td>
+				<td class="text-center ">
+					<div class="input-group">
+						<input class="form-control" name="ff-subtotal" value="{{quoteItem.instinctEstimate}}" />
+						<span class="input-group-addon">Hrs</span>
+					</div>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td><input id="includeEnvironment" type="checkbox" name="includeEnvironment" checked="checked" /></td>
+				<td class="td-label">Environment</td>
+				<td class="text-center">
+					<select class="form-control">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeConcept" type="checkbox" name="includeConcept" checked="checked" /></td>
+				<td class="td-label">Concept</td>
+				<td class="text-center">
+					<select class="form-control">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includePM" type="checkbox" name="includePM" checked="checked" /></td>
+				<td class="td-label">Project Management</td>
+				<td class="text-center">
+					<select class="form-control input-sm">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeConfig" type="checkbox" name="includeConfig" checked="checked" /></td>
+				<td class="td-label">Configuration</td>
+				<td class="text-center">
+					<select class="form-control input-sm">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeTesting" type="checkbox" name="includeTesting" checked="checked" /></td>
+				<td class="td-label">Testing & Quality</td>
+				<td class="text-center">
+					<select class="form-control input-sm">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeDeployment" type="checkbox" name="includeDeployment" checked="checked" /></td>
+				<td class="td-label">Deployment</td>
+				<td class="text-center">
+					<select class="form-control input-sm">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeTraining" type="checkbox" name="includeTraining" checked="checked" /></td>
+				<td class="td-label">Training</td>
+				<td class="text-center">
+					<select class="form-control input-sm">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td><input id="includeUnforeseen" type="checkbox" name="includeUnforeseen" checked="checked" /></td>
+				<td class="td-label">Unforeseen Problems</td>
+				<td class="text-center">
+					<select class="form-control input-sm">
+						<option value="">5%</option>
+						<option value="">10%</option>
+						<option value="">15%</option>
+						<option value="">20%</option>
+						<option value="">25%</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><p class="lead">Final</p></td>
+				<td class="text-right"><p class="lead">$6,340.63</p></td>
+			</tr>
+			<tr>
+				<td colspan="2"><p class="lead">Duration</p></td>
+				<td class="text-right"><p class="lead">1 Weeks</p></td>
+			</tr>
+			</table>
+			
+			<div class="form-group">
+				<div class="">
+					<button type="submit" id="ff-savequote" data-action="complete" class="btn btn-success">Save Quote</button>
+					<button type="button" class="btn btn-link cancel">Cancel</button>
+			    </div>
+			</div>
+			
+			</form>
+			
+		</div>
+	</div>
+	
+	
+</template>

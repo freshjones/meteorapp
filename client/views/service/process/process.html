@@ -30,17 +30,12 @@
 							</div>
 						{{/if}}
 						
-						{{#if inboxVerify}}
-							<div class="action-bar">
-								<button type="button" data-action="verify" class="btn {{whichFormClass type 'verify'}} action ">Verify</button>
-							</div>
-						{{/if}}
-						
-						
 						{{#if action}}
 							{{> serviceProcessForm}}
 						{{else}}
-							{{> serviceProcessContent}}
+							
+								{{> serviceProcessContent}}
+							
 						{{/if}}
 					</div>
 					<div class="col-md-5">
@@ -148,8 +143,6 @@
 	
 </template>
 
-
-
 <template name="quoteForm">
 	
 	<input type="hidden" id="ff-to" name="ff-to" value="quote">
@@ -159,56 +152,79 @@
 		<p class="text-muted"><em>Sent on: {{fmtTimestamp sent}}</em><br/>
 		From: {{sender}}</p>
 		
-		<div class="form-group">
-			<label for="title" class="">Company:</label>
-			<div>
-				<select class="selectCompany">
-					{{#select ../company}}
+		<div class="form-group form-inline">
+		
+			<div class="form-group">
+				<label for="title" class="control-label">Company/Organization:</label>
+				<div>
+					<select id="ff-company" name="company" class="selectCompany" required>
+						{{#select ../company}}
+							<option value="">Please Choose</option>
+							{{#each ../../companies}}
+								<option value="{{code}}">{{name}}</option>
+							{{/each}}
+						{{/select}}
+					</select>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="title" class="control-label">Project:</label>
+				<div>
+					<select id="ff-project" name="project" required>
 						<option value="">Please Choose</option>
-						{{#each ../../companies}}
-							<option value="{{code}}">{{name}}</option>
-						{{/each}}
-					{{/select}}
-				</select>
+						{{#if ../company}}
+							{{#each ../../projects}}
+								<option value="{{_id}}">{{name}}</option>
+							{{/each}}
+						{{/if}}
+					</select>
+				</div>
 			</div>
+
 		</div>
 		
-		{{#if ../company}}
 		<div class="form-group">
-			<label for="title" class="">Project:</label>
-			<div>
-				<select>
-					<option>Please Choose</option>
-				</select>
-			</div>
-		</div>
-		{{/if}}
-		
-		<div class="form-group">
-			<label for="title" class="">Title:</label>
+			<label for="title" class="control-label">Title:</label>
 			<div >
 				<input id="ff-title" type="text" class="form-control" placeholder="John Doe" value="{{title}}" required>
 			</div>
 		</div>
 		
 		<div class="form-group">
-		    <label for="Sent By" class="">Description:</label>
+		    <label for="Sent By" class="control-label">Overview:</label>
 		    <div>
-		      <textarea id="ff-description" class="form-control" placeholder="Notes" rows="10" required>{{description}}</textarea>
+		      <textarea id="ff-description" class="form-control" placeholder="Notes" rows="5" required>{{description}}</textarea>
 		    </div>
 		</div>
 		
 		<div class="form-group">
-			<label for="title" class="sr-only">Type:</label>
-		    <div class="">
-		    	<label class="radio-inline">
-				  <input type="radio" name="type" id="leadType1" value="lead" required> <strong>Lead:</strong> no sales action required.
+		    <label for="Sent By" class="control-label">Purpose:</label>
+		    <div>
+		      <textarea id="ff-purpose" class="form-control" placeholder="Notes" rows="3" required></textarea>
+		    </div>
+		</div>
+		
+		<!--  
+		<div class="form-group">
+		    <label for="Sent By" class="">Technicians Required:</label>
+		    <div>
+		      	<label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox1" value="option1"> Consultation
 				</label>
-				<label class="radio-inline">
-				  <input type="radio" name="type" id="leadType2" value="prospect" > <strong>Prospect:</strong> sales action is required.
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox1" value="option1"> Design
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox2" value="option2"> Development
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox3" value="option3"> Copywriting
 				</label>
 		    </div>
 		</div>
+		-->
 		
 		<div class="well well-sm">
 		    

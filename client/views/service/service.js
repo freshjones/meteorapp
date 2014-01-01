@@ -4,8 +4,13 @@ Template.service.events({
 		event.preventDefault();
 		var thisInbox = Router.current().params['inbox'];
 		Router.go('serviceprocess', { inbox:thisInbox, _id : this._id });
-  	}
-
+  	},
+  	'click .buildquote': function (event) {
+		event.preventDefault();
+		var thisInbox = Router.current().params['inbox'];
+		Router.go('quotebuild', { inbox:thisInbox, _id : this._id });
+  	},
+  	
 });
 
 Template.serviceNav.events({

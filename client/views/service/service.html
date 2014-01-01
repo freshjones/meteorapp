@@ -3,34 +3,40 @@
 	<div class="col-lg-1 bdr-right">
 		{{> serviceNav}}
 	</div>
+	
 	<div class="col-lg-11">
-		{{#if items}}
-			<table class="table table-hover" >
-		    	<thead>
-		    		<tr>
-			    		<td>Status</td>
-			    		<td>Title</td>
-			    		<td>Time</td>
-			    		<td>Sender</td>
-		    		</tr>
-		    	</thead>
-		    	<tbody class="sortable-items">
-			    	{{#each items}}
-			    		<tr class="process">
-				    		<td>{{status}}</td>
-				    		<td>{{title}}</td>
-				    		<td>{{fmtTimestamp sent}}</td>
-				    		<td>{{sender}}</td>
-			    		</tr>
-			   		{{/each}}
-		    	</tbody>
-		    </table>
-		{{else}}
-			<div>
-				<h3>Good work.</h3>
-				<p class="lead">There's nothing to do here.</p>
-			</div>
-		{{/if}}
+	
+		<div class="vertical-padding">
+			<ul class="nav nav-tabs">
+			  <li class="active"><a href="#">New</a></li>
+			  <li><a href="#">Revise</a></li>
+			  <li><a href="#">Waiting</a></li>
+			  <!-- <li><a href="#">Complete</a></li> -->
+			</ul>
+		</div>
+		
+		<div class="vertical-padding">
+			{{#if items}}
+				<table class="table table-hover" >
+			    	
+			    	<tbody class="sortable-items">
+				    	{{#each items}}
+				    		<tr class="buildquote">
+					    		<td>{{title}}</td>
+					    		<td>{{fmtTimestamp sent}}</td>
+					    		<td>{{sender}}</td>
+				    		</tr>
+				   		{{/each}}
+			    	</tbody>
+			    </table>
+			{{else}}
+				<div>
+					<h3>Good work.</h3>
+					<p class="lead">There's nothing to do here.</p>
+				</div>
+			{{/if}}
+		</div>
+		
 	</div>
 	
 </template>

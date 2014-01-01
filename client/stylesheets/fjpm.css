@@ -125,7 +125,9 @@ input.hour-cell:focus
 .datepicker{z-index:9999;}
 
 .remove-milestone,
-.ff-summaryitem
+.ff-summaryitem,
+tr.buildquote td,
+tr.process td
 {
 	cursor:pointer;
 }
@@ -240,6 +242,12 @@ input.hour-cell:focus
 	border-right:solid 1px #EEEEEE;
 }
 
+.bdr-left
+{
+	border-left:solid 1px #EEEEEE;
+}
+
+
 input.parsley-success, textarea.parsley-success {
   border-color: #3C763D;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
@@ -270,4 +278,29 @@ label.checkbox,label.radio
 ul.vertical-padding li
 {
 	padding:10px 0;
+}
+
+.multistep-nav .nav-pills > li > a
+{
+	color: #999;
+}
+
+
+.multistep-nav .nav-pills > li.active > a
+{
+	background: none;
+    color: #428BCA;
+}
+
+.multistep-nav .nav-pills > li.active > a:hover, 
+.multistep-nav .nav-pills > li.active > a:focus
+{
+	background: #eee;
+}
+
+td p.lead { margin:0; }
+
+.td-label
+{
+	white-space: nowrap;
 }

@@ -14,7 +14,8 @@
       "bootstrap-3": {},
       "managedUsers": {},
       "parsleyjs": {},
-      "jqbootstrapvalidation": {}
+      "jqbootstrapvalidation": {},
+      "bootstrap-3-switch": {}
     },
     "packages": {
       "jquery-ui": {
@@ -66,6 +67,11 @@
         "git": "https://github.com/nate-strauser/meteor-jqbootstrapvalidation.git",
         "tag": "v0.1.0",
         "commit": "2af4625d41a9b24311544a53790f14fa38c27b10"
+      },
+      "bootstrap-3-switch": {
+        "git": "https://github.com/joshorig/meteor-bootstrap-3-switch.git",
+        "tag": "v0.0.3",
+        "commit": "0d2f24b5ae2857d41eb945b5c2cec1c31a02d0d6"
       }
     }
   }
