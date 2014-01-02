@@ -275,17 +275,19 @@
 		
 		<div class="col-md-3 bdr-left">
 			<p class="lead">Summary</p>
-			{{estmodel}}
-			<form id="quoteSummary">
 			
+			<form id="quoteSummary">
+			<input type="text" id="estModel" value="{{getEstModel}}" >
 			<table class="table table-condensed">
 			
 			<tr>
 				<td colspan="2" class="td-label">Use Instinct Estimate</td>
-				<td class="text-center ">
-					<div class="make-switch" id="chooseEst">
-						<input type="checkbox" >
+				<td class="text-right ">
+					<div class="btn-group">
+					  <button type="button" id="toggleEstModel-ON" data-action="on" class="btn {{whichEstBtn 'instinct'}} toggleEstModel">On</button>
+					  <button type="button" id="toggleEstModel-OFF" data-action="off" class="btn {{whichEstBtn 'features'}} toggleEstModel">Off</button>
 					</div>
+
 				</td>
 			</tr>
 			
@@ -294,7 +296,7 @@
 				<td colspan="2" class="td-label">Estimated Hours</td>
 				<td class="text-center ">
 					<div class="input-group">
-						<input class="form-control" name="ff-subtotal" value="{{quoteItem.instinctEstimate}}" />
+						<input class="form-control" name="ff-subtotal" value="{{estvalue}}" />
 						<span class="input-group-addon">Hrs</span>
 					</div>
 				</td>

@@ -303,3 +303,23 @@ Handlebars.registerHelper('activeServiceInbox', function(value) {
 	
 });
 
+Handlebars.registerHelper('getEstModel', function() {
+
+	return Session.get('estimateModel');
+
+});
+
+Handlebars.registerHelper('whichEstBtn', function(value) {
+
+	var whichEstModel = Session.get('estimateModel');
+	
+	var returnVal = 'btn-default';
+
+	if(whichEstModel === value)
+	{
+		var returnVal = 'btn-primary';
+	}
+
+	return returnVal;
+	
+});

@@ -19,21 +19,6 @@ Template.quotebuild.rendered = function() {
 	    errorClass: 'has-error'
 	});
 	
-	$('.make-switch').bootstrapSwitch();
-	
-	 $('#chooseEst').on('switch-change', function (event, data) {
-		 
-		var whichVal = 'features';
-		 
-		if(data.value === true)
-		{
-			 whichVal = 'instinct';
-		}
-		
-		Meteor.call('toggleScraper', whichVal);
-		
-	});
-	
 }
 
 Template.quotebuild.events({
@@ -135,6 +120,28 @@ Template.quotebuild.events({
   		var useInstinctEst = $('input[name="useInstictEstimate"]').is(':checked');
   		
 	},
-	
+	'click .toggleEstModel': function (event) 
+	{
+
+  		var whichToggle = $(event.currentTarget).attr('data-action');
+  		
+  		switch(whichToggle)
+  		{
+  			case 'on':
+  				$('#toggleEstModel-ON').removeClass('btn-default').addClass('btn-primary');
+  				$('#toggleEstModel-OFF').removeClass('btn-primary').addClass('btn-default');
+  				//$('#estModel').val('instinct');
+  				Session.set('estimateModel', 'instinct');
+  			break;
+
+  			case 'off':
+  				$('#toggleEstModel-OFF').removeClass('btn-default').addClass('btn-primary');
+  				$('#toggleEstModel-ON').removeClass('btn-primary').addClass('btn-default');
+  				//$('#estModel').val('features');
+  				Session.set('estimateModel', 'features');
+  			break;
+  		}
+
+	},
 	
 });
