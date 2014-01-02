@@ -51,6 +51,17 @@ Handlebars.registerHelper('isRadioChecked', function(value, option) {
 
 });
 
+Handlebars.registerHelper('isBooleanChecked', function(value) {
+
+	if(value === true)
+	{
+		return ' checked="checked" ';
+	}
+
+});
+
+
+
 Handlebars.registerHelper('checkuserhours', function(context, options) {
 
 	context.label = 'success';
@@ -309,9 +320,17 @@ Handlebars.registerHelper('getEstModel', function() {
 
 });
 
+Handlebars.registerHelper('moneyFormat', function(value) {
+
+	num = isNaN(value) || value === '' || value === null ? 0.00 : value;
+	
+	return accounting.formatMoney(num);
+
+});
+
 Handlebars.registerHelper('whichEstBtn', function(value) {
 
-	var whichEstModel = Session.get('estimateModel');
+	var whichEstModel = this.quoteItem.estModel;
 	
 	var returnVal = 'btn-default';
 

@@ -13,6 +13,7 @@
     "managedUsers": {},
     "parsleyjs": {},
     "jqbootstrapvalidation": {},
-    "bootstrap-3-switch": {}
+    "bootstrap-3-switch": {},
+    "accounting": {}
   }
 }

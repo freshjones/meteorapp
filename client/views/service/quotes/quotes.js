@@ -82,6 +82,34 @@ Template.quotebuild.events({
 					formData.weight 			= $('input[name="weight"]:checked').val();
 					formData.size 				= $('input[name="size"]:checked').val();
 					formData.instinctEstimate	= $('#ff-instinct').val();
+					formData.estModel			= 'features';
+					
+					formData.extra = {};
+		    		
+					formData.extra.includeEnv = true;
+					formData.extra.valueEnv = 5;
+		    		
+					formData.extra.includeConcept = true;
+					formData.extra.valueConcept = 5;
+		    		
+					formData.extra.includePM = true;
+					formData.extra.valuePM = 5;
+		    		
+					formData.extra.includeConfig = true;
+					formData.extra.valueConfig = 5;
+		    		
+					formData.extra.includeTesting = true;
+					formData.extra.valueTesting = 5;
+		    		
+					formData.extra.includeDeploy = true;
+					formData.extra.valueDeploy = 5;
+		    		
+					formData.extra.includeTraining = true;
+					formData.extra.valueTraining = 5;
+		    		
+					formData.extra.includeUnForeseen = true;
+					formData.extra.valueUnForeseen = 5;
+		    		
 				break;
 				
 				case 'scope':
@@ -123,25 +151,84 @@ Template.quotebuild.events({
 	'click .toggleEstModel': function (event) 
 	{
 
+		var thisItem = this.quoteItem;
+		
   		var whichToggle = $(event.currentTarget).attr('data-action');
+  		
+  		var whichModel = 'features';
   		
   		switch(whichToggle)
   		{
   			case 'on':
   				$('#toggleEstModel-ON').removeClass('btn-default').addClass('btn-primary');
   				$('#toggleEstModel-OFF').removeClass('btn-primary').addClass('btn-default');
+  				
+  				whichModel = 'instinct';
+  				
   				//$('#estModel').val('instinct');
-  				Session.set('estimateModel', 'instinct');
+  				//Session.set('estimateModel', 'instinct');
   			break;
 
   			case 'off':
   				$('#toggleEstModel-OFF').removeClass('btn-default').addClass('btn-primary');
   				$('#toggleEstModel-ON').removeClass('btn-primary').addClass('btn-default');
   				//$('#estModel').val('features');
-  				Session.set('estimateModel', 'features');
+  				//Session.set('estimateModel', 'features');
   			break;
   		}
+  		
+  		Service.update( {_id:thisItem._id }, { $set : { estModel : whichModel   } } );
 
+	},
+	'change .quoteExtraToggle': function (event) 
+	{
+		
+		var thisItem = this.quoteItem;
+		
+		var isChecked = $(event.currentTarget).is(':checked');
+		var whichValue = 'extra.' + $(event.currentTarget).attr('id');
+		
+		eval( 'Service.update( {_id:thisItem._id }, { $set : {  "' + whichValue + '" : isChecked   } } )');
+		
+	},
+	'change .quoteExtraVal': function (event) 
+	{
+		
+		var thisItem = this.quoteItem;
+		
+		var thisValue = $(event.currentTarget).val();
+		var whichValue = 'extra.' + $(event.currentTarget).attr('id');
+		
+		eval( 'Service.update( {_id:thisItem._id }, { $set : {  "' + whichValue + '" : ' + thisValue + ' } } )');
+		
+	},
+	'click #addFeature': function (event) 
+	{
+		
+		var thisItem 	= this.quoteItem;
+		
+		var featureID = new Meteor.Collection.ObjectID();
+			
+		var title 		= $('#ff-featureTitle').val();
+		var estimate 	= $('#ff-featureEstimate').val();
+		var experience 	= $('input[name="ff-featureExperience"]:checked').val();
+		
+		var newFeature 			= {};
+		newFeature.feature_id	= featureID.toHexString();
+		newFeature.title 		= title;
+		newFeature.estimate 	= estimate;
+		newFeature.experience 	= experience; 
+		
+		Service.update({ _id:thisItem._id }, { $addToSet : { 'features' : newFeature } });
+		
+	},
+	'click .removeFeature': function (event) 
+	{
+		var thisItem 	= this;
+		var thisQuoteID = Router.current().params['_id'];
+		
+		Service.update( { _id:thisQuoteID }, { $pull : { 'features' : { 'feature_id' : thisItem.feature_id } } });
+		
 	},
 	
 });

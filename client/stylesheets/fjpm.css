@@ -38,7 +38,7 @@ tr.ui-state-highlight
     cursor: move;
 }
 
-.edit,.remove,.pull-remove { cursor: pointer; }
+.edit,.remove,.pull-remove, .removeFeature { cursor: pointer; }
 
 .calHeaderDates
 {

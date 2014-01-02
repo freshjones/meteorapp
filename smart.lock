@@ -15,7 +15,8 @@
       "managedUsers": {},
       "parsleyjs": {},
       "jqbootstrapvalidation": {},
-      "bootstrap-3-switch": {}
+      "bootstrap-3-switch": {},
+      "accounting": {}
     },
     "packages": {
       "jquery-ui": {
@@ -72,6 +73,11 @@
         "git": "https://github.com/joshorig/meteor-bootstrap-3-switch.git",
         "tag": "v0.0.3",
         "commit": "0d2f24b5ae2857d41eb945b5c2cec1c31a02d0d6"
+      },
+      "accounting": {
+        "git": "https://github.com/IainShigeoka/meteor-accounting.git",
+        "tag": "v0.3.2.3",
+        "commit": "330cf532e6ac7282cf85ef3b83a54c1a25f5bdae"
       }
     }
   }
