@@ -238,7 +238,7 @@ Template.quotebuild.events({
 		Service.update( { _id:thisQuoteID }, { $pull : { 'features' : { 'feature_id' : thisItem.feature_id } } });
 		
 	},
-	'click #fsf-submit': function (event) 
+	'click .addMajorSet': function (event) 
 	{
 		
 		event.preventDefault();
@@ -246,15 +246,13 @@ Template.quotebuild.events({
 		var thisItem 	= this.quoteItem;
 		var setID = new Meteor.Collection.ObjectID();
 		
-		var parent = $('#fsf-level').val();
 		var title = $('#fsf-title').val();
 		
 		var newSet = {};
 		
 		newSet.set_id = setID.toHexString();
-		newSet.parent = parent;
 		newSet.title = title;
-		newSet.features = [];
+		newSet.sets = [];
 		
 		if(!thisItem.sets)
 		{
@@ -264,7 +262,30 @@ Template.quotebuild.events({
 		Service.update({ _id:thisItem._id }, { $addToSet : { 'sets' : newSet } });
 		
 	},
-	
+	'click .addMinorSet': function (event) 
+	{
+		
+		var thisQuoteID = Router.current().params['_id'];
+		
+		var majorID = $(event.currentTarget).attr('id');
+		var minorID = new Meteor.Collection.ObjectID();
+		
+		var title = $('#fsf-title').val();
+		
+		var newSet = {};
+		newSet.set_id 	= minorID.toHexString();
+		newSet.title 	= title;
+		newSet.features = [];
+		
+		//lets add this into a major
+		Service.update(
+							{ _id:thisQuoteID, 'sets.set_id':'59d44d56e736005337857c8a' }, 
+							{ $set : { 'sets.sets' : newSet } }
+						);
+		
+
+			
+	},
 	
 	
 });

@@ -17,7 +17,13 @@
 
 .vertical-padding
 {
-	margin:10px 0;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.panel-margin
+{
+	margin-bottom: 20px;
 }
 
 .modal-body {
@@ -316,4 +322,25 @@ td p.lead { margin:0; }
 	height: 10px; line-height: 1.2em;
 	border:1px #ccc dotted;
 	background-color:#ccc;
+}
+
+.no-padding-left
+{
+	padding-left:0;
+}
+
+.no-padding-right
+{
+	padding-right:0;
+}
+
+.no-padding
+{
+	padding-left:0;
+	padding-right:0;
+}
+
+.no-padding button
+{
+	width:100%;
 }
