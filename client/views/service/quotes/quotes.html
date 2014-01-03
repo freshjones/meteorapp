@@ -28,9 +28,9 @@
 			
 				<div class="row">
 				
-					<div class="col-md-1 multistep-nav">
+					<div class="col-md-12 multistep-nav">
 						
-						<ul class="nav nav-pills nav-stacked">
+						<ul class="nav nav-tabs">
 							<li class="active"><a href=#" data-action="overview" class="step">Overview</a></li>
 							<li><a href=#" data-action="scope" class="step">Scope</a></li>
 							<li><a href=#" data-action="assumptions" class="step">Assumptions</a></li>
@@ -39,7 +39,7 @@
 						
 					</div>
 					
-					<div class="col-md-11 bdr-right">
+					<div class="col-md-12 bdr-right">
 						
 						{{#if step}}
 						
@@ -209,21 +209,77 @@
 	<div class="row">
 	
 		<div class="col-md-3 bdr-left">
-			<form id="newFeature" name="newFeature">
-				
-				<p class="lead">New Feature</p>
-				
+			<p class="lead">Feature Set</p>
+			
+			<form id="newFeatureSet" name="newFeatureSet">
 				<div class="form-group">
-				    <label for="Sent By" class="control-label">Name:</label>
+				    <label for="Sent By" class="">Set Level:</label>
 				    <div>
-				    	<input id="ff-featureTitle" type="text" class="form-control" placeholder="Feature Name" value="" required>
+				      	<select name="fsf-level" id="fsf-level" class="form-control" required>
+				    		<option value="major">Major</option>
+				    	</select>
 				    </div>
 				</div>
 				<div class="form-group">
-				    <label for="Sent By" class="control-label">Estimate:</label>
-				    <div>
-				    	<select name="ff-featureEstimate" id="ff-featureEstimate" class="form-control" required>
-				    		<option value="">Estimated Hours</option>
+					<label for="title" class="control-label">Set Title:</label>
+					<div >
+						<input id="fsf-title" type="text" class="form-control" placeholder="Design" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div>
+						<button type="button" id="fsf-submit" class="btn btn-primary"><i class="fa fa-download"></i> Add Set</button>
+				    </div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="col-md-6 bdr-left">
+			<form id="buildquoteform">
+				<input type="hidden" name="step" id="ff-step" value="features" />
+				<p class="lead">Features</p>
+				
+				<div class="col-lg-12">
+					<div class="row">
+						{{#each quoteItem.sets}}
+							<div class="panel panel-default">
+							  <div class="panel-heading">{{title}}</div>
+							  <div class="panel-body ">
+							    <div class="sortable-items col-md-12 ui-sortable"></div>
+							  </div>
+							</div>
+						{{else}}
+								add some sets
+						{{/each}}
+					</div>
+				</div>
+				
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="sortable-items col-md-12 ui-sortable">
+							{{#each quoteItem.features}}
+								<div class="row feature-item sortable-item">
+									<div>
+										<div class="col-lg-1 move"><i class="fa fa-arrows sortFeatures"></i></div>
+										<div class="col-lg-6">{{title}}</div>
+									 	<div class="col-lg-2 text-center">{{estimate}}</div>
+									 	<div class="col-lg-2 text-center">{{experience}}</div>
+									 	<div class="col-lg-1 text-center"><i class="fa fa-times removeFeature"></i></div>
+									</div>
+								 </div>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-12">
+					
+					<div class="col-lg-7">
+						<input id="ff-featureTitle" type="text" class="form-control" placeholder="Feature Name" value="" required>
+					</div>
+					<div class="col-lg-2">
+						<select name="ff-featureEstimate" id="ff-featureEstimate" class="form-control" required>
+				    		<option value="">Hours</option>
 				    		<option value=".1">0.1 hours</option>
 				    		<option value=".3">0.3 hours</option>
 				    		<option value=".5">0.5 hours</option>
@@ -234,58 +290,23 @@
 				    		<option value="30">30 hours</option>
 				    		<option value="50">50 hours</option>
 				    	</select>
-				    </div>
+					</div>
+					<div class="col-lg-2">
+						<select name="ff-featureExperience" id="ff-featureExperience" class="form-control" required>
+				    		<option value="">DOE</option>
+				    		<option value="5">5</option>
+				    		<option value="4">4</option>
+				    		<option value="3">3</option>
+				    		<option value="2">2</option>
+				    		<option value="1">1</option>
+				    	</select>
+					</div>
+					<div class="col-lg-2">
+						<button type="button" id="addFeature" class="btn btn-default">Add</button>
+					</div>
+				
 				</div>
-				<div class="form-group">
-				    <label for="Sent By" class="control-label">Experience:</label>
-				    <div>
-				    	<label class="radio-inline">
-						  <input type="radio" id="size1" name="ff-featureExperience" value="5" checked="checked" required> 5
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" id="size2" name="ff-featureExperience" value="4"> 4
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" id="size3" name="ff-featureExperience" value="3"> 3
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" id="size3" name="ff-featureExperience" value="2"> 2
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" id="size3" name="ff-featureExperience" value="1"> 1
-						</label>
-						
-				    </div>
-				</div>
-				<div class="form-group ">
-				    <div>
-				    	<button type="button" id="addFeature" class="btn btn-default">Add</button>
-				    </div>
-				</div>
-			</form>
-			
-		</div>
-		
-		<div class="col-md-6 bdr-left">
-			<form id="buildquoteform">
-				<input type="hidden" name="step" id="ff-step" value="features" />
-				<p class="lead">Features</p>
-				<table class="table table-condensed">
-				<tbody>
-				{{#each quoteItem.features}}
-					<tr>
-						<td class="col-lg-7">{{title}}</td>
-					 	<td class="col-lg-2 text-center">{{estimate}}</td>
-					 	<td class="col-lg-2 text-center">{{experience}}</td>
-					 	<td class="col-lg-1 text-center"><i class="fa fa-times removeFeature"></i></td>
-					 </tr>
-				{{else}}
-					<tr>
-						<td colspan="3">Add some features</td>
-					</tr>
-				{{/each}}
-				</tbody>
-				</table>
+				
 			</form>
 		</div>
 		

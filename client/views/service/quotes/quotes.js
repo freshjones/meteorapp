@@ -19,6 +19,12 @@ Template.quotebuild.rendered = function() {
 	    errorClass: 'has-error'
 	});
 	
+	 $( ".sortable-items" ).sortable({
+		 connectWith: ".sortable-items",
+		 handle: ".move",
+		 tolerance: "pointer"
+	}).disableSelection();
+	 
 }
 
 Template.quotebuild.events({
@@ -86,28 +92,28 @@ Template.quotebuild.events({
 					
 					formData.extra = {};
 		    		
-					formData.extra.includeEnv = true;
+					formData.extra.includeEnv = false;
 					formData.extra.valueEnv = 5;
 		    		
-					formData.extra.includeConcept = true;
+					formData.extra.includeConcept = false;
 					formData.extra.valueConcept = 5;
 		    		
-					formData.extra.includePM = true;
+					formData.extra.includePM = false;
 					formData.extra.valuePM = 5;
 		    		
-					formData.extra.includeConfig = true;
+					formData.extra.includeConfig = false;
 					formData.extra.valueConfig = 5;
 		    		
-					formData.extra.includeTesting = true;
+					formData.extra.includeTesting = false;
 					formData.extra.valueTesting = 5;
 		    		
-					formData.extra.includeDeploy = true;
+					formData.extra.includeDeploy = false;
 					formData.extra.valueDeploy = 5;
 		    		
-					formData.extra.includeTraining = true;
+					formData.extra.includeTraining = false;
 					formData.extra.valueTraining = 5;
 		    		
-					formData.extra.includeUnForeseen = true;
+					formData.extra.includeUnForeseen = false;
 					formData.extra.valueUnForeseen = 5;
 		    		
 				break;
@@ -205,13 +211,15 @@ Template.quotebuild.events({
 	'click #addFeature': function (event) 
 	{
 		
+		event.preventDefault();
+		
 		var thisItem 	= this.quoteItem;
 		
 		var featureID = new Meteor.Collection.ObjectID();
 			
 		var title 		= $('#ff-featureTitle').val();
 		var estimate 	= $('#ff-featureEstimate').val();
-		var experience 	= $('input[name="ff-featureExperience"]:checked').val();
+		var experience 	= $('#ff-featureExperience').val();
 		
 		var newFeature 			= {};
 		newFeature.feature_id	= featureID.toHexString();
@@ -230,5 +238,33 @@ Template.quotebuild.events({
 		Service.update( { _id:thisQuoteID }, { $pull : { 'features' : { 'feature_id' : thisItem.feature_id } } });
 		
 	},
+	'click #fsf-submit': function (event) 
+	{
+		
+		event.preventDefault();
+		
+		var thisItem 	= this.quoteItem;
+		var setID = new Meteor.Collection.ObjectID();
+		
+		var parent = $('#fsf-level').val();
+		var title = $('#fsf-title').val();
+		
+		var newSet = {};
+		
+		newSet.set_id = setID.toHexString();
+		newSet.parent = parent;
+		newSet.title = title;
+		newSet.features = [];
+		
+		if(!thisItem.sets)
+		{
+			Service.update({ _id:thisItem._id }, { $set : { 'sets' : [] } } );
+		}
+		
+		Service.update({ _id:thisItem._id }, { $addToSet : { 'sets' : newSet } });
+		
+	},
+	
+	
 	
 });

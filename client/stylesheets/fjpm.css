@@ -304,3 +304,16 @@ td p.lead { margin:0; }
 {
 	white-space: nowrap;
 }
+
+.connectedSortable
+{
+	padding:10px;
+	border:1px #ccc dotted;
+}
+
+.placeholder
+{
+	height: 10px; line-height: 1.2em;
+	border:1px #ccc dotted;
+	background-color:#ccc;
+}
