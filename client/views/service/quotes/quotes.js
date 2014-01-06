@@ -19,12 +19,90 @@ Template.quotebuild.rendered = function() {
 	    errorClass: 'has-error'
 	});
 	
-	 $( ".sortable-items" ).sortable({
+	$( ".sortable-items" ).sortable({
 		 connectWith: ".sortable-items",
 		 handle: ".move",
-		 tolerance: "pointer"
+		 tolerance: "pointer",
+		 placeholder: "placeholder",
+		 stop: function( event, ui ) 
+		 {
+			 rebuildFeatures();
+		 }
 	}).disableSelection();
 	 
+}
+
+var rebuildFeatures = function()
+{
+	
+	var thisQuoteID = Router.current().params['_id'];
+	
+	var featureUpdateObj = [];
+	
+	var counter = 0;
+	
+	var curParent = 'top';
+	
+	$('.feature-item').each(function(){
+		
+		var thisID = $(this).attr('id');
+		var thisParentGroup = $(this).parents('.feature-item:first');
+		
+		var parentID = $(thisParentGroup).attr('id');
+		
+		if(parentID === undefined)
+		{
+			parentID = 'top';
+		}
+		
+		featureItem = {};
+		featureItem.feature_id 	= thisID;
+		featureItem.parent 		= parentID;
+		featureItem.order 		= counter;
+		featureItem.type		= $(this).children('.feature-data').find('.type').text();
+		featureItem.title		= $(this).children('.feature-data').find('.title').text();
+		featureItem.children 	= [];
+		
+		var experience = $(this).children('.feature-data').find('.estimate').text();
+		var estimate = $(this).children('.feature-data').find('.estimate').text();
+		
+		if( experience && !isNaN(experience) ) { experience = parseFloat(experience); } else { experience = 0; }
+		if( estimate && !isNaN(estimate) ) { estimate = parseFloat(estimate); } else { estimate = 0; }
+		
+		featureItem.experience	= experience;
+		featureItem.estimate	= estimate;
+		
+		counter++;
+		
+		if(parentID == 'top')
+		{
+		
+			featureUpdateObj.push(thisID);
+		
+		} else {
+			
+			if(parentID in featureUpdateObj == false) 
+			{
+				console.log( parentID );
+			}
+			
+		}
+		
+		curParent = parentID;
+		
+	});
+	
+	console.log(featureUpdateObj);
+	
+	//ditch all quote items 
+	//Service.update({ _id:thisQuoteID }, { $set : { 'features' : [] } } );
+	  
+	//next lets pull in the new sprint data
+	//featureUpdateObj.forEach(function(doc) {
+	//	Service.update({_id:thisQuoteID }, { $addToSet : { 'features' : doc  } } );
+	//});
+	  
+	
 }
 
 Template.quotebuild.events({
@@ -208,7 +286,7 @@ Template.quotebuild.events({
 		eval( 'Service.update( {_id:thisItem._id }, { $set : {  "' + whichValue + '" : ' + thisValue + ' } } )');
 		
 	},
-	'click #addFeature': function (event) 
+	'click .addFeature': function (event) 
 	{
 		
 		event.preventDefault();
@@ -220,12 +298,23 @@ Template.quotebuild.events({
 		var title 		= $('#ff-featureTitle').val();
 		var estimate 	= $('#ff-featureEstimate').val();
 		var experience 	= $('#ff-featureExperience').val();
+		var type 		= $(event.currentTarget).attr('data-type');
+		
+		switch(type)
+		{
+			case 'major':
+			case 'minor':
+				estimate = 0;
+				experience = 0;
+			break;
+		}
 		
 		var newFeature 			= {};
 		newFeature.feature_id	= featureID.toHexString();
 		newFeature.title 		= title;
 		newFeature.estimate 	= estimate;
-		newFeature.experience 	= experience; 
+		newFeature.experience 	= experience;
+		newFeature.type 		= type;
 		
 		Service.update({ _id:thisItem._id }, { $addToSet : { 'features' : newFeature } });
 		

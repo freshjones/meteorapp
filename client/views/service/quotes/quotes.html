@@ -213,17 +213,20 @@
 			<input type="hidden" name="step" id="ff-step" value="features" />
 			<p class="lead">Features</p>
 			
-			<div class="row">
-				<div class="sortable-items col-md-12 ui-sortable">
+			<div class="clearfix">
+				<div id="featureTop" class="sortable-items ui-sortable">
 					{{#each quoteItem.features}}
-						<div class="row feature-item sortable-item">
-							<div>
-								<div class="col-lg-1 move"><i class="fa fa-arrows sortFeatures"></i></div>
-								<div class="col-lg-5">{{title}}</div>
-							 	<div class="col-lg-2 text-center">{{estimate}}</div>
-							 	<div class="col-lg-2 text-center">{{experience}}</div>
-							 	<div class="col-lg-2 text-center"><i class="fa fa-times removeFeature"></i></div>
+						<div id="{{feature_id}}" class="feature-item sortable-item clearfix">
+							<div class="clearfix {{featureClass}} feature-data">
+								<div class="col-xs-6 title"><span class="move"><i class="fa fa-arrows sortFeatures"></i></span> {{title}}</div>
+							 	<div class="pull-right">
+								 	<div class="feature-col-1 text-right type">{{type}}</div>
+								 	<div class="feature-col-1 text-right estimate">{{showFeatureField estimate}}</div>
+								 	<div class="feature-col-1 text-right experience">{{showFeatureField experience}}</div>
+								 	<div class="feature-col-1 text-right"><i class="fa fa-times removeFeature"></i></div>
+								</div>
 							</div>
+							{{{allowFeatureNest}}}
 						 </div>
 					{{/each}}
 				</div>
@@ -238,7 +241,7 @@
 				<div class="form-group col-lg-2">
 				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
 				    <select name="ff-featureEstimate" id="ff-featureEstimate" class="form-control" required>
-			    		<option value="">Hours</option>
+			    		<option value="0">Hours</option>
 			    		<option value=".1">0.1 hours</option>
 			    		<option value=".3">0.3 hours</option>
 			    		<option value=".5">0.5 hours</option>
@@ -254,7 +257,7 @@
 				<div class="form-group col-lg-2">
 				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
 				    <select name="ff-featureExperience" id="ff-featureExperience" class="form-control" required>
-			    		<option value="">DOE</option>
+			    		<option value="0">DOE</option>
 			    		<option value="5">5</option>
 			    		<option value="4">4</option>
 			    		<option value="3">3</option>
@@ -264,16 +267,16 @@
 				 </div>
 
 				<div class="btn-group col-lg-2">
-					<button type="button" id="addFeature" class="btn btn-default">Add</button>
+					<button type="button" data-type="feature" class="btn btn-default addFeature">Add</button>
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 					 	<span class="caret"></span>
 					    <span class="sr-only">Toggle Dropdown</span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Add Feature</a></li>
+						<li><a href="#" data-type="feature" class="addFeature">Add Feature</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Add Major Set</a></li>
-						<li><a href="#">Add Minor Set</a></li>
+						<li><a href="#" data-type="major" class="addFeature">Add Major Set</a></li>
+						<li><a href="#" data-type="minor" class="addFeature">Add Minor Set</a></li>
 					</ul>
 				</div>
 

@@ -342,3 +342,62 @@ Handlebars.registerHelper('whichEstBtn', function(value) {
 	return returnVal;
 	
 });
+
+Handlebars.registerHelper('featureClass', function(value) {
+
+	var returnClass = '';
+	
+	switch(this.type)
+	{
+		case 'major':
+			returnClass = 'majorset';
+		break;
+		
+		case 'minor':
+			returnClass = 'minorset';
+		break;
+		
+	}
+
+	return returnClass;
+	
+});
+
+Handlebars.registerHelper('showFeatureField', function(value) {
+
+	switch(this.type)
+	{
+		case 'major':
+		case 'minor':
+			return '';
+		break;
+		
+		default:
+			return value;
+		break;
+		
+	}
+
+	
+});
+
+Handlebars.registerHelper('allowFeatureNest', function() {
+
+	switch(this.type)
+	{
+		case 'major':
+			return '<div class="sortable-items ui-sortable major"></div>';
+		break;
+		
+		case 'minor':
+			return '<div class="sortable-items ui-sortable minor"></div>';
+		break;
+		
+		default:
+			return '';
+		break;
+		
+	}
+	
+});
+

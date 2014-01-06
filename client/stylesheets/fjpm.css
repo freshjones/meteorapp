@@ -140,7 +140,7 @@ tr.process td
 
 .sortable-items
 {
-	margin:0;
+	/* margin:0; */
 }
 
 .table-centered .hour-cell
@@ -312,13 +312,79 @@ td p.lead { margin:0; }
 	border:1px #ccc dotted;
 }
 
-.placeholder
-{
-	height: 10px; line-height: 1.2em;
-	border:1px #ccc dotted;
-	background-color:#ccc;
-}
-
 div .form-inline select.form-control {
     width: 100%;
+}
+
+.feature-item > .majorset > .title
+{
+	text-transform: uppercase;
+	font-weight:bold;
+	color: #83c221;
+}
+
+.feature-item > .minorset > .title
+{
+	font-weight:bold;
+}
+
+.feature-item .title
+{
+	color:#666;
+}
+
+span.offset
+{
+	display:block;
+}
+.offset-left-10
+{
+	margin-left: 10px;
+}
+
+.offset-right-10
+{
+	margin-right: 10px;
+}
+
+.title > .feature
+{
+	margin-left: 10px;
+}
+
+.sortable-items .sortable-items
+{
+	margin-left:30px;
+	padding: 10px 0;
+}
+
+.placeholder
+{
+	border:dotted 1px #ccc;
+	height:15px;
+	width:100%;
+}
+
+.placeholder .placeholder
+{
+	margin-left:30px;
+}
+/*
+.feature-item
+{
+	border-bottom:1px #ccc solid;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.feature-item .feature-item
+{
+	border:none;
+}
+*/
+
+.feature-col-1
+{
+	display:inline-block;
+	width:50px;
 }
