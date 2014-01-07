@@ -39,7 +39,7 @@ tr.ui-state-highlight
     cursor: move;
 }
 
-.edit,.remove,.pull-remove, .removeFeature { cursor: pointer; }
+.edit,.remove,.pull-remove, .removeFeature, .pointer { cursor: pointer; }
 
 .calHeaderDates
 {
@@ -320,7 +320,7 @@ div .form-inline select.form-control {
 {
 	text-transform: uppercase;
 	font-weight:bold;
-	color: #83c221;
+	color: #428BCA;
 }
 
 .feature-item > .minorset > .title
@@ -387,4 +387,23 @@ span.offset
 {
 	display:inline-block;
 	width:50px;
+}
+
+#saveFeatureTemplate,
+#loadFeatureTemplates
+{
+	position:absolute;
+	width:250px;
+	border:solid 1px #666;
+	z-index:100;
+	background: none repeat scroll 0 0 #FFFFFF;
+	right:0;
+	top:30px;
+	display:none;
+}
+
+#saveFeatureTemplate > div,
+#loadFeatureTemplates > div
+{
+	padding:15px;
 }

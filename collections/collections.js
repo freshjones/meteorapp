@@ -1,12 +1,13 @@
-Settings 	= new Meteor.Collection('settings');
-Features 	= new Meteor.Collection('features'); 
-Clients 	= new Meteor.Collection('clients'); 
-Activities 	= new Meteor.Collection('activities'); 
-Projects 	= new Meteor.Collection('projects'); 
-Sprints 	= new Meteor.Collection('sprints');
-Schedules 	= new Meteor.Collection('schedules');
-Inbox 		= new Meteor.Collection('inbox');
-
-Sales 		= new Meteor.Collection('sales');
-Service		= new Meteor.Collection('service');
+Settings 				= new Meteor.Collection('settings');
+Features 				= new Meteor.Collection('features'); 
+Clients 				= new Meteor.Collection('clients'); 
+Activities 				= new Meteor.Collection('activities'); 
+Projects 				= new Meteor.Collection('projects'); 
+Sprints 				= new Meteor.Collection('sprints');
+Schedules 				= new Meteor.Collection('schedules');
+Inbox 					= new Meteor.Collection('inbox');
+Sales 					= new Meteor.Collection('sales');
+Service					= new Meteor.Collection('service');
+QuoteTemplates			= new Meteor.Collection('quoteTemplates');
+Quotes					= new Meteor.Collection('quotes');
 

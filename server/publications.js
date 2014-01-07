@@ -92,3 +92,17 @@ Meteor.publish('serviceitem', function (service_id) {
   check(service_id, String);
   return Service.find({_id:service_id});
 });
+
+
+Meteor.publish("quotetemplates", function () {
+	return QuoteTemplates.find({status:"active"});
+});
+
+Meteor.publish("quotes", function () {
+	return Quotes.find({},{status:{"archive":0}});
+});
+
+Meteor.publish('quote', function (quote_id) {
+	  check(quote_id, String);
+	  return Quotes.find({_id:quote_id});
+});

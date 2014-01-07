@@ -363,13 +363,34 @@ Handlebars.registerHelper('featureClass', function(value) {
 	
 });
 
-Handlebars.registerHelper('showFeatureField', function(value) {
+Handlebars.registerHelper('showFeatureField', function(value, option) {
 
 	switch(this.type)
 	{
 		case 'major':
 		case 'minor':
-			return '';
+			
+			if(this.childAggregates)
+			{
+				switch(option)
+				{
+					case 'estimate':
+						return '<strong>' + this.childAggregates.estimate + '</strong>';
+					break;
+					
+					case 'experience':
+						return '<strong>' + this.childAggregates.experience + '</strong>';
+					break;
+					
+					default:
+						return '<strong>' + 0 + '</strong>';
+					break;
+				}
+				
+			} else {
+				return '<strong>' + 0 + '</strong>';
+			}
+			
 		break;
 		
 		default:

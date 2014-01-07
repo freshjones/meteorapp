@@ -204,30 +204,107 @@
 
 </template>
 
+<template name="featureTopList">
+	<div id="{{feature_id}}" class="feature-item sortable-item clearfix">
+		<div class="clearfix {{featureClass}} feature-data">
+			<div class="col-xs-6 title"><span class="move"><i class="fa fa-arrows sortFeatures"></i></span> {{title}}</div>
+		 	<div class="pull-right">
+			 	<div class="feature-col-1 text-right type hidden">{{type}}</div>
+			 	<div class="feature-col-1 text-right estimate">{{{showFeatureField estimate 'estimate'}}}</div>
+			 	<div class="feature-col-1 text-right experience">{{{showFeatureField experience 'experience'}}}</div>
+			 	<div class="feature-col-1 text-right"><i class="fa fa-times removeFeature"></i></div>
+			</div>
+		</div>
+		{{> featureChildList}}
+ 	</div>
+</template>
+
+<template name="featureChildList">
+		{{#if children}}
+			<div class="sortable-items ui-sortable">
+			{{#each children}}
+				{{> featureTopList}}
+			{{/each}}
+			</div>
+		{{else}}
+			{{{allowFeatureNest}}}
+		{{/if}}
+</template>
+
 <template name="featuresStep">
 
+
+			
 	<div class="row">
 		
 		<div class="col-md-8 bdr-left">
-
+			
+			<div id="saveFeatureTemplate">
+				
+				<div>
+					<div class="template-form">
+						<p class="lead">Save Template</p>
+						<form name="feature-template-save" id="feature-template-save">
+							<div class="form-group">
+								<label for="title" class="sr-only">Name:</label>
+								<div>
+									<input id="fts-name" type="text" class="form-control" placeholder="Template Name" value="">
+								</div>
+							</div>	
+							<div class="form-group">
+								<div class="">
+									<button type="submit" id="fts-submit" class="btn btn-primary">Save</button>
+									<button type="button" class="btn btn-link fts-cancel">Cancel</button>
+							    </div>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div id="loadFeatureTemplates">
+				
+				<div>
+					<div class="template-form">
+						<p class="lead">Load Template</p>
+						<form name="feature-template-save" id="feature-template-load">
+							<div class="form-group">
+								<label for="title" class="sr-only">Name:</label>
+								<div>
+									<select id="loadTemplateOption">
+										{{#each quotetemplates}}
+											<option value="{{_id}}">{{title}}</option>
+										{{/each}}
+									</select>
+								</div>
+							</div>	
+							<div class="form-group">
+								<div class="">
+									<button type="submit" id="ftl-submit" class="btn btn-primary">Save</button>
+									<button type="button" class="btn btn-link ftl-cancel">Cancel</button>
+							    </div>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+				
+			</div>
+			
+			
 			<input type="hidden" name="step" id="ff-step" value="features" />
-			<p class="lead">Features</p>
+			
+			<div class="clearfix">
+				<div class="pull-left"><p class="lead">Features</p></div>
+				<div class="pull-right"><p class="lead"><i class="fa fa-sign-in pointer feature-load"></i>&nbsp;&nbsp;<i class="fa fa-paperclip pointer feature-save"></i></p></div>
+			</div>
 			
 			<div class="clearfix">
 				<div id="featureTop" class="sortable-items ui-sortable">
 					{{#each quoteItem.features}}
-						<div id="{{feature_id}}" class="feature-item sortable-item clearfix">
-							<div class="clearfix {{featureClass}} feature-data">
-								<div class="col-xs-6 title"><span class="move"><i class="fa fa-arrows sortFeatures"></i></span> {{title}}</div>
-							 	<div class="pull-right">
-								 	<div class="feature-col-1 text-right type">{{type}}</div>
-								 	<div class="feature-col-1 text-right estimate">{{showFeatureField estimate}}</div>
-								 	<div class="feature-col-1 text-right experience">{{showFeatureField experience}}</div>
-								 	<div class="feature-col-1 text-right"><i class="fa fa-times removeFeature"></i></div>
-								</div>
-							</div>
-							{{{allowFeatureNest}}}
-						 </div>
+						{{> featureTopList}}
 					{{/each}}
 				</div>
 			</div>
@@ -285,7 +362,11 @@
 		</div>
 		
 		<div class="col-md-4 bdr-left">
-			<p class="lead">Summary</p>
+			
+			<div class="clearfix">
+				<div class="pull-left"><p class="lead">Summary</p></div>
+				<div class="pull-right"><p class="lead">{{moneyFormat quoteItem.estTotal}}</p></div>
+			</div>
 			
 			<form id="quoteSummary">
 			
@@ -443,14 +524,6 @@
 			</tr>
 			
 			
-			<tr>
-				<td colspan="2"><p class="lead">Final</p></td>
-				<td class="text-right"><p class="lead">{{moneyFormat quoteItem.estTotal}}</p></td>
-			</tr>
-			<tr>
-				<td colspan="2"><p class="lead">Duration</p></td>
-				<td class="text-right"><p class="lead">1 Weeks</p></td>
-			</tr>
 			</table>
 			
 			<div class="form-group">

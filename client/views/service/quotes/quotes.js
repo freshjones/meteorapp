@@ -51,7 +51,7 @@ function buildFeatureChildren(parentID, featureData)
 		featureItem.type		= $(this).children('.feature-data').find('.type').text();
 		featureItem.title		= $(this).children('.feature-data').find('.title').text();
 		
-		var experience = $(this).children('.feature-data').find('.estimate').text();
+		var experience = $(this).children('.feature-data').find('.experience').text();
 		var estimate = $(this).children('.feature-data').find('.estimate').text();
 		
 		if( experience && !isNaN(experience) ) { experience = parseFloat(experience); } else { experience = 0; }
@@ -65,6 +65,12 @@ function buildFeatureChildren(parentID, featureData)
 		if(numChildren)
 		{
 			featureItem.children 	= buildFeatureChildren( thisID, $(this).children('.sortable-items').children('.feature-item') );
+			
+			featureItem.childAggregates = {};
+			
+			featureItem.childAggregates.estimate =  buildFeatureChildAgg( $(this).children('.sortable-items').children('.feature-item'), 'estimate', 0 );
+			featureItem.childAggregates.experience =  buildFeatureChildAgg( $(this).children('.sortable-items').children('.feature-item'), 'experience', 0 );
+			
 		}
 
 		featureArray.push(featureItem);
@@ -75,7 +81,61 @@ function buildFeatureChildren(parentID, featureData)
 
 }
 
+function buildFeatureChildAgg( data, type, sum )
+{
+	
+	data.each(function(index)
+	{
+		
+		var thisValue = 0;
+			
+		var thisType = $(this).children('.feature-data').find('.type').text();
+		
+		if(type == 'estimate')
+		{
+			var estimate = $(this).children('.feature-data').find('.estimate').text();
+			if( estimate && !isNaN(estimate) ) { estimate = parseFloat(estimate); } else { estimate = 0; }
+			
+			thisValue = estimate;
+		}
+		
+		if(type == 'experience')
+		{
+			var experience = $(this).children('.feature-data').find('.experience').text();
+			if( experience && !isNaN(experience) ) { experience = parseFloat(experience); } else { experience = 0; }
+			
+			thisValue = experience;
+		}
+		
+		if(thisType === 'feature')
+		{
+			sum += parseFloat(thisValue);
+		}
+		
+		var numChildren = $(this).children('.sortable-items').children('.feature-item').length;
+
+		if(numChildren)
+		{	
+			sum = buildFeatureChildAgg( $(this).children('.sortable-items').children('.feature-item'), type, sum);
+			
+		}
+		
+	});
+	
+	return sum;
+	
+}
+
 function rebuildFeatures()
+{
+	var thisQuoteID = Router.current().params['_id'];
+	var featureArray = rebuildFeatureData();
+	
+	Service.update({ _id:thisQuoteID }, { $set : { 'features' : featureArray } } );
+	
+}
+
+function rebuildFeatureData()
 {
 	
 	var thisQuoteID = Router.current().params['_id'];
@@ -97,7 +157,7 @@ function rebuildFeatures()
 		featureItem.type		= $(this).children('.feature-data').find('.type').text();
 		featureItem.title		= $(this).children('.feature-data').find('.title').text();
 
-		var experience = $(this).children('.feature-data').find('.estimate').text();
+		var experience = $(this).children('.feature-data').find('.experience').text();
 		var estimate = $(this).children('.feature-data').find('.estimate').text();
 		
 		if( experience && !isNaN(experience) ) { experience = parseFloat(experience); } else { experience = 0; }
@@ -111,22 +171,18 @@ function rebuildFeatures()
 		if(numChildren > 0 )
 		{
 			featureItem.children = buildFeatureChildren( thisID, $(this).children('.sortable-items').children('.feature-item') );
+			featureItem.childAggregates = {};
+			
+			featureItem.childAggregates.estimate =  buildFeatureChildAgg( $(this).children('.sortable-items').children('.feature-item'), 'estimate', 0 );
+			featureItem.childAggregates.experience =  buildFeatureChildAgg( $(this).children('.sortable-items').children('.feature-item'), 'experience', 0 );
+			
 		}
 
 		featureArray.push(featureItem);
 
 	});
 
-	//console.log(featureArray)
-	
-	//ditch all quote items 
-	Service.update({ _id:thisQuoteID }, { $set : { 'features' : featureArray } } );
-	  
-	//next lets pull in the new sprint data
-	//featureUpdateObj.forEach(function(doc) {
-	//	Service.update({_id:thisQuoteID }, { $addToSet : { 'features' : doc  } } );
-	//});
-	  
+	return featureArray;
 	
 }
 
@@ -253,8 +309,23 @@ Template.quotebuild.events({
   	},
   	'click #ff-savequote': function (event) 
 	{
+  		event.preventDefault();
   		
-  		var useInstinctEst = $('input[name="useInstictEstimate"]').is(':checked');
+  		var thisItem = this.quoteItem;
+  		
+  		var serviceID = thisItem._id;
+  		
+  		delete thisItem._id;
+  		  		
+  		thisItem.service_id = serviceID;
+  		thisItem.status = 'review';
+  		thisItem.type = 'service';
+  		
+  		Quotes.insert(thisItem);
+  		
+  		Service.update({_id : serviceID }, { $set : { 'status' : 'archive' } } );
+  		
+  		Router.go('service', {inbox:'quote'});
   		
 	},
 	'click .toggleEstModel': function (event) 
@@ -376,6 +447,43 @@ Template.quotebuild.events({
 		}
 		
 		Service.update({ _id:thisItem._id }, { $addToSet : { 'sets' : newSet } });
+		
+	},
+	'click .feature-save, click .fts-cancel': function (event) 
+	{
+		event.preventDefault();
+		$('#saveFeatureTemplate').fadeToggle();
+	},
+	'click #fts-submit': function (event) 
+	{
+		event.preventDefault();
+		
+		var quoteTitle = $('#fts-name').val();
+		var quoteData = rebuildFeatureData();
+		
+		var templateObj = {};
+		
+		templateObj.title = quoteTitle;
+		templateObj.status = 'active';
+		templateObj.data = quoteData;
+		
+		QuoteTemplates.insert(templateObj);
+		
+	},
+	'click .feature-load, click .ftl-cancel': function (event) 
+	{
+		event.preventDefault();
+		$('#loadFeatureTemplates').fadeToggle();
+	},
+	'click #ftl-submit': function (event) 
+	{
+		event.preventDefault();
+		
+		var thisQuoteID = Router.current().params['_id'];
+		var templateOption = $('#loadTemplateOption').val();
+		var quoteData = QuoteTemplates.findOne(templateOption);
+		
+		Service.update({ _id:thisQuoteID }, { $set : { 'features' : quoteData.data } } );
 		
 	},
 	

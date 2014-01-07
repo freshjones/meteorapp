@@ -1,0 +1,57 @@
+<template name="quotes">
+	
+	<div class="col-lg-1 bdr-right">
+		{{> quotesNav}}
+	</div>
+	
+	<div class="col-lg-11">
+	
+		{{> quotesList}}
+		
+	</div>
+	
+</template>
+
+
+<template name="quotesList">
+ 
+		<div class="vertical-padding">
+			{{#if items}}
+				<table class="table table-hover" >
+			    	<tbody class="sortable-items">
+				    	{{#each items}}
+				    		<tr class="quoteitem pointer">
+					    		<td>{{type}}</td>
+					    		<td>{{title}}</td>
+					    		<td>{{moneyFormat estTotal}}</td>
+					    		<td>{{sender}}</td>
+				    		</tr>
+				   		{{/each}}
+			    	</tbody>
+			    </table>
+			{{else}}
+				<div>
+					<h3>Good work.</h3>
+					<p class="lead">There's nothing to do here.</p>
+				</div>
+			{{/if}}
+		</div>
+		
+</template>
+
+<template name="quotesNav">
+
+	<div class="vertical-padding">
+		<button class="btn btn-danger btn-large" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Quote</button>
+	</div>
+	
+	<div class="vertical-padding">
+		<ul class="nav nav-pills nav-stacked">
+			<li class="{{activeServiceInbox 'active'}}"><a href="#" data-action="active" class="inbox"><span class="badge pull-right">{{counter 'active' 'Service'}}</span>Build</a></li>
+			<li class="{{activeServiceInbox 'active'}}"><a href="#" data-action="active" class="inbox"><span class="badge pull-right">{{counter 'active' 'Service'}}</span>Review</a></li>
+			<li class="{{activeServiceInbox 'quote'}}"><a href="#" data-action="quote" class="inbox"><span class="badge pull-right">{{counter 'quote' 'Service'}}</span>Waiting On</a></li>
+			<li class="{{activeServiceInbox 'quote'}}"><a href="#" data-action="quote" class="inbox"><span class="badge pull-right">{{counter 'quote' 'Service'}}</span>Approved</a></li>
+		</ul>
+	</div>
+
+</template>
