@@ -32,36 +32,24 @@ Template.quotebuild.rendered = function() {
 	 
 }
 
-var rebuildFeatures = function()
+
+function buildFeatureChildren(parentID, featureData)
 {
+
+	var featureArray = [];
 	
-	var thisQuoteID = Router.current().params['_id'];
-	
-	var featureUpdateObj = [];
-	
-	var counter = 0;
-	
-	var curParent = 'top';
-	
-	$('.feature-item').each(function(){
+	featureData.each(function(counter)
+	{
 		
 		var thisID = $(this).attr('id');
-		var thisParentGroup = $(this).parents('.feature-item:first');
+
+		var featureItem = {};
 		
-		var parentID = $(thisParentGroup).attr('id');
-		
-		if(parentID === undefined)
-		{
-			parentID = 'top';
-		}
-		
-		featureItem = {};
 		featureItem.feature_id 	= thisID;
 		featureItem.parent 		= parentID;
 		featureItem.order 		= counter;
 		featureItem.type		= $(this).children('.feature-data').find('.type').text();
 		featureItem.title		= $(this).children('.feature-data').find('.title').text();
-		featureItem.children 	= [];
 		
 		var experience = $(this).children('.feature-data').find('.estimate').text();
 		var estimate = $(this).children('.feature-data').find('.estimate').text();
@@ -71,31 +59,68 @@ var rebuildFeatures = function()
 		
 		featureItem.experience	= experience;
 		featureItem.estimate	= estimate;
-		
-		counter++;
-		
-		if(parentID == 'top')
+
+		var numChildren = $(this).children('.sortable-items').children('.feature-item').length;
+
+		if(numChildren)
 		{
-		
-			featureUpdateObj.push(thisID);
-		
-		} else {
-			
-			if(parentID in featureUpdateObj == false) 
-			{
-				console.log( parentID );
-			}
-			
+			featureItem.children 	= buildFeatureChildren( thisID, $(this).children('.sortable-items').children('.feature-item') );
 		}
-		
-		curParent = parentID;
-		
+
+		featureArray.push(featureItem);
+
 	});
+
+	return featureArray;
+
+}
+
+function rebuildFeatures()
+{
 	
-	console.log(featureUpdateObj);
+	var thisQuoteID = Router.current().params['_id'];
+	
+	var featureArray = [];
+	
+	$('#featureTop > .feature-item').each(function(counter)
+	{
+
+		var thisID = $(this).attr('id');
+
+		var parentID = 'top';
+		
+		var featureItem = {};
+
+		featureItem.feature_id 	= thisID;
+		featureItem.parent 		= parentID;
+		featureItem.order 		= counter;
+		featureItem.type		= $(this).children('.feature-data').find('.type').text();
+		featureItem.title		= $(this).children('.feature-data').find('.title').text();
+
+		var experience = $(this).children('.feature-data').find('.estimate').text();
+		var estimate = $(this).children('.feature-data').find('.estimate').text();
+		
+		if( experience && !isNaN(experience) ) { experience = parseFloat(experience); } else { experience = 0; }
+		if( estimate && !isNaN(estimate) ) { estimate = parseFloat(estimate); } else { estimate = 0; }
+		
+		featureItem.experience	= experience;
+		featureItem.estimate	= estimate;
+
+		var numChildren = $(this).children('.sortable-items').children('.feature-item').length;
+
+		if(numChildren > 0 )
+		{
+			featureItem.children = buildFeatureChildren( thisID, $(this).children('.sortable-items').children('.feature-item') );
+		}
+
+		featureArray.push(featureItem);
+
+	});
+
+	//console.log(featureArray)
 	
 	//ditch all quote items 
-	//Service.update({ _id:thisQuoteID }, { $set : { 'features' : [] } } );
+	Service.update({ _id:thisQuoteID }, { $set : { 'features' : featureArray } } );
 	  
 	//next lets pull in the new sprint data
 	//featureUpdateObj.forEach(function(doc) {
