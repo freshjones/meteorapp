@@ -1,0 +1,249 @@
+<template name="viewQuoteFeatures">
+	
+	<div class="row">
+		
+		<div class="col-md-8 bdr-left">
+			
+			<input type="hidden" name="step" id="ff-step" value="features" />
+			
+			<div class="clearfix">
+				<div class="pull-left"><p class="lead">Features</p></div>
+				<div class="pull-right"><p class="lead"><i class="fa fa-sign-in pointer feature-load"></i>&nbsp;&nbsp;<i class="fa fa-paperclip pointer feature-save"></i></p></div>
+			</div>
+			
+			<div class="clearfix">
+				<div id="featureTop" class="sortable-items ui-sortable">
+					{{#each quote.features}}
+						{{> featureTopList}}
+					{{/each}}
+				</div>
+			</div>
+
+			<form class="row form-inline vertical-padding" id="buildquoteform">
+				<div class="form-group col-lg-6">
+				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+				    <input id="ff-featureTitle" type="text" class="form-control col-lg-6" placeholder="Feature Name" value="" required>
+				</div>
+
+				<div class="form-group col-lg-2">
+				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+				    <select name="ff-featureEstimate" id="ff-featureEstimate" class="form-control" required>
+			    		<option value="0">Hours</option>
+			    		<option value=".1">0.1 hours</option>
+			    		<option value=".3">0.3 hours</option>
+			    		<option value=".5">0.5 hours</option>
+			    		<option value="1">1.0 hours</option>
+			    		<option value="3">3.0 hours</option>
+			    		<option value="5">5.0 hours</option>
+			    		<option value="10">10 hours</option>
+			    		<option value="30">30 hours</option>
+			    		<option value="50">50 hours</option>
+			    	</select>
+				 </div>
+
+				<div class="form-group col-lg-2">
+				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+				    <select name="ff-featureExperience" id="ff-featureExperience" class="form-control" required>
+			    		<option value="0">DOE</option>
+			    		<option value="5">5</option>
+			    		<option value="4">4</option>
+			    		<option value="3">3</option>
+			    		<option value="2">2</option>
+			    		<option value="1">1</option>
+			    	</select>
+				 </div>
+
+				<div class="btn-group col-lg-2">
+					<button type="button" data-type="feature" class="btn btn-default addFeature">Add</button>
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					 	<span class="caret"></span>
+					    <span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" data-type="feature" class="addFeature">Add Feature</a></li>
+						<li class="divider"></li>
+						<li><a href="#" data-type="major" class="addFeature">Add Major Set</a></li>
+						<li><a href="#" data-type="minor" class="addFeature">Add Minor Set</a></li>
+					</ul>
+				</div>
+
+			</form>
+
+		</div>
+		
+		<div class="col-md-4 bdr-left">
+			
+			<div class="clearfix">
+				<div class="pull-left"><p class="lead">Summary</p></div>
+			</div>
+			
+			<form id="quoteSummary">
+			
+			<table class="table table-condensed">
+			
+			<tr>
+				<td colspan="2" class="td-label">Use Instinct Estimate</td>
+				<td class="text-right ">
+					<div class="btn-group">
+					  <button type="button" id="toggleEstModel-ON" data-action="on" class="btn {{whichQuoteEstBtn 'instinct'}} toggleEstModel">On</button>
+					  <button type="button" id="toggleEstModel-OFF" data-action="off" class="btn {{whichQuoteEstBtn 'features'}} toggleEstModel">Off</button>
+					</div>
+
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td colspan="2" class="td-label">Estimated Hours</td>
+				<td class="text-center ">
+					<div class="input-group">
+						<input class="form-control" name="ff-subtotal" value="{{estvalue}}" />
+						<span class="input-group-addon">Hrs</span>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeEnv" type="checkbox" class="quoteExtraToggle" name="includeEnv" {{isBooleanChecked quote.extra.includeEnv}} /></td>
+				<td class="td-label">Environment </td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valueEnv">
+						{{#select quote.extra.valueEnv}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeConcept" type="checkbox" class="quoteExtraToggle" name="includeConcept" {{isBooleanChecked quote.extra.includeConcept}} /></td>
+				<td class="td-label">Concept</td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valueConcept" >
+						{{#select quote.extra.valueConcept}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includePM" type="checkbox" class="quoteExtraToggle" name="includePM" {{isBooleanChecked quote.extra.includePM}} /></td>
+				<td class="td-label">Project Management</td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valuePM">
+						{{#select quote.extra.valuePM}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeConfig" type="checkbox" class="quoteExtraToggle" name="includeConfig" {{isBooleanChecked quote.extra.includeConfig}} /></td>
+				<td class="td-label">Configuration</td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valueConfig" >
+						{{#select quote.extra.valueConfig}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeTesting" type="checkbox" class="quoteExtraToggle" name="includeTesting" {{isBooleanChecked quote.extra.includeTesting}} /></td>
+				<td class="td-label">Testing & Quality</td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valueTesting" >
+						{{#select quote.extra.valueTesting}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeDeploy" type="checkbox" class="quoteExtraToggle" name="includeDeploy" {{isBooleanChecked quote.extra.includeDeploy}} /></td>
+				<td class="td-label">Deployment</td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valueDeploy" >
+						{{#select quote.extra.valueDeploy}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input id="includeTraining" type="checkbox" class="quoteExtraToggle" name="includeTraining" {{isBooleanChecked quote.extra.includeTraining}} /></td>
+				<td class="td-label">Training</td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valueTraining">
+						{{#select quote.extra.valueTraining}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td><input id="includeUnForeseen" type="checkbox" class="quoteExtraToggle" name="includeUnForeseen" {{isBooleanChecked quote.extra.includeUnForeseen}} /></td>
+				<td class="td-label">Unforeseen Problems</td>
+				<td class="text-center">
+					<select class="form-control input-sm quoteExtraVal" id="valueUnForeseen" >
+						{{#select quote.extra.valueUnForeseen}}
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+						{{/select}}
+					</select>
+				</td>
+			</tr>
+			
+			
+			</table>
+			
+			<div class="form-group">
+				<div class="">
+					<button type="submit" id="ff-submit" data-action="Deadlines" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
+			    </div>
+			</div>
+			
+			</form>
+			
+		</div>
+	</div>
+	
+</template>

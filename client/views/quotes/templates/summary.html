@@ -1,0 +1,67 @@
+<template name="viewQuoteSummary">
+	
+	<div class="clearfix vertical-padding">
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="action-bar">
+					<button type="button" data-action="GetApproval" class="btn {{#if actionGetApproval}}btn-success{{else}}btn-default{{/if}} action"><i class="fa fa-envelope"></i> Request Client Approval</button>
+					
+					<div class="btn-group">
+						<button type="button" data-action="ApproveQuote" class="btn {{#if actionApproveQuote}}btn-success{{else}}btn-default{{/if}} action"><i class="fa fa-thumbs-up"></i> Approve</button>
+						<button type="button" data-action="RejectQuote" class="btn {{#if actionRejectQuote}}btn-success{{else}}btn-default{{/if}} action"><i class="fa fa-thumbs-down"></i> Reject</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="vertical-padding">
+		
+		{{#if action}}
+			
+			{{#if actionGetApproval}}
+				{{> viewQuoteActionGetApproval}}
+			{{/if}}
+			
+			{{#if actionApproveQuote}}
+				{{> viewQuoteActionApproveQuote}}
+			{{/if}}
+			
+			{{#if actionRejectQuote}}
+				{{> viewQuoteActionRejectQuote}}
+			{{/if}}
+		
+		{{else}}
+		
+			{{> viewQuoteSummaryMain}}
+			
+		{{/if}}
+		
+	</div>
+							
+</template>
+
+<template name="viewQuoteSummaryMain">
+	
+	<p class="lead bdr-bottom">{{quote.title}}</p>
+			
+    <p><span class="text-muted">Total Cost:</span> {{moneyFormat quote.estTotal}}</p>
+    <p><span class="text-muted">Company:</span> {{quote.company}}</p>
+	<p><span class="text-muted">Project:</span> {{quote.project}}</p>
+	
+    <p><span class="text-muted">Total Hours:</span> {{estvalue}}</p>
+    
+    <p><span class="text-muted">Due Date:</span> {{quote.duedate}}</p>
+    
+	<p><span class="text-muted">Type:</span> {{quote.to}}</p>
+	
+	<p><span class="text-muted">When will we begin:</span> {{quote.starton}} days upon approval of quote.</p>
+	
+	<p><span class="text-muted">Agreement:</span> {{quote.agreement}}</p>
+	
+	<p><span class="text-muted">Guarantee:</span> {{quote.guarantee}}</p>
+	
+	<p><span class="text-muted">This quote is valid for:</span> {{quote.validfor}} days</p>
+	
+</template>

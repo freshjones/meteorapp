@@ -1,10 +1,10 @@
 <template name="quotes">
 	
-	<div class="col-lg-1 bdr-right">
+	<div class="col-lg-2 bdr-right">
 		{{> quotesNav}}
 	</div>
 	
-	<div class="col-lg-11">
+	<div class="col-lg-10">
 	
 		{{> quotesList}}
 		
@@ -46,12 +46,10 @@
 	</div>
 	
 	<div class="vertical-padding">
-		<ul class="nav nav-pills nav-stacked">
-			<li class="{{activeServiceInbox 'active'}}"><a href="#" data-action="active" class="inbox"><span class="badge pull-right">{{counter 'active' 'Service'}}</span>Build</a></li>
-			<li class="{{activeServiceInbox 'active'}}"><a href="#" data-action="active" class="inbox"><span class="badge pull-right">{{counter 'active' 'Service'}}</span>Review</a></li>
-			<li class="{{activeServiceInbox 'quote'}}"><a href="#" data-action="quote" class="inbox"><span class="badge pull-right">{{counter 'quote' 'Service'}}</span>Waiting On</a></li>
-			<li class="{{activeServiceInbox 'quote'}}"><a href="#" data-action="quote" class="inbox"><span class="badge pull-right">{{counter 'quote' 'Service'}}</span>Approved</a></li>
-		</ul>
+		<div class="list-group">
+			<a href="#" data-action="active" class="list-group-item inbox"><span class="badge pull-right">{{counter 'active' 'Service'}}</span>Inbox/Review</a>
+			<a href="#" data-action="quote" class="list-group-item inbox"><span class="badge pull-right">{{counter 'quote' 'Service'}}</span>Waiting On</a>
+		</div>
 	</div>
 
 </template>

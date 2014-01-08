@@ -1,0 +1,52 @@
+<template name="viewQuoteScope">
+	
+	<input type="hidden" name="step" id="ff-step" value="scope" />
+	
+	<div class="row ">
+		<div class="col-md-12">
+		
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+					    <label for="Sent By" class="control-label">What is included:</label>
+					    <div>
+					      <textarea id="ff-included" class="form-control" name="ff-included" placeholder="List each on one line" rows="10" required>{{quoteItem.scope.included}}</textarea>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+					    <label for="Sent By" class="control-label">What is Not included:</label>
+					    <div>
+					      <textarea id="ff-notincluded" class="form-control" name="ff-notincluded"  placeholder="List each on one line" rows="10" required>{{quoteItem.scope.notincluded}}</textarea>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row ">
+	
+		<div class="col-md-12">
+		
+			<div class="form-group">
+			    <label for="Sent By" class="control-label">Assumptions:</label>
+			    <div>
+			      <textarea id="ff-assumptions" class="form-control" placeholder="List each on one line" rows="10" required>{{quoteItem.assumptions}}</textarea>
+			    </div>
+			</div>
+	
+		</div>
+	
+	</div>
+	
+	<div class="form-group">
+		<div class="">
+			<button type="submit" id="ff-submit" data-action="assumptions" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
+			<button type="button" class="btn btn-link cancel">Cancel</button>
+	    </div>
+	</div>
+	
+</template>

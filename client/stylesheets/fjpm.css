@@ -222,7 +222,7 @@ tr.process td
 }
 .action-bar:after {
     color: #BBBBBB;
-    content: "Create Action:";
+    content: "Action Options:";
     font-size: 12px;
     font-weight: bold;
     left: 15px;
@@ -246,6 +246,11 @@ tr.process td
 .bdr-left
 {
 	border-left:solid 1px #EEEEEE;
+}
+
+.bdr-bottom
+{
+	border-bottom: solid 1px #EEEEEE;
 }
 
 

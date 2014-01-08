@@ -7,7 +7,7 @@ Router.map(function() {
 	});
 	
 	this.route('quote',{
-		path: '/quote/:_id',
+		path: '/quote/:_id/:view?/:action?',
 	    controller: 'QuoteController',
 	    action: 'show',
 	});

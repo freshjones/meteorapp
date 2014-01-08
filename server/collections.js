@@ -1,0 +1,1 @@
+Outgoing = new Meteor.Collection('outgoing');

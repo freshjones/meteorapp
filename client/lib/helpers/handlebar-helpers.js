@@ -343,6 +343,21 @@ Handlebars.registerHelper('whichEstBtn', function(value) {
 	
 });
 
+Handlebars.registerHelper('whichQuoteEstBtn', function(value) {
+
+	var whichEstModel = this.quote.estModel;
+	
+	var returnVal = 'btn-default';
+
+	if(whichEstModel === value)
+	{
+		var returnVal = 'btn-primary';
+	}
+
+	return returnVal;
+	
+});
+
 Handlebars.registerHelper('featureClass', function(value) {
 
 	var returnClass = '';
