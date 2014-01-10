@@ -1,0 +1,42 @@
+<template name="quoteResponse">
+  	
+  	<div class="container quoteAction">
+  		{{yield}}
+  	</div>
+  	
+</template>
+
+
+<template name="quoteAction">
+
+      <div class="quoteaction-header">
+        <h3 class="text-muted">GYST</h3>
+      </div>
+      
+      <div class="quoteaction-body">
+      
+      
+      	{{#if showForm}}
+		
+			<p class="lead text-muted">Quote: {{quote.company}}-{{quote.quotenum}}</p>
+			<h1>{{quote.title}}</h1>
+        	<p class="lead">{{quote.description}}</p>
+        	
+			<div class="vertical-padding clearfix">
+			<button type="button" class="btn btn-lg btn-primary"><i class="fa fa-thumbs-up"></i> Approve Quote</button>
+  			<button type="button" class="btn btn-lg btn-primary"><i class="fa fa-refresh"></i> Request a Re-Quote</button>
+  			<button type="button" class="btn btn-lg btn-primary"><i class="fa fa-thumbs-down"></i> Decline Quote</button>
+  			</div>
+  			
+  			<p class="lead">(View your quote <a href="{{quote.file.url}}" target="_blank"><strong>here</strong></a>.)</p>
+  
+		{{else}}
+		
+			<h1>Sorry bro, </h1>
+        	<p class="lead">This is not a valid quote any longer.</p>
+			
+		{{/if}}
+
+	  </div>
+			
+</template>

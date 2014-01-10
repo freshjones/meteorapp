@@ -1,0 +1,16 @@
+.quoteaction-body
+{
+	padding: 40px 15px;
+    text-align: center;
+}
+
+.quoteaction-header {
+    margin-bottom: 30px;
+}
+.quoteaction-header {
+    padding-left: 0;
+    padding-right: 0;
+}
+.quoteaction-header {
+    border-bottom: 1px solid #E5E5E5;
+}

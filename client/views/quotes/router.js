@@ -6,18 +6,19 @@ Router.map(function() {
 	    action: 'show',
 	});
 	
+	this.route('quoteaction',{
+		path: '/quote/response/:_approvalcode',
+		layoutTemplate: 'quoteResponse',
+		template: 'quoteAction',
+	    controller: 'QuoteApprovalController',
+	    action: 'show',
+	});
+	
 	this.route('quote',{
 		path: '/quote/:_id/:view?/:action?',
 	    controller: 'QuoteController',
 	    action: 'show',
 	});
-	
-	this.route('quote/response',{
-		path: '/quote/response:_approvalcode',
-	    controller: 'QuoteController',
-	    action: 'show',
-	});
-	
 	
 	
 });

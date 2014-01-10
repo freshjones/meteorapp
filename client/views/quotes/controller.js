@@ -83,3 +83,40 @@ QuoteController = RouteController.extend({
 	}
 
 });
+
+QuoteApprovalController = RouteController.extend({
+	  
+	waitOn: function () 
+	{
+		var codeLength = this.params._approvalcode.length;
+		var quote_id = this.params._approvalcode.substring(0,codeLength-8); 
+		
+	    return [ Meteor.subscribe('quote', quote_id) ];
+	},
+	data:function() {
+		
+		var codeLength 		= this.params._approvalcode.length;
+		var quote_id 		= this.params._approvalcode.substring(0,codeLength-8); 
+		var approval_id 	= this.params._approvalcode.substring(codeLength-8); 
+		
+		var quoteData = {};
+		
+		quoteData.quote = Quotes.findOne({'_id':quote_id, 'approvalCode':approval_id});
+		
+		var showApprovalForm = false;
+		
+		if(quoteData.quote != undefined)
+		{
+			showApprovalForm = true;
+		}
+		
+		quoteData.showForm = showApprovalForm;
+		
+		return quoteData;
+		
+	},
+	show: function () {
+		this.render();
+	}
+
+});

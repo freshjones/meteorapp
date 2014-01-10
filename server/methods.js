@@ -1,7 +1,7 @@
 Meteor.methods({
 
 	addOutgoing: function(type, itemData)
-	  {
+	{
 		 
 		var approvalCode 			=  Math.random().toString(36).slice(-8);
 		
@@ -23,6 +23,6 @@ Meteor.methods({
 		
 		return 'cool';
 		  
-	  }
+	}
 
 });
