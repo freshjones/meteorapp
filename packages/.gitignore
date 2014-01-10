@@ -15,3 +15,9 @@ parsleyjs
 jqbootstrapvalidation
 bootstrap-3-switch
 accounting
+crypto-md5
+crypto-base
+crypto-aes
+crypto-sha1
+crypto-base64
+crypto-hmac

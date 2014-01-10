@@ -16,7 +16,12 @@
       "parsleyjs": {},
       "jqbootstrapvalidation": {},
       "bootstrap-3-switch": {},
-      "accounting": {}
+      "accounting": {},
+      "crypto-md5": {},
+      "crypto-aes": {},
+      "crypto-sha1": {},
+      "crypto-base64": {},
+      "crypto-hmac": {}
     },
     "packages": {
       "jquery-ui": {
@@ -36,8 +41,8 @@
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.6.1",
-        "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
+        "tag": "v0.6.2",
+        "commit": "ce56e58b45624dce992490f3a1c10f10d3948bae"
       },
       "npm": {
         "git": "https://github.com/arunoda/meteor-npm.git",
@@ -78,6 +83,36 @@
         "git": "https://github.com/IainShigeoka/meteor-accounting.git",
         "tag": "v0.3.2.3",
         "commit": "330cf532e6ac7282cf85ef3b83a54c1a25f5bdae"
+      },
+      "crypto-md5": {
+        "git": "https://github.com/oortcloud/meteor-crypto-md5.git",
+        "tag": "v3.1.2.2",
+        "commit": "75bbb3eeace302122d3554a6212a6fe92553fa18"
+      },
+      "crypto-aes": {
+        "git": "https://github.com/onepixelsolid/meteor-crypto-aes.git",
+        "tag": "v0.0.2",
+        "commit": "bcc93266360e2c7c28bdf8ebb9afba94a3bdbeeb"
+      },
+      "crypto-sha1": {
+        "git": "https://github.com/dandv/meteor-crypto-sha1.git",
+        "tag": "v3.1.2.1",
+        "commit": "f5c87d44aa4bdda6b33c7e2c21ea396d9d0f436d"
+      },
+      "crypto-base64": {
+        "git": "https://github.com/dandv/meteor-crypto-base64.git",
+        "tag": "v3.1.2.0",
+        "commit": "03e523e80faaf7b10191ea50493414bec7cd0e3d"
+      },
+      "crypto-hmac": {
+        "git": "https://github.com/oortcloud/meteor-crypto-hmac.git",
+        "tag": "v3.1.2.0",
+        "commit": "7c9d1b96c682982cb75f2fd6c75fc7663b5b361e"
+      },
+      "crypto-base": {
+        "git": "https://github.com/oortcloud/meteor-crypto-base.git",
+        "tag": "v3.1.2.1",
+        "commit": "5df8d82a0595553415bbfae2930c6ecbeece5794"
       }
     }
   }

@@ -12,5 +12,12 @@ Router.map(function() {
 	    action: 'show',
 	});
 	
+	this.route('quote/response',{
+		path: '/quote/response:_approvalcode',
+	    controller: 'QuoteController',
+	    action: 'show',
+	});
+	
+	
 	
 });

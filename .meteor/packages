@@ -19,3 +19,6 @@ accounts-password
 email
 parsleyjs
 accounting
+crypto-base
+crypto-md5
+crypto-aes
