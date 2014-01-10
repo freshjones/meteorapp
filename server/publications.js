@@ -12,6 +12,10 @@ Meteor.publish("settings", function () {
 
 });
 
+//sequentials
+Meteor.publish("sequentials", function () {
+	return Sequentials.find({});
+});
 
 //clients
 Meteor.publish("clients", function () {

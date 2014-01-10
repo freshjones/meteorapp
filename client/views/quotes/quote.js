@@ -39,11 +39,11 @@ Template.quote.events({
   		
   		var quoteData = {};
   		
-  		quoteData.quote_id 		= this.quote._id;
-  		quoteData.quotenum		= this.quote.quotenum;
-  		quoteData.to 			= $('#sendTo').val();
-  		quoteData.subject 		= $('#sendSubject').val();
-  		quoteData.coverletter 	= $('#sendCoverLetter').val();
+  		quoteData.quote_id        = this.quote._id;
+  		quoteData.quotenum		    = this.quote.quotenum;
+  		quoteData.to 			        = $('#sendTo').val();
+  		quoteData.subject 		    = $('#sendSubject').val();
+  		quoteData.coverletter     = $('#sendCoverLetter').val();
   		
   		Meteor.call("addOutgoing", 'quotes', quoteData, function(error,result){
   		    if(error){

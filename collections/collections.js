@@ -10,4 +10,4 @@ Sales 					= new Meteor.Collection('sales');
 Service					= new Meteor.Collection('service');
 QuoteTemplates			= new Meteor.Collection('quoteTemplates');
 Quotes					= new Meteor.Collection('quotes');
-
+Sequentials				= new Meteor.Collection('sequentials');

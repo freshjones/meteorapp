@@ -309,18 +309,20 @@ Template.quotebuild.events({
   	},
   	'click #ff-savequote': function (event) 
 	{
+		
   		event.preventDefault();
   		
   		var thisItem = this.quoteItem;
-  		
+
   		var serviceID = thisItem._id;
   		
   		delete thisItem._id;
-  		  		
-  		thisItem.service_id = serviceID;
-  		thisItem.status = 'review';
-  		thisItem.type = 'service';
-  		
+
+  		thisItem.service_id 	= serviceID;
+  		thisItem.status 		= 'review';
+  		thisItem.type 			= 'service';
+  		thisItem.quotenum 		= getSequentialNumber('quote');
+
   		Quotes.insert(thisItem);
   		
   		Service.update({_id : serviceID }, { $set : { 'status' : 'archive' } } );

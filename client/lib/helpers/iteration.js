@@ -199,3 +199,16 @@ updateRowTotalCell = function(row, total)
 {
 	$(row).find('.sprint-total').text(total);
 }
+
+getSequentialNumber = function(type)
+{
+
+	var curSequenceDoc = Sequentials.findOne({'type':type});
+
+  	var newSequence = curSequenceDoc.value + 1;
+
+  	Sequentials.update({'_id':curSequenceDoc._id}, {$set:{'value':newSequence}});
+
+  	return newSequence;
+
+}
