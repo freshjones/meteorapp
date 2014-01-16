@@ -1,0 +1,445 @@
+<template name="pipeline">
+	
+	<div class="pipeline">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Back<br/>Log</th>
+					<th>3<br/>Next</th>
+					<th>&nbsp;</th>
+					<th colspan="2"><span class="label label-danger">2</span>Plan</th>
+					<th colspan="2" class="col-secondary">Waiting On</th>
+					<th colspan="2"><span class="label label-danger">2</span>Design</th>
+					<th colspan="2" class="col-secondary">Waiting On</th>
+					<th colspan="2"><span class="label label-default">2</span>Develop</th>
+					<th colspan="2" class="col-secondary">Waiting On</th>
+					<th colspan="2"><span class="label label-default">2</span>Prepare</th>
+					<th colspan="2" class="col-secondary">Waiting On</th>
+					<th>Deply</th>
+					<th>Features<br> Complete</th>
+				</tr>
+				<tr class="slot-cols">
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>Projects</th>
+					<th class="slot-col">IP</th>
+					<th class="slot-col">Done</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Client</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">C</span>
+					</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Ready</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">R</span>
+					</th>
+					<th class="slot-col">IP</th>
+					<th class="slot-col">Done</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Client</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">C</span>
+					</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Ready</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">R</span>
+					</th>
+					<th class="slot-col">IP</th>
+					<th class="slot-col">Done</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Client</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">C</span>
+					</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Ready</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">R</span>
+					</th>
+					<th class="slot-col">IP</th>
+					<th class="slot-col">Done</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Client</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">C</span>
+					</th>
+					<th class="slot-col-secondary col-secondary">
+						<span class="slot-label-secondary slot-label-large visible-lg">Ready</span>
+						<span class="slot-label-secondary slot-label-small hidden-lg">R</span>
+					</th>
+					<th class="slot-col">&nbsp;</th>
+					<th class="slot-col">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="slot-large-text">10</td>
+					<td rowspan="4" class="slot-next">
+						<div class="next-feature">
+							<div class="feature-large label-red pointer">2</div>
+						</div>
+						<div class="next-feature">
+							<div class="feature-large label-yellow pointer">5</div>
+						</div>
+						<div class="next-feature">
+							<div class="feature-large label-green pointer">1</div>
+						</div>
+						<div class="next-feature">
+							<div class="feature-large label-blue pointer">2</div>
+						</div>
+						<div class="next-feature">
+							<div class="feature-large label-red pointer">9</div>
+						</div>
+					</td>
+					<td class="slot-project pointer"><span class="project-label pull-left label-red"></span>Project One</td>
+					<td>
+						<div class="feature-large label-red pull-left pointer">1</div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="feature-small label-red pull-left pointer"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="slot-single">
+						<div class="slot-feature">
+							<div class="placeholder pull-left"></div>
+						</div>
+					</td>
+					<td class="slot-large-text">0/4</td>
+				</tr>
+				<tr>
+					<td class="slot-large-text">2</td>
+					<td class="slot-project pointer"><span class="project-label pull-left label-green"></span>Project Two</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="feature-large label-green pull-left pointer">3</div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="feature-large label-green pull-left pointer">1</div>
+					</td>
+					<td class="col-secondary">
+						<div class="feature-small label-green pull-left pointer"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="slot-large-text">0/5</td>
+				</tr>
+				<tr>
+					<td class="slot-large-text">7</td>
+					<td class="slot-project pointer"><span class="project-label pull-left label-yellow"></span>Project Three</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="feature-large label-yellow pull-left pointer">1</div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="feature-small label-yellow pull-left pointer"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="slot-large-text">0/1</td>
+				</tr>
+				<tr>
+					<td class="slot-large-text">13</td>
+					<td class="slot-project pointer"><span class="project-label pull-left label-blue"></span>Project Four</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="feature-large label-blue pull-left pointer">1</div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="feature-small label-blue pull-left pointer"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td class="col-secondary">
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+						<div class="placeholder-secondary pull-left"></div>
+					</td>
+					<td>
+						<div class="placeholder pull-left"></div>
+					</td>
+					<td class="slot-large-text">0/1</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</template>
