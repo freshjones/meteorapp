@@ -1,0 +1,68 @@
+<template name="newquote">
+	
+	<div class="row">
+		<div class="col-sm-2 bdr-right">
+			{{> quotesNav}}
+		</div>
+		
+		<div class="col-sm-10  bdr-right">
+		
+			{{> newQuoteBody}}
+			
+		</div>
+		
+	</div>
+	
+</template>
+
+
+
+<template name="newQuoteBody">
+ 
+ 		<div>
+			<button type="button" class="btn btn-default back"><i class="fa fa-long-arrow-left"></i> Back</button>
+		</div>
+		
+		<div>
+			<hr/>
+		</div>
+		
+		<div>
+			<ul class="nav nav-tabs">
+				<li class="{{#if viewOverview}}active{{/if}}"><a href=#" data-action="Overview" class="step">Overview</a></li>
+				<li class="{{#if viewScope}}active{{/if}}"><a href=#" data-action="Scope" class="step">Scope</a></li>
+				<li class="{{#if viewFeatures}}active{{/if}}"><a href=#" data-action="Features" class="step">Features &amp; Cost</a></li>
+				<li class="{{#if viewDeadlines}}active{{/if}}"><a href=#" data-action="Deadlines" class="step">Deadlines &amp; Procedures</a></li>
+				<li class="{{#if viewSummary}}active{{/if}}"><a href=#" data-action="Summary" class="step">Summary</a></li>
+				<li class="pull-right"><span class="lead">{{moneyFormat quote.estTotal}}</span></li>
+			</ul>
+		</div>
+		
+		<div>
+			{{#if view}}
+				
+				{{#if viewOverview}}
+					{{> viewQuoteOverview}}
+				{{/if}}
+				
+				{{#if viewScope}}
+					{{> viewQuoteScope}}
+				{{/if}}
+				
+				{{#if viewFeatures}}
+					{{> viewQuoteFeatures}}
+				{{/if}}
+				
+				{{#if viewDeadlines}}
+					{{> viewQuoteDeadlines}}
+				{{/if}}
+				
+				{{#if viewSummary}}
+					{{> viewQuoteSummary}}
+				{{/if}}
+			
+			{{/if}}
+		
+		</div>
+		
+</template>

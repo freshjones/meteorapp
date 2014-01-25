@@ -412,3 +412,18 @@ span.offset
 {
 	padding:15px;
 }
+
+#buildquoteform > div.form-group,
+#buildquoteform > div.btn-group
+{
+	padding-right:0;
+}
+
+#buildquoteform > div.col-lg-1
+{
+	width:12%;
+}
+#buildquoteform > div.col-lg-7
+{
+	width:40%;
+}

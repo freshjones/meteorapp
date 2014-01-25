@@ -10,7 +10,7 @@
 					<div class="form-group">
 					    <label for="Sent By" class="control-label">What is included:</label>
 					    <div>
-					      <textarea id="ff-included" class="form-control" name="ff-included" placeholder="List each on one line" rows="10" required>{{quoteItem.scope.included}}</textarea>
+					      <textarea id="ff-included" class="form-control" name="ff-included" placeholder="List each on one line" rows="10" required>{{quote.scope.included}}</textarea>
 					    </div>
 					</div>
 				</div>
@@ -19,7 +19,7 @@
 					<div class="form-group">
 					    <label for="Sent By" class="control-label">What is Not included:</label>
 					    <div>
-					      <textarea id="ff-notincluded" class="form-control" name="ff-notincluded"  placeholder="List each on one line" rows="10" required>{{quoteItem.scope.notincluded}}</textarea>
+					      <textarea id="ff-notincluded" class="form-control" name="ff-notincluded"  placeholder="List each on one line" rows="10" required>{{quote.scope.notincluded}}</textarea>
 					    </div>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 			<div class="form-group">
 			    <label for="Sent By" class="control-label">Assumptions:</label>
 			    <div>
-			      <textarea id="ff-assumptions" class="form-control" placeholder="List each on one line" rows="10" required>{{quoteItem.assumptions}}</textarea>
+			      <textarea id="ff-assumptions" class="form-control" placeholder="List each on one line" rows="10" required>{{quote.assumptions}}</textarea>
 			    </div>
 			</div>
 	
@@ -44,7 +44,7 @@
 	
 	<div class="form-group">
 		<div class="">
-			<button type="submit" id="ff-submit" data-action="assumptions" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
+			<button type="submit" id="ff-submit" data-action="Features" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
 			<button type="button" class="btn btn-link cancel">Cancel</button>
 	    </div>
 	</div>

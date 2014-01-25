@@ -6,6 +6,12 @@ Router.map(function() {
 	    action: 'show',
 	});
 	
+	this.route('newquote',{
+		path: '/quote/new/:_id?/:view?/:action?',
+	    controller: 'NewQuoteController',
+	    action: 'show',
+	});
+	
 	this.route('quoteaction',{
 		path: '/quote/response/:_approvalcode',
 		layoutTemplate: 'quoteResponse',

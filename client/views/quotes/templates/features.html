@@ -4,6 +4,68 @@
 		
 		<div class="col-md-8 bdr-left">
 			
+			
+			<div id="saveFeatureTemplate">
+				
+				<div>
+					<div class="template-form">
+						<p class="lead">Save Template</p>
+						<form name="feature-template-save" id="feature-template-save">
+							<div class="form-group">
+								<label for="title" class="sr-only">Name:</label>
+								<div>
+									<input id="fts-name" type="text" class="form-control" placeholder="Template Name" value="">
+								</div>
+							</div>	
+							<div class="form-group">
+								<div class="">
+									<button type="submit" id="fts-submit" class="btn btn-primary">Save</button>
+									<button type="button" class="btn btn-link fts-cancel">Cancel</button>
+							    </div>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div id="loadFeatureTemplates">
+				
+				<div>
+					<div class="template-form">
+						<p class="lead">Load Template</p>
+						<form name="feature-template-save" id="feature-template-load">
+							<div class="form-group">
+								<label for="title" class="sr-only">Name:</label>
+								<div>
+									<select id="loadTemplateOption">
+										{{#each quotetemplates}}
+											<option value="{{_id}}">{{title}}</option>
+										{{/each}}
+									</select>
+								</div>
+							</div>	
+							
+							<div class="form-group">
+								<label class="checkbox" for="addto">
+									<input type="checkbox" value="yes" name="addto" id="addto"> Add to existing features
+								</label>
+							</div>
+							
+							<div class="form-group">
+								<div class="">
+									<button type="submit" id="ftl-submit" class="btn btn-primary">Save</button>
+									<button type="button" class="btn btn-link ftl-cancel">Cancel</button>
+							    </div>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+				
+			</div>
+			
 			<input type="hidden" name="step" id="ff-step" value="features" />
 			
 			<div class="clearfix">
@@ -20,15 +82,14 @@
 			</div>
 
 			<form class="row form-inline vertical-padding" id="buildquoteform">
-				<div class="form-group col-lg-6">
+				<div class="form-group col-lg-7">
 				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
 				    <input id="ff-featureTitle" type="text" class="form-control col-lg-6" placeholder="Feature Name" value="" required>
 				</div>
 
-				<div class="form-group col-lg-2">
-				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
-				    <select name="ff-featureEstimate" id="ff-featureEstimate" class="form-control" required>
-			    		<option value="0">Hours</option>
+				<div class="form-group col-lg-1">
+				    <select name="ff-featureEstimateStrategy" id="ff-featureEstimateStrategy" class="form-control" required>
+			    		<option value="0">Strategy</option>
 			    		<option value=".1">0.1 hours</option>
 			    		<option value=".3">0.3 hours</option>
 			    		<option value=".5">0.5 hours</option>
@@ -41,7 +102,37 @@
 			    	</select>
 				 </div>
 
-				<div class="form-group col-lg-2">
+				<div class="form-group col-lg-1">
+				    <select name="ff-featureEstimateDesign" id="ff-featureEstimateDesign" class="form-control" required>
+			    		<option value="0">Design</option>
+			    		<option value=".1">0.1 hours</option>
+			    		<option value=".3">0.3 hours</option>
+			    		<option value=".5">0.5 hours</option>
+			    		<option value="1">1.0 hours</option>
+			    		<option value="3">3.0 hours</option>
+			    		<option value="5">5.0 hours</option>
+			    		<option value="10">10 hours</option>
+			    		<option value="30">30 hours</option>
+			    		<option value="50">50 hours</option>
+			    	</select>
+				 </div>
+				 
+				 <div class="form-group col-lg-1">
+				    <select name="ff-featureEstimateBuild" id="ff-featureEstimateBuild" class="form-control" required>
+			    		<option value="0">Build</option>
+			    		<option value=".1">0.1 hours</option>
+			    		<option value=".3">0.3 hours</option>
+			    		<option value=".5">0.5 hours</option>
+			    		<option value="1">1.0 hours</option>
+			    		<option value="3">3.0 hours</option>
+			    		<option value="5">5.0 hours</option>
+			    		<option value="10">10 hours</option>
+			    		<option value="30">30 hours</option>
+			    		<option value="50">50 hours</option>
+			    	</select>
+				 </div>
+				 
+				<div class="form-group col-lg-1">
 				    <label class="sr-only" for="exampleInputEmail2">Email address</label>
 				    <select name="ff-featureExperience" id="ff-featureExperience" class="form-control" required>
 			    		<option value="0">DOE</option>
@@ -53,7 +144,7 @@
 			    	</select>
 				 </div>
 
-				<div class="btn-group col-lg-2">
+				<div class="btn-group col-lg-1">
 					<button type="button" data-type="feature" class="btn btn-default addFeature">Add</button>
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 					 	<span class="caret"></span>

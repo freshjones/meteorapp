@@ -43,13 +43,14 @@
 <template name="quotesNav">
 
 	<div class="vertical-padding">
-		<button class="btn btn-danger btn-large" type="button" id="newRequest"><i class="fa fa-thumbs-up fa fa-white"></i> New Quote</button>
+		<button class="btn btn-danger btn-large createnew" type="button"><i class="fa fa-thumbs-up fa fa-white"></i> New Quote</button>
 	</div>
 	
 	<div class="vertical-padding">
 		<div class="list-group">
-			<a href="#" data-action="active" class="list-group-item inbox"><span class="badge pull-right">{{counter 'active' 'Service'}}</span>Inbox/Review</a>
-			<a href="#" data-action="quote" class="list-group-item inbox"><span class="badge pull-right">{{counter 'quote' 'Service'}}</span>Waiting On</a>
+			<a href="#" data-action="active" class="list-group-item inbox"><span class="badge pull-right">{{counter 'active' 'Quotes'}}</span>Inbox/Review</a>
+			<a href="#" data-action="draft" class="list-group-item draft"><span class="badge pull-right">{{counter 'draft' 'Quotes'}}</span>Drafts</a>
+			<a href="#" data-action="quote" class="list-group-item waiting"><span class="badge pull-right">{{counter 'waiting' 'Quotes'}}</span>Waiting On</a>
 		</div>
 	</div>
 

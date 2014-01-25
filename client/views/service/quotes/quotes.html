@@ -210,9 +210,12 @@
 			<div class="col-xs-6 title"><span class="move"><i class="fa fa-arrows sortFeatures"></i></span> {{title}}</div>
 		 	<div class="pull-right">
 			 	<div class="feature-col-1 text-right type hidden">{{type}}</div>
+			 	<div class="feature-col-1 text-right strategy hidden">{{estimateData.strategy}}</div>
+			 	<div class="feature-col-1 text-right design hidden">{{estimateData.design}}</div>
+			 	<div class="feature-col-1 text-right build hidden">{{estimateData.build}}</div>
 			 	<div class="feature-col-1 text-right estimate">{{{showFeatureField estimate 'estimate'}}}</div>
 			 	<div class="feature-col-1 text-right experience">{{{showFeatureField experience 'experience'}}}</div>
-			 	<div class="feature-col-1 text-right"><i class="fa fa-times removeFeature"></i></div>
+			 	<div class="feature-col-1 text-right"><i class="fa fa-comment-o showEstValues pointer" data-content="Strategy: {{estimateData.strategy}}<br/>Design: {{estimateData.design}}<br/>Build: {{estimateData.build}}"></i>&nbsp;&nbsp;<i class="fa fa-times removeFeature"></i></div>
 			</div>
 		</div>
 		{{> featureChildList}}

@@ -120,3 +120,142 @@ QuoteApprovalController = RouteController.extend({
 	}
 
 });
+
+
+
+NewQuoteController = RouteController.extend({
+	
+	waitOn: function () 
+	{
+		return [ 
+		         	Meteor.subscribe('quote', this.params._id),
+		         	Meteor.subscribe('quotetemplates'),
+	            	Meteor.subscribe('sequentials')
+	            ];
+	},
+	before: function () 
+	{
+		
+		if(this.params._id == undefined)
+		{
+		
+			var newquote_id = createTempQuote();
+			
+			this.redirect('newquote', {_id:newquote_id} );
+			
+		} 
+		
+	},
+	data:function() {
+		
+		var quoteData = {};
+		
+		quoteData.quote = Quotes.findOne( this.params._id );
+		
+		quoteData.view = true;
+    	
+    	if(this.params.view == undefined)
+		{
+    		quoteData['viewOverview'] = true;
+    		
+		} else {
+			
+    		var thisView = 'view' + this.params.view;
+    		quoteData[thisView] = true;
+		}
+    	
+    	quoteData.estvalue = 0;
+    	
+    	if( quoteData.quote.estModel === 'instinct')
+    	{
+    		
+    		quoteData.estvalue = quoteData.quote.instinctEstimate;
+    		
+    	} else {
+    		
+    		if( quoteData.quote.features )
+        	{
+    			
+    			var featureSum = getFeatureSum( quoteData.quote.features, 0 );
+    			
+    			if(featureSum > 0 )
+    			{
+    				quoteData.estvalue = featureSum;
+    			}
+    			
+        	}
+    		
+    	}
+    	
+    	var estTotal = quoteData.estvalue * 125;
+    	
+    	if( quoteData.quote.extra )
+    	{
+    		if(quoteData.quote.extra.includeEnv)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valueEnv / 100);
+        	}
+        	
+        	if(quoteData.quote.extra.includeConcept)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valueConcept / 100);
+        	}
+        	
+        	if(quoteData.quote.extra.includePM)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valuePM / 100);
+        	}
+        	
+        	if(quoteData.quote.extra.includeConfig)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valueConfig / 100);
+        	}
+        	
+        	if(quoteData.quote.extra.includeTesting)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valueTesting / 100);
+        	}
+        	
+        	if(quoteData.quote.extra.includeDeploy)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valueDeploy / 100);
+        	}
+        	
+        	if(quoteData.quote.extra.includeTraining)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valueTraining / 100);
+        	}
+        	
+        	if(quoteData.quote.extra.includeUnForeseen)
+        	{
+        		estTotal += estTotal * (quoteData.quote.extra.valueUnForeseen / 100);
+        	}
+    	}
+    	
+    	quoteData.quote.estTotal = estTotal;
+
+    	quoteData.quotetemplates = QuoteTemplates.find({status:'active'}).fetch();
+    	
+		return quoteData;
+		
+	},
+	show: function () {
+		this.render();
+	}
+	
+
+});
+
+var createTempQuote = function()
+{
+	
+	var newQuoteDraft = {};
+	
+	newQuoteDraft.status = 'draft';
+	
+	//now lets add the new item and redirect to it
+	var draft_id = Quotes.insert(newQuoteDraft);
+	
+	return draft_id;
+	
+}
