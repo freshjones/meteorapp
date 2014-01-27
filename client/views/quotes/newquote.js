@@ -425,7 +425,7 @@ function buildFeatureChildAgg( data, type, sum )
 		
 	});
 	
-	return sum;
+	return Math.round(sum * 100 ) / 100;
 	
 }
 

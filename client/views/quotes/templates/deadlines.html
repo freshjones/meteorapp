@@ -1,3 +1,111 @@
 <template name="viewQuoteDeadlines">
-	deadlines
+	
+	<div class="row">
+		
+		<div class="col-md-8 bdr-left">
+		
+		
+			<div class="clearfix vertical-padding">
+			
+				<div class="clearfix">
+					<div class="pull-left"><p class="lead">Deadline</p></div>
+				</div>	
+				
+				<div class="form-group">
+					
+					<div class="input-group col-lg-3 date">
+					  <input type="text" placeholder="Deadline"  class="form-control modal-group" id="deadlineDate" name="deadlineDate" value="" autocomplete="off">
+					  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					</div>
+					
+				</div>
+				 
+			</div>	
+			
+			<div class="clearfix vertical-padding">
+			
+				<div class="clearfix">
+					<div class="pull-left"><p class="lead">Milestones</p></div>
+				</div>	
+			
+				<div class="clearfix">
+					<div id="featureTop" class="sortable-items ui-sortable">
+						{{> milestoneList}}
+					</div>
+				</div>
+				
+				<form class="form-inline vertical-padding" >
+	
+					<div class="form-group">
+					
+					    <select name="milestoneFeature" id="milestoneFeature" class="form-control" required>
+				    		<option value="">Features</option>
+				    		{{#each featurelist}}
+				    			<option value="{{_id}}" class="{{type}}">{{title}}</option>
+				    		{{/each}}
+				    	</select>
+				    	
+					 </div>
+	
+					<div class="form-group ">
+					    <select name="milestonePhase" id="milestonePhase" class="form-control" required>
+				    		<option value="">Phases</option>
+				    		<option value="all">All</option>
+				    		<option value="strategy">Strategy</option>
+				    		<option value="design">Design</option>
+				    		<option value="build">Build</option>
+				    	</select>
+					 </div>
+					 
+					<div class="form-group">
+						&nbsp;must be completed by&nbsp;
+					</div>
+					
+					<div class="form-group">
+					
+						<div class="input-group date">
+						  <input type="text" placeholder="Date"  class="form-control modal-group" id="milestoneDate" name="milestoneDate" value="" autocomplete="off">
+						  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						</div>
+						
+					</div> 
+					
+					<div class="form-group">
+						&nbsp;with&nbsp;
+					</div>
+					
+					<div class="form-group ">
+					    <input type="text" name="milestoneDeliverable" placeholder="Deliverable" id="milestoneDeliverable" class="form-control" required />
+					 </div>
+	
+					<div class="btn-group">
+						<button type="button" data-type="deadline" class="btn btn-default addMilestone">Add</button>
+					</div>
+	
+				</form>
+			
+			</div>
+			
+		</div>
+		
+		<div class="col-md-4 bdr-left">
+			
+			<p class="lead">Forecasting</p>
+			
+			<div class="box-content">
+         		<div id="flot-2" class="flot" style="width:100%;height:300px"></div>
+         	</div>
+         
+		</div>
+	</div>
+
+</template>
+
+
+<template name="milestoneList">
+	{{#each quote.milestones}}
+		{{title}} - {{phase}} - {{date}} - {{deliverable}}<br/>
+	{{else}}
+		There are no milestones for this job yet, add one below&hellip;
+	{{/each}}
 </template>

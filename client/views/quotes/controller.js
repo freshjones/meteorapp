@@ -187,6 +187,8 @@ NewQuoteController = RouteController.extend({
     		
     	}
     	
+    	quoteData.estvalue = Math.round(quoteData.estvalue * 100 ) / 100;
+    	
     	var estTotal = quoteData.estvalue * 125;
     	
     	if( quoteData.quote.extra )
@@ -232,19 +234,68 @@ NewQuoteController = RouteController.extend({
         	}
     	}
     	
-    	quoteData.quote.estTotal = estTotal;
+    	quoteData.quote.estTotal = Math.round(estTotal * 100 ) / 100;
 
     	quoteData.quotetemplates = QuoteTemplates.find({status:'active'}).fetch();
+    	
+    	var emptyArr = [];
+    	quoteData.featurelist = getFeatureList( quoteData.quote.features );
     	
 		return quoteData;
 		
 	},
+	before:function()
+	{
+		$(".date").remove();
+	},
 	show: function () {
 		this.render();
-	}
+	},
 	
 
 });
+
+var getFeatureList = function( data )
+{
+	
+	var featureList = [];
+	
+	data.forEach(function (doc) { 
+		
+		var thisItem = {};
+		
+		thisItem._id = doc.feature_id;
+		thisItem.type = doc.type;
+		
+		var prefix = '';
+		
+		switch(doc.type)
+		{
+			case 'feature':
+				prefix = '----';
+			break;
+			
+			case 'minor':
+				prefix = '--';
+			break;
+		}
+		
+		thisItem.title = prefix + doc.title.trim();
+		
+		
+		featureList.push(thisItem);
+		
+		if(doc.children != undefined && doc.children.length)
+		{
+			var children = getFeatureList( doc.children );
+			featureList = featureList.concat(children);
+		} 
+		
+	});
+	
+	return featureList;
+	
+}
 
 var createTempQuote = function()
 {

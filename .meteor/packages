@@ -12,13 +12,11 @@ font-awesome
 moment
 iron-router
 npm
-bootstrap-datepicker
 bootstrap-3
 accounts-base
 accounts-password
 email
 parsleyjs
 accounting
-crypto-base
-crypto-md5
-crypto-aes
+bootstrap-datepicker2
+flot

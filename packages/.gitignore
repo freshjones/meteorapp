@@ -21,3 +21,5 @@ crypto-aes
 crypto-sha1
 crypto-base64
 crypto-hmac
+bootstrap-datepicker2
+flot
