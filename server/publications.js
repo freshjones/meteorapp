@@ -99,7 +99,8 @@ Meteor.publish('serviceitem', function (service_id) {
 
 
 Meteor.publish("quotetemplates", function () {
-	return QuoteTemplates.find({status:"active"});
+	//status:"active"
+	return QuoteTemplates.find({});
 });
 
 Meteor.publish("quotes", function () {

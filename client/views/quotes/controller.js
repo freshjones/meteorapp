@@ -145,9 +145,11 @@ NewQuoteController = RouteController.extend({
 			
 		} 
 		
+		$(".date").remove();
+
 	},
 	data:function() {
-		
+		console.log('yes');
 		var quoteData = {};
 		
 		quoteData.quote = Quotes.findOne( this.params._id );
@@ -238,15 +240,10 @@ NewQuoteController = RouteController.extend({
 
     	quoteData.quotetemplates = QuoteTemplates.find({status:'active'}).fetch();
     	
-    	var emptyArr = [];
     	quoteData.featurelist = getFeatureList( quoteData.quote.features );
     	
 		return quoteData;
 		
-	},
-	before:function()
-	{
-		$(".date").remove();
 	},
 	show: function () {
 		this.render();
@@ -260,39 +257,45 @@ var getFeatureList = function( data )
 	
 	var featureList = [];
 	
-	data.forEach(function (doc) { 
+	if(data != undefined)
+	{
 		
-		var thisItem = {};
-		
-		thisItem._id = doc.feature_id;
-		thisItem.type = doc.type;
-		
-		var prefix = '';
-		
-		switch(doc.type)
-		{
-			case 'feature':
-				prefix = '----';
-			break;
+		data.forEach(function (doc) { 
 			
-			case 'minor':
-				prefix = '--';
-			break;
-		}
+			var thisItem = {};
+			
+			thisItem._id = doc.feature_id;
+			thisItem.type = doc.type;
+			
+			var prefix = '';
+			
+			switch(doc.type)
+			{
+				case 'feature':
+					prefix = '----';
+				break;
+				
+				case 'minor':
+					prefix = '--';
+				break;
+			}
+			
+			thisItem.title = prefix + doc.title.trim();
+			
+			
+			featureList.push(thisItem);
+			
+			if(doc.children != undefined && doc.children.length)
+			{
+				var children = getFeatureList( doc.children );
+				featureList = featureList.concat(children);
+			} 
+			
+		});
 		
-		thisItem.title = prefix + doc.title.trim();
-		
-		
-		featureList.push(thisItem);
-		
-		if(doc.children != undefined && doc.children.length)
-		{
-			var children = getFeatureList( doc.children );
-			featureList = featureList.concat(children);
-		} 
-		
-	});
 	
+	}
+
 	return featureList;
 	
 }
