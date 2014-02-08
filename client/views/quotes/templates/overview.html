@@ -2,67 +2,100 @@
 
 	<input type="hidden" name="step" id="ff-step" value="overview" />
 	
-	<div class="form-group">
-		<label for="title" class="control-label">Project Title:</label>
-		<div >
-			<input id="ff-title" type="text" class="form-control" placeholder="John Doe" value="{{quote.title}}" required>
+	<div class="vertical-padding">
+		
+		<div class="clearfix">
+			<div class="pull-left"><p class="lead">Quote Type</p></div>
 		</div>
-	</div>
-	
-	<div class="form-group">
-	    <label for="Sent By" class="control-label">Project Overview:</label>
-	    <div>
-	      <textarea id="ff-description" class="form-control" placeholder="Notes" rows="5" required>{{quote.description}}</textarea>
-	    </div>
-	</div>
-	
-	<div class="form-group">
-	    <label for="Sent By" class="control-label">Project Purpose:</label>
-	    <div>
-	      <textarea id="ff-purpose" class="form-control" placeholder="Notes" rows="3" required>{{quote.purpose}}</textarea>
-	    </div>
-	</div>
-	
-	<div class="form-group">
-		<label for="title" class="control-label">Weight:</label>
-		<div >
+		
+		<div class="form-group">
 			<label class="radio-inline">
-			  <input type="radio" id="weight1" name="weight" value="optimistic" {{isRadioChecked 'optimistic' quote.weight}} required> Optimistic
+			  <input type="radio" name="clientType" id="newclient" class="accountType" value="new" {{#if newClient}}checked="checked"{{/if}}> New Account
 			</label>
+			
 			<label class="radio-inline">
-			  <input type="radio" id="weight2" name="weight" value="pessimistic" {{isRadioChecked 'pessimistic' quote.weight}}> Pessimistic
+			  <input type="radio" name="clientType" id="existingclient" class="accountType" value="existing" {{#if existingClient}}checked="checked"{{/if}}> Existing Account
 			</label>
 		</div>
+		
+		{{#if newClient}}
+			{{> newClientFields}}
+		{{/if}}
+		
+		{{#if existingClient}}
+			{{> existingClientFields}}
+		{{/if}}
+		
 	</div>
 	
-	<div class="form-group">
-		<label for="title" class="control-label">Size:</label>
-		<div >
-			<label class="radio-inline">
-			  <input type="radio" id="size1" name="size" value="large" {{isRadioChecked 'large' quote.size}} required> Large
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" id="size2" name="size" value="medium" {{isRadioChecked 'medium' quote.size}}> Medium
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" id="size3" name="size" value="small" {{isRadioChecked 'small' quote.size}}> Small
-			</label>
+	<div class="vertical-padding">
+		
+		<div class="clearfix">
+			<div class="pull-left"><p class="lead">Quote Details</p></div>
 		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for="title" class="control-label">Instinctive Estimate:</label>
-		<div class="input-group">
-			<span class="input-group-addon">Hours</span>
-		  	<input id="ff-instinct" type="text" class="form-control" placeholder="Instinctive estimate of total hours" value="{{quote.instinctEstimate}}" required>
+		
+		<div class="form-group">
+			<label for="title" class="control-label">Project Title:</label>
+			<div >
+				<input id="ff-title" type="text" class="form-control" placeholder="John Doe" value="{{quote.title}}" required>
+			</div>
 		</div>
-	</div>
+		
+		<div class="form-group">
+		    <label for="Sent By" class="control-label">Project Overview:</label>
+		    <div>
+		      <textarea id="ff-description" class="form-control" placeholder="Notes" rows="5" required>{{quote.description}}</textarea>
+		    </div>
+		</div>
+		
+		<div class="form-group">
+		    <label for="Sent By" class="control-label">Project Purpose:</label>
+		    <div>
+		      <textarea id="ff-purpose" class="form-control" placeholder="Notes" rows="3" required>{{quote.purpose}}</textarea>
+		    </div>
+		</div>
+		
+		<div class="form-group">
+			<label for="title" class="control-label">Weight:</label>
+			<div >
+				<label class="radio-inline">
+				  <input type="radio" id="weight1" name="weight" value="optimistic" {{isRadioChecked 'optimistic' quote.weight}} required> Optimistic
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" id="weight2" name="weight" value="pessimistic" {{isRadioChecked 'pessimistic' quote.weight}}> Pessimistic
+				</label>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="title" class="control-label">Size:</label>
+			<div >
+				<label class="radio-inline">
+				  <input type="radio" id="size1" name="size" value="large" {{isRadioChecked 'large' quote.size}} required> Large
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" id="size2" name="size" value="medium" {{isRadioChecked 'medium' quote.size}}> Medium
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" id="size3" name="size" value="small" {{isRadioChecked 'small' quote.size}}> Small
+				</label>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="title" class="control-label">Instinctive Estimate:</label>
+			<div class="input-group">
+				<span class="input-group-addon">Hours</span>
+			  	<input id="ff-instinct" type="text" class="form-control" placeholder="Instinctive estimate of total hours" value="{{quote.instinctEstimate}}" required>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="">
+				<button type="submit" id="ff-submit" data-action="Scope" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
+				<button type="button" class="btn btn-link cancel">Cancel</button>
+		    </div>
+		</div>
 	
-	<div class="form-group">
-		<div class="">
-			<button type="submit" id="ff-submit" data-action="Scope" class="btn btn-primary stepsave">Save &amp; Next <i class="fa fa-share"></i></button>
-			<button type="button" class="btn btn-link cancel">Cancel</button>
-	    </div>
 	</div>
-	
 </template>

@@ -1,0 +1,42 @@
+<template name="newClientFields">
+	
+	<div class="row">
+		<div class="clearfix">
+			{{> viewClientOverview}}
+		</div>
+		
+		<div class="clearfix">
+			{{> contactform}}
+		</div>
+	</div>
+		
+</template>
+
+
+<template name="existingClientFields">
+
+	<div class="form-group ">
+		<label for="ff-client">Select account</label>
+		<div>
+		    <select name="ff-client" id="ff-client" class="form-control" required>
+		   		<option value="">Please Choose</option>
+				{{#each clientlist}}
+					<option value="{{code}}" {{selectedAccount ../custCode}}>{{name}}</option>
+				{{/each}}
+		   	</select>
+	   	</div>
+	 </div>
+	 
+	 {{#if custCode}}
+	 <div class="form-group ">
+		<label for="ff-client">Select customer</label>
+ 		<select name="ff-customer" id="ff-customer" class="form-control" required>
+	   		<option value="">Please Choose</option>
+			{{#each selectedCustomer.contacts}}
+				<option value="{{email}}">{{fname}} {{lname}}</option>
+			{{/each}}
+	   	</select>
+	 </div>
+	 {{/if}}
+
+</template>

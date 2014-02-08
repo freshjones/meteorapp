@@ -44,6 +44,19 @@
                                         </div>
                                 </div>
 
+								<div class="form-group">
+
+									<label class="col-lg-3 control-label" for="email">Roles</label>
+									
+									<div class="col-lg-9 roles">
+					                 {{#each roles}}
+                                             <label class="checkbox">
+                                                     <input class="role {{key}}" value="{{key}}" type="checkbox" {{hasRole key ../this.roles}}>{{value}}
+                                             </label>
+                                     {{/each}}
+									</div>
+									
+								</div>
                                 
                         </div>
                         
@@ -87,6 +100,28 @@
                                 <input class="password" type="password"/>
                         </div>
                 </div>
+                
+                <div class="checkbox">
+				  <label>
+				    <input type="checkbox" class="role" value="accountrep">
+				    Account Rep
+				  </label>
+				</div>
+
+				<div class="checkbox">
+				  <label>
+				    <input type="checkbox" class="role" value="manager">
+				    Manager
+				  </label>
+				</div>
+				
+				<div class="checkbox">
+				  <label>
+				    <input type="checkbox" class="role" value="technician">
+				    Technician
+				  </label>
+				</div>
+				
                 {{#if permissions}}
                         <div class="control-group">
                                 <label class="control-label">Permissions</label>

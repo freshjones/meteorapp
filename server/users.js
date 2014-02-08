@@ -22,7 +22,7 @@ Meteor.methods({
                 return true;
         },
 
-        updateUser: function(userId, username, name, address, password, permissions) {
+        updateUser: function(userId, username, name, address, password, permissions, roles) {
                 //if(! Meteor.ManagedUsers.isAdmin())
                 //        throw new Meteor.Error(401, "Only admin is allowed to do this.");
                 Meteor.ManagedUsers.checkUsername(username, userId);
@@ -48,7 +48,8 @@ Meteor.methods({
 	                         username: username,
 	                         profile: {name: name},
 	                         emails: address,
-	                         permissions: permissions
+	                         permissions: permissions,
+	                         roles: roles
 	                 }});
                 	 
                 } else {
@@ -58,7 +59,8 @@ Meteor.methods({
 	                         profile: {name: name},
 	                         emails: address,
 	                         password: password,
-	                         permissions: permissions
+	                         permissions: permissions,
+	                         roles: roles
 	                 }});
 	                	
                 }

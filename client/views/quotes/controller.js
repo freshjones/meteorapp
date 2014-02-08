@@ -129,12 +129,25 @@ NewQuoteController = RouteController.extend({
 	{
 		return [ 
 		         	Meteor.subscribe('quote', this.params._id),
+		         	Meteor.subscribe('clients', this.params._id),
 		         	Meteor.subscribe('quotetemplates'),
 	            	Meteor.subscribe('sequentials')
 	            ];
 	},
+	load: function()
+	{
+		/*
+		if( Session.get('clientType') === undefined )
+		{
+			Session.set('clientType', 'existing');
+		}
+		*/
+		
+	},
 	before: function () 
 	{
+		
+		$(".date").remove();
 		
 		if(this.params._id == undefined)
 		{
@@ -143,16 +156,29 @@ NewQuoteController = RouteController.extend({
 			
 			this.redirect('newquote', {_id:newquote_id} );
 			
+			//we are creating a new quote
+			Session.set('accountType', 'existing');
+			Session.set('customer', undefined);
+			
+			/*
+			if( Session.get('clientType') !== undefined )
+			{
+				Session.set('clientType', undefined);
+			}
+			*/
+			
 		} 
 		
 		$(".date").remove();
 
 	},
 	data:function() {
-		console.log('yes');
+		
 		var quoteData = {};
 		
 		quoteData.quote = Quotes.findOne( this.params._id );
+		
+		quoteData.clientlist = Clients.find({}).fetch();
 		
 		quoteData.view = true;
     	
@@ -242,7 +268,37 @@ NewQuoteController = RouteController.extend({
     	
     	quoteData.featurelist = getFeatureList( quoteData.quote.features );
     	
-		return quoteData;
+    	var clientType = Session.get('accountType');
+		
+    	
+    	quoteData.newClient 		= false;
+    	quoteData.existingClient 	= false;
+    	
+    	if(clientType === 'new')
+    	{
+    		quoteData.newClient = true;
+    	}
+    	
+    	if(clientType === 'existing')
+    	{
+    		quoteData.existingClient = true;
+    		
+    		var custCode = Session.get('customer');
+    		
+    		quoteData.customerList = [];
+    		
+    		if( custCode !== undefined && custCode.length )
+    		{
+    			
+    			quoteData.custCode = custCode;
+    			
+    			quoteData.selectedCustomer = Clients.findOne({'code':custCode});
+    			
+    		}
+    		
+    	}
+    	
+    	return quoteData;
 		
 	},
 	show: function () {

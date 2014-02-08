@@ -21,6 +21,23 @@ Handlebars.registerHelper('hasPermission', function(permission) {
      return Meteor.ManagedUsers.hasPermission(permission);
 });
 
+Handlebars.registerHelper('hasRole', function(role, roles) {
+	
+	var returnString = '';
+	
+	for (var key in roles) {
+		
+		if(role === key && roles[key] === true)
+		{
+			returnString = 'checked="checked"';
+		}
+		
+	}
+	
+	return returnString;
+    
+});
+
 Handlebars.registerHelper('logInButton', function() {
 	
 	var authString = '<a href="/login"><i class="fa fa-power-off fa-white"></i>&nbsp;Login</a>';
