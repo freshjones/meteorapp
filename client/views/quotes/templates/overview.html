@@ -1,5 +1,7 @@
 <template name="viewQuoteOverview">
 
+	<form  autocomplete="off">
+
 	<input type="hidden" name="step" id="ff-step" value="overview" />
 	
 	<div class="vertical-padding">
@@ -10,21 +12,23 @@
 		
 		<div class="form-group">
 			<label class="radio-inline">
-			  <input type="radio" name="clientType" id="newclient" class="accountType" value="new" {{#if newClient}}checked="checked"{{/if}}> New Account
+			  <input type="radio" name="clientType" id="newclient" class="accountType" value="new"> New Account
 			</label>
 			
 			<label class="radio-inline">
-			  <input type="radio" name="clientType" id="existingclient" class="accountType" value="existing" {{#if existingClient}}checked="checked"{{/if}}> Existing Account
+			  <input type="radio" name="clientType" id="existingclient" class="accountType" value="existing"> Existing Account
 			</label>
 		</div>
 		
-		{{#if newClient}}
+		<div id="newClientFields">
 			{{> newClientFields}}
-		{{/if}}
+		</div>
 		
-		{{#if existingClient}}
-			{{> existingClientFields}}
-		{{/if}}
+		<div id="existingClientFields">
+			{{> existingClientFields}} 
+		</div>
+		
+		{{> accountRepFields}}
 		
 	</div>
 	
@@ -98,4 +102,6 @@
 		</div>
 	
 	</div>
+	
+	</form>
 </template>

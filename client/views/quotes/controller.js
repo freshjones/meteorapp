@@ -131,18 +131,9 @@ NewQuoteController = RouteController.extend({
 		         	Meteor.subscribe('quote', this.params._id),
 		         	Meteor.subscribe('clients', this.params._id),
 		         	Meteor.subscribe('quotetemplates'),
-	            	Meteor.subscribe('sequentials')
+	            	Meteor.subscribe('sequentials'),
+	            	Meteor.subscribe('accountReps'),
 	            ];
-	},
-	load: function()
-	{
-		/*
-		if( Session.get('clientType') === undefined )
-		{
-			Session.set('clientType', 'existing');
-		}
-		*/
-		
 	},
 	before: function () 
 	{
@@ -157,8 +148,8 @@ NewQuoteController = RouteController.extend({
 			this.redirect('newquote', {_id:newquote_id} );
 			
 			//we are creating a new quote
-			Session.set('accountType', 'existing');
-			Session.set('customer', undefined);
+			//Session.set('accountType', undefined);
+			//Session.set('selectedAccount', '');
 			
 			/*
 			if( Session.get('clientType') !== undefined )
@@ -168,9 +159,6 @@ NewQuoteController = RouteController.extend({
 			*/
 			
 		} 
-		
-		$(".date").remove();
-
 	},
 	data:function() {
 		
@@ -268,11 +256,18 @@ NewQuoteController = RouteController.extend({
     	
     	quoteData.featurelist = getFeatureList( quoteData.quote.features );
     	
-    	var clientType = Session.get('accountType');
-		
     	
+    	/* CLIENT TYPE */
+    	/*
     	quoteData.newClient 		= false;
     	quoteData.existingClient 	= false;
+    	
+    	if(quoteData.quote.accountdetails !== undefined)
+    	{
+    		
+    		var clientType = quoteData.quote.accountdetails.accountType;
+    		
+    	}
     	
     	if(clientType === 'new')
     	{
@@ -283,28 +278,61 @@ NewQuoteController = RouteController.extend({
     	{
     		quoteData.existingClient = true;
     		
-    		var custCode = Session.get('customer');
+    		if(quoteData.quote.accountdetails === undefined)
+        	{
+    			var custCode = Session.get('customer');
     		
+        	} else {
+        		
+        		var custCode = quoteData.quote.accountdetails.code;
+        		
+        	}
+    			
     		quoteData.customerList = [];
     		
     		if( custCode !== undefined && custCode.length )
     		{
-    			
     			quoteData.custCode = custCode;
-    			
     			quoteData.selectedCustomer = Clients.findOne({'code':custCode});
-    			
     		}
     		
     	}
+    	
+    	
+    	quoteData.selectedCustomer = {};
+    	
+    	if(quoteData.quote.accountdetails.account !== undefined)
+    	{
+    		
+    		quoteData.selectedCustomer = Clients.findOne({ 'code':quoteData.quote.accountdetails.account });
+    		
+    	}
+    	*/
+    	
+    	if(Session.get('selectedAccount') === undefined && quoteData.quote.accountdetails.account !== undefined)
+    	{
+    		Session.set('selectedAccount', quoteData.quote.accountdetails.account);
+    	}
+    	
+    	var selectedAccount = Session.get('selectedAccount');
+    	
+    	quoteData.selectedCustomerList = {};
+    	
+    	if( Session.get('selectedAccount') !== undefined )
+    	{
+    		quoteData.selectedCustomerList = Clients.findOne({'code':selectedAccount}).contacts;
+    	}
+    	
+    	/* USERS */
+    	quoteData.accountReps = Meteor.users.find({}).fetch();
     	
     	return quoteData;
 		
 	},
 	show: function () {
+		
 		this.render();
 	},
-	
 
 });
 

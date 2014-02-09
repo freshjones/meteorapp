@@ -11,6 +11,7 @@ Session.setDefault('showModal', null);
 
 
 // Subscriptions
+/*
 App = {
 
 	subs : {
@@ -29,6 +30,7 @@ App = {
 		
 	}
 };
+*/
 
 Meteor.startup(function () {
    if( !Meteor.userId() )
@@ -49,8 +51,11 @@ Meteor.startup(function() {
 
 });
 
+
 /*
  
+
+
 
 Meteor.subscribe('default_db_data', function(){
 	Session.set('settings', true); 

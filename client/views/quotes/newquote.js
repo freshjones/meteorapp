@@ -51,6 +51,41 @@ Template.newquote.events({
 		switch(whichStep)
 		{
 			case 'overview':
+				
+				var accountdetails = {};
+				
+				var accountType = $('input:radio[name=clientType]:checked').val();
+				
+				switch(accountType)
+				{
+				
+					case 'existing':
+						
+						accountdetails.accountType 	= 'existing';
+						
+						accountdetails.account		= $('#ff-client').val();
+						accountdetails.customer		= $('#ff-customer').val();
+						
+					break;
+					
+					case 'new':
+						
+						accountdetails.accountType 		= 'new';
+						
+						accountdetails.code				= $('#account_code').val();
+						accountdetails.name				= $('#account_name').val();
+						accountdetails.fname			= $('#contact_fname').val();
+						accountdetails.lname			= $('#contact_lname').val();
+						accountdetails.email			= $('#contact_email').val();
+						
+					break;
+				
+				}
+				
+				formData.accountdetails		= accountdetails;
+				
+				formData.assigned			= $('input:radio[name=ff-accountrep]:checked').val();
+				
 				formData.title 				= $('#ff-title').val();
 				formData.description 		= $('#ff-description').val();
 				formData.purpose 			= $('#ff-purpose').val();
