@@ -1,19 +1,17 @@
 <template name="newClientFields">
 	
-	<div class="row">
-		<div class="clearfix">
-			{{#with quote.accountdetails}}
+	{{#with accountDetails}}
+		<div class="row">
+			<div class="clearfix">
 				{{> viewClientOverview}}
-			{{/with}}
-		</div>
-		
-		<div class="clearfix">
-			{{#with quote.accountdetails}}
+			</div>
+			
+			<div class="clearfix">
 				{{> contactform}}
-			{{/with}}
+			</div>
 		</div>
-	</div>
-		
+	{{/with}}
+	
 </template>
 
 
@@ -24,23 +22,25 @@
 		<div>
 		    <select name="ff-client" id="ff-client" class="form-control">
 		   		<option value="">Please Choose</option>
-				{{#each clientlist}}
-					<option value="{{code}}" {{selectedAccount}}>{{name}}</option>
+				{{#each accountList}}
+					<option value="{{code}}" {{whichAccountChosen}}>{{name}}</option>
 				{{/each}}
 		   	</select>
 	   	</div>
 	 </div>
 	 
+	 {{#if selectedAccount}}
 	 <div class="form-group ">
 		<label for="ff-customer">Select customer</label>
  		<select name="ff-customer" id="ff-customer" class="form-control">
 	   		<option value="">Please Choose</option>
-				{{#each selectedCustomerList}}
-					<option value="{{email}}" {{selectedCustomer ../quote.accountdetails.customer}}>{{fname}} {{lname}}</option>
+				{{#each customerList}}
+					<option value="{{email}}" {{whichCustomerChosen}}>{{fname}} {{lname}}</option>
 				{{/each}}
 	   	</select>
 	 </div>
-
+	{{/if}}
+	
 </template>
 
 <template name="accountRepFields">
@@ -50,7 +50,7 @@
 		<div class="form-group ">
 			{{#each accountReps}}
 				<label class="radio-inline">
-				  <input type="radio" name="ff-accountrep" value="{{_id}}"> {{profile.name}}
+				  <input type="radio" name="ff-accountrep" value="{{_id}}" {{whichSelectedRep}}> {{profile.name}}
 				</label>
 			{{/each}}
 		</div>

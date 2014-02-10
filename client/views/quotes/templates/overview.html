@@ -12,21 +12,25 @@
 		
 		<div class="form-group">
 			<label class="radio-inline">
-			  <input type="radio" name="clientType" id="newclient" class="accountType" value="new"> New Account
+			  <input type="radio" name="clientType" id="newclient" class="accountType" value="new" {{#if newAccount}}checked="checked"{{/if}}> New Account
 			</label>
 			
 			<label class="radio-inline">
-			  <input type="radio" name="clientType" id="existingclient" class="accountType" value="existing"> Existing Account
+			  <input type="radio" name="clientType" id="existingclient" class="accountType" value="existing" {{#if existingAccount}}checked="checked"{{/if}}> Existing Account
 			</label>
 		</div>
 		
-		<div id="newClientFields">
-			{{> newClientFields}}
-		</div>
+		{{#if newAccount}}
+			<div id="newClientFields">
+				{{> newClientFields}}
+			</div>
+		{{/if}}
 		
-		<div id="existingClientFields">
-			{{> existingClientFields}} 
-		</div>
+		{{#if existingAccount}}
+			<div id="existingClientFields">
+				{{> existingClientFields}} 
+			</div>
+		{{/if}}
 		
 		{{> accountRepFields}}
 		

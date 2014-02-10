@@ -1,4 +1,4 @@
-Handlebars.registerHelper('selectedAccount', function() {
+Handlebars.registerHelper('whichAccountChosen', function() {
 	
 	var selectedAccount = Session.get('selectedAccount');
 			
@@ -10,12 +10,34 @@ Handlebars.registerHelper('selectedAccount', function() {
 	return returnval;
 });
 
-Handlebars.registerHelper('selectedCustomer', function(customer) {
+Handlebars.registerHelper('whichCustomerChosen', function() {
+	
+	var selectedCustomer = Session.get('selectedCustomer');
+	
 	var returnval = '';
-	if(this.email === customer)
+	
+	if(this.email === selectedCustomer)
 	{
 		returnval = 'selected="selected"';
 	}
+	
 	return returnval;
+	
 });
+
+Handlebars.registerHelper('whichSelectedRep', function() {
+	
+	var selectedRep = Session.get('selectedRep');
+	
+	var returnval = '';
+	
+	if(this._id === selectedRep)
+	{
+		returnval = 'checked="checked"';
+	}
+	
+	return returnval;
+	
+});
+
 

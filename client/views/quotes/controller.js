@@ -135,6 +135,15 @@ NewQuoteController = RouteController.extend({
 	            	Meteor.subscribe('accountReps'),
 	            ];
 	},
+	load: function()
+	{
+		//lets set some initial sessions if they are already set
+		Session.set('accountDetails', {});
+		Session.set('accountTypeSelected', undefined);
+		Session.set('selectedAccount', undefined);
+		Session.set('selectedCustomer', undefined);
+		Session.set('selectedRep', undefined);
+	},
 	before: function () 
 	{
 		
@@ -142,31 +151,19 @@ NewQuoteController = RouteController.extend({
 		
 		if(this.params._id == undefined)
 		{
-		
 			var newquote_id = createTempQuote();
-			
 			this.redirect('newquote', {_id:newquote_id} );
-			
-			//we are creating a new quote
-			//Session.set('accountType', undefined);
-			//Session.set('selectedAccount', '');
-			
-			/*
-			if( Session.get('clientType') !== undefined )
-			{
-				Session.set('clientType', undefined);
-			}
-			*/
-			
 		} 
+		
+		
+		
+		
 	},
 	data:function() {
 		
 		var quoteData = {};
 		
 		quoteData.quote = Quotes.findOne( this.params._id );
-		
-		quoteData.clientlist = Clients.find({}).fetch();
 		
 		quoteData.view = true;
     	
@@ -251,80 +248,34 @@ NewQuoteController = RouteController.extend({
     	}
     	
     	quoteData.quote.estTotal = Math.round(estTotal * 100 ) / 100;
-
     	quoteData.quotetemplates = QuoteTemplates.find({status:'active'}).fetch();
-    	
     	quoteData.featurelist = getFeatureList( quoteData.quote.features );
-    	
-    	
-    	/* CLIENT TYPE */
-    	/*
-    	quoteData.newClient 		= false;
-    	quoteData.existingClient 	= false;
     	
     	if(quoteData.quote.accountdetails !== undefined)
     	{
     		
-    		var clientType = quoteData.quote.accountdetails.accountType;
+    		var accountDetails = quoteData.quote.accountdetails;
     		
-    	}
-    	
-    	if(clientType === 'new')
-    	{
-    		quoteData.newClient = true;
-    	}
-    	
-    	if(clientType === 'existing')
-    	{
-    		quoteData.existingClient = true;
+    		Session.set('accountDetails', accountDetails);
     		
-    		if(quoteData.quote.accountdetails === undefined)
+    		Session.set('accountTypeSelected', quoteData.quote.accountdetails.accountType);
+    		
+    		if(accountDetails.account !== undefined)
         	{
-    			var custCode = Session.get('customer');
-    		
-        	} else {
-        		
-        		var custCode = quoteData.quote.accountdetails.code;
-        		
+    			Session.set('selectedAccount', accountDetails.account);
         	}
-    			
-    		quoteData.customerList = [];
     		
-    		if( custCode !== undefined && custCode.length )
-    		{
-    			quoteData.custCode = custCode;
-    			quoteData.selectedCustomer = Clients.findOne({'code':custCode});
-    		}
+    		if(accountDetails.customer !== undefined)
+        	{
+    			Session.set('selectedCustomer', accountDetails.customer);
+        	}
     		
     	}
     	
-    	
-    	quoteData.selectedCustomer = {};
-    	
-    	if(quoteData.quote.accountdetails.account !== undefined)
+    	if(quoteData.quote.assigned !== undefined)
     	{
-    		
-    		quoteData.selectedCustomer = Clients.findOne({ 'code':quoteData.quote.accountdetails.account });
-    		
+    		Session.set('selectedRep', quoteData.quote.assigned );
     	}
-    	*/
-    	
-    	if(Session.get('selectedAccount') === undefined && quoteData.quote.accountdetails.account !== undefined)
-    	{
-    		Session.set('selectedAccount', quoteData.quote.accountdetails.account);
-    	}
-    	
-    	var selectedAccount = Session.get('selectedAccount');
-    	
-    	quoteData.selectedCustomerList = {};
-    	
-    	if( Session.get('selectedAccount') !== undefined )
-    	{
-    		quoteData.selectedCustomerList = Clients.findOne({'code':selectedAccount}).contacts;
-    	}
-    	
-    	/* USERS */
-    	quoteData.accountReps = Meteor.users.find({}).fetch();
     	
     	return quoteData;
 		
